@@ -1,0 +1,66 @@
+<html>
+<head>
+	<title>Casse brique Canvas by La Ferme du Web</title>
+	<style type='text/css'>
+		body {
+			background: #555555;
+		}
+		#pageConteneur{
+			width: 800px;
+			margin: auto;
+		}
+		#conteneur {
+			width: 400px;
+			height: 300px;
+			border: 1px solid #333;
+			margin: 0 auto;
+			background: #777777;
+			text-align: center;
+			
+		}
+		#headConteneur div{
+			display: inline;
+		}
+		h1 {
+			text-align: center;
+			font-variant: small-caps;
+			color: #FFF;
+		}
+		#headConteneur{
+			width: 400px;
+			height: 40px;
+			border: 1px solid #333;
+			margin: 5 auto;
+			background: #AAAAAA;
+			
+		}
+	</style>
+	
+	<script type="text/javascript" src="js/findthedot.js">
+	</script>
+</head>
+<body onload="begin();">
+	<h1>Casse brique Canvas</h1>
+	
+	<div id="pageConteneur">
+		<div id="headConteneur">
+			<div id="chrono"></div>
+			<div id="msg_head"></div>
+		</div>
+	
+		<button onclick="game();">D&eacute;marrer jeu !</button>
+		<div id='conteneur'>	
+			<canvas id="canvasElem" width="400" height="300">
+			
+			</canvas>
+			<button onclick="game();">Move</button>
+		<div id="mouseInfo"></div>
+		<div id="goal"></div>
+		<div id="divInfo"></div>
+
+		</div>
+		<div id="infos">
+		</div>
+	</div>
+</body>
+</html>
