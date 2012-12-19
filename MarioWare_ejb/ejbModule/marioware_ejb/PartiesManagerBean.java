@@ -16,12 +16,15 @@ public class PartiesManagerBean implements PartiesManagerLocal {
 
 	private Map<UUID,String> userList;
 	private int inttest;
+	private int cpt = 0;
+	private int[] tabVal = new int[2];
     /**
      * Default constructor. 
      */
     public PartiesManagerBean() {
     	
     	userList = new HashMap<UUID, String>();
+    	
     }
 
     public UUID addUser(String pseudo) {
@@ -63,7 +66,13 @@ public class PartiesManagerBean implements PartiesManagerLocal {
 
 	@Override
 	public void setTest(int test) {
-		inttest = test;
-		System.out.println("valeur inttest:"+inttest);
+		tabVal[cpt] = test;
+		cpt++;
+		if(cpt==1){
+			
+			System.out.println("tabVal[0] => " + tabVal[0]);
+			System.out.println("tabVal[1] => " + tabVal[1]);
+			
+		}
 	}
 }
