@@ -29,16 +29,10 @@
 	                <div id="nbar">
 	                    <ul>
 	                        <li id="selected"><a href="index.php">Accueil</a></li>
-	                        <li><a href="#">EnchÃ¨res en cours</a></li> 
-	                        <li><a href="#">EnchÃ¨res terminÃ©es</a></li>
- 	                        <li><a href="#">Comment Ã§a marche</a></li>
-<!-- 	                         <?php if (isset($_SESSION['idUser'])) { ?> -->
-	                        <li><a href="enchere.php">Création</a></li>
-<!-- 	                        <?php } ?> -->
-	                        <?php if (!isset($_SESSION['idUser'])) { ?>
-	                        <li><a href="inscription.php">Inscription</a></li>
-<!-- 	                        <?php } ?> -->
-	                        <li><a href="sitemap.php">Plan du site</a></li>
+	                        <li><a href="#">Créer une partie</a></li> 
+	                        <li><a href="#">Rejoindre une partie</a></li>
+ 	                        <li><a href="#">Equipe</a></li>
+	                        <li><a href="#">Aide</a></li>
 	                    </ul>
 	                </div>
 	            </div>
