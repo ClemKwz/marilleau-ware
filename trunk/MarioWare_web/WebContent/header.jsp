@@ -29,8 +29,8 @@
 	                <div id="nbar">
 	                    <ul>
 	                        <li id="selected"><a href="index.php">Accueil</a></li>
-	                        <li><a href="#">Créer une partie</a></li> 
-	                        <li><a href="#">Rejoindre une partie</a></li>
+	                        <li><a href="./PartyCreation">Créer une partie</a></li> 
+	                        <li><a href="./ViewAllParties">Rejoindre une partie</a></li>
  	                        <li><a href="#">Equipe</a></li>
 	                        <li><a href="#">Aide</a></li>
 	                    </ul>
