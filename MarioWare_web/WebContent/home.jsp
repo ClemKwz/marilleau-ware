@@ -1,4 +1,4 @@
-jsp:<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="header.jsp"></jsp:include>
 
 <% 
 	if (session.getAttribute("sessionID")==null) {
