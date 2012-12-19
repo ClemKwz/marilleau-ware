@@ -5,13 +5,14 @@
 	}
 %>
 
-<jsp:include page="header.jsp"></jsp:include>
-			<p>Enter your pseudo :</p>
-			<form method="post" action="Login">
-				<input name="pseudo" type="text" />
-	            <input name="Valid" type="submit" />
-			</form>
-			<p><%=message%></p>
-			
-					
-<jsp:include page="footer.jsp"></jsp:include>
+<div id="container">
+
+	<p>Enter your pseudo :</p>
+	<form method="post" action="Login">
+		<input name="pseudo" type="text" />
+           <input name="Valid" type="submit" />
+	</form>
+	<p><%=message%></p>
+	
+</div>
+
