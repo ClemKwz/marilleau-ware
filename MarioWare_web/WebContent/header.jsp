@@ -21,8 +21,8 @@
 	<body>
 		<div id="header">
                 <div id="logo"></div>
-                <div id="title">E-enchÃ¨re</div>
-                <div id="tagline">Site d'enchÃ¨res en ligne</div>
+                <div id="title">Marilleau Ware</div>
+                <div id="tagline">Site de tamere</div>
 
             
 	            <div id="nav">
@@ -31,13 +31,13 @@
 	                        <li id="selected"><a href="index.php">Accueil</a></li>
 	                        <li><a href="#">EnchÃ¨res en cours</a></li> 
 	                        <li><a href="#">EnchÃ¨res terminÃ©es</a></li>
-	                        <li><a href="#">Comment Ã§a marche</a></li>
-	                         <?php if (isset($_SESSION['idUser'])) { ?>
+ 	                        <li><a href="#">Comment Ã§a marche</a></li>
+<!-- 	                         <?php if (isset($_SESSION['idUser'])) { ?> -->
 	                        <li><a href="enchere.php">Création</a></li>
-	                        <?php } ?>
+<!-- 	                        <?php } ?> -->
 	                        <?php if (!isset($_SESSION['idUser'])) { ?>
 	                        <li><a href="inscription.php">Inscription</a></li>
-	                        <?php } ?>
+<!-- 	                        <?php } ?> -->
 	                        <li><a href="sitemap.php">Plan du site</a></li>
 	                    </ul>
 	                </div>
@@ -45,6 +45,8 @@
 		<%
 		if(isLogged)
 			out.print("Tu es Logg&eacute; mon pote!!");
+		else
+			out.print("Tu n'es pas Logg&eacute; p&eacute;d&eacute;!!");
 		%>
 		</div>
 		<div id="container">
