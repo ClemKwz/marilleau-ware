@@ -3,12 +3,19 @@ package connect;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import marioware_ejb.*;
+
 import java.lang.Math;
+
+
+
 
 /**
  * Servlet implementation class Connect
@@ -20,6 +27,8 @@ public class Connect extends HttpServlet {
 	private static final int GETRESPONSE = 2;
 	private static final int INIT = 1;
 	
+	@EJB
+	PartiesManagerLocal partiesManager;
     private PrintWriter out;   
     /**
      * @see HttpServlet#HttpServlet()
@@ -65,6 +74,9 @@ public class Connect extends HttpServlet {
 			d = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
 			out.print("Distance entre les points : " + (int)d + " pixels");
 			System.out.println("Distance entre les points : " + d + " pixels");
+			int doubl = (int) d;
+			partiesManager.setTest(doubl);
+			
 		}else{
 			out.print(x1 + ";" + y1);
 		}

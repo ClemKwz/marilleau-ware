@@ -10,4 +10,5 @@ public interface PartiesManagerLocal {
 	public UUID addUser(String pseudo);
 	public void removeUser(String pseudo);
 	public String displayListOfUsers();
+	public void setTest(int test);
 }
