@@ -15,7 +15,7 @@ import javax.ejb.Stateful;
 public class PartiesManager implements PartiesManagerLocal {
 
 	private Map<UUID,String> userList;
-	
+	private int inttest;
     /**
      * Default constructor. 
      */
@@ -59,5 +59,11 @@ public class PartiesManager implements PartiesManagerLocal {
 		sb.append("}<br>");
 		
 		return sb.toString();
+	}
+
+	@Override
+	public void setTest(int test) {
+		inttest = test;
+		System.out.println("valeur inttest:"+inttest);
 	}
 }
