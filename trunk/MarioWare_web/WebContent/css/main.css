@@ -1,4 +1,4 @@
-html, body, div, span, applet, object, iframe,
+/*html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -19,7 +19,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+/*article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -40,7 +40,7 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
+}*/
 /* ======================== FIN RESET CSS =============================== */
 
 body{
@@ -61,10 +61,10 @@ body{
 /* ======================== FIN HEADER PAGE ============================= */
 
 #headConteneur{
+	margin: 5px auto;
 	width: 400px;
 	height: 40px;
-	border: 1px solid #333;
-	margin: 5 auto;
+	border: 1px solid #5d7c82;
 } 
 
 #conteneur {
@@ -91,6 +91,7 @@ body{
 }
 #bc_games{
 	width: 400px;
+	height: 300px;
 	border: solid #5d7c82 1px;
 	margin: 10px auto;
 	min-height: 200px;
