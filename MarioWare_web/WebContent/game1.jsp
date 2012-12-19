@@ -23,6 +23,7 @@
 	</div>
 	<div id="container">
 		<div id="headConteneur">
+		<div id="chrono"></div>
 		</div>
 		<div id="bc_games">
 			<canvas id="canvasElem" width="400" height="300">
