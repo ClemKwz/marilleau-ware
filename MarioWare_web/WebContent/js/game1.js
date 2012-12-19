@@ -106,7 +106,7 @@ function count(){
 	{
 		s2 = 0;
 		ms2 = 0 + "00";
-		finish(999,999)
+		finish(999,999);
 		clearInterval(idCount);
 		clearInterval(idRefresh);
 	}

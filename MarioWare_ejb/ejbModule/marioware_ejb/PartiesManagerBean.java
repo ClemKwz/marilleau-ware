@@ -12,14 +12,14 @@ import javax.ejb.Stateful;
  * Session Bean implementation class PartiesManager
  */
 @Stateful
-public class PartiesManager implements PartiesManagerLocal {
+public class PartiesManagerBean implements PartiesManagerLocal {
 
 	private Map<UUID,String> userList;
 	private int inttest;
     /**
      * Default constructor. 
      */
-    public PartiesManager() {
+    public PartiesManagerBean() {
     	
     	userList = new HashMap<UUID, String>();
     }
