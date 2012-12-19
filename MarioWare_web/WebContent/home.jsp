@@ -22,5 +22,5 @@
 			<p>Connected with pseudo <b><%=pseudo%></b></p>
 			<p><%=id%></p>
 
-jsp:<jsp:include page="footer.jsp"></jsp:include>
+<jsp:include page="footer.jsp"></jsp:include>
 	
