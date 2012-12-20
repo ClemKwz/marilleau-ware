@@ -59,4 +59,14 @@
     <servlet-name>AddTamere</servlet-name>
     <url-pattern>/AddTamere</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LinkBowser</display-name>
+    <servlet-name>LinkBowser</servlet-name>
+    <servlet-class>view.LinkBowser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LinkBowser</servlet-name>
+    <url-pattern>/LinkBowser</url-pattern>
+  </servlet-mapping>
 </web-app>
