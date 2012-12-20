@@ -14,7 +14,7 @@ import javax.naming.NamingException;
 @Stateful
 public class List implements ListLocal {
 
-	ArrayList<TestRemote> list = new ArrayList<TestRemote>();
+	ArrayList<TestRemote> list;
 
     /**
      * Default constructor. 
@@ -24,6 +24,10 @@ public class List implements ListLocal {
     }
 
     public void addOneTest(int valeur){
+    	
+    	if(list == null){
+    		list = new ArrayList<TestRemote>();
+    	}
     	
     	Context ctx;
 		try {
