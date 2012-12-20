@@ -1,4 +1,4 @@
-package controlerDB;
+package managerDB;
 
 import javax.ejb.Local;
 

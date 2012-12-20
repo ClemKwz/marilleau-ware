@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,14 +30,7 @@ public class ViewAllParties extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//header
-		RequestDispatcher dispatcher;
-		dispatcher = this.getServletContext().getRequestDispatcher("header.jsp");			
-		dispatcher.forward(request,response);
-		
-		
-		dispatcher = this.getServletContext().getRequestDispatcher("footer.jsp");			
-		dispatcher.forward(request,response);
+		PrintWriter out = response.getWriter();
 	}
 
 	/**

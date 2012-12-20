@@ -8,22 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controllerEJB.ListLocal;
+import controllerEJB.*;
 
 
 /**
  * Servlet implementation class AddTamere
  */
-public class AddTamere extends HttpServlet {
+public class LinkBowser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@EJB
-	ListLocal list;
+	BowserController bowser;
 	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddTamere() {
+    public LinkBowser() {
         super();
     }
 
@@ -32,13 +32,9 @@ public class AddTamere extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	//	list.addOneTest(Integer.getInteger(request.getParameter("val")));
-		list.addOneTest(1);
-		list.addOneTest(2);
-		list.addOneTest(3);
-		list.addOneTest(4);
-		list.addOneTest(5);
+		bowser.addParty(1, "PartyController");
 		
-		String s = list.print();
+		String s = bowser.toString();
 		//int i = list.showTest(1);
 		//String s = "HAHA"+i;
 		response.getWriter().print(s);

@@ -1,19 +1,19 @@
-package marioware_ejb;
+package controllerEJB;
 
 import javax.ejb.Stateful;
 
 /**
  * Session Bean implementation class Test
  */
-@Stateful(mappedName="Test1")
-public class Test implements TestRemote {
+@Stateful(mappedName="GameControllerJeu2")
+public class GameControllerJeu2 implements GameControllerJeu2Remote {
 
 	int valeur;
 	
     /**
      * Default constructor. 
      */
-    public Test() {
+    public GameControllerJeu2() {
         // TODO Auto-generated constructor stub
     }
     
