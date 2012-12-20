@@ -64,4 +64,14 @@ public class BowserController implements BowserControllerLocal {
 		}
     	return message;
     }
+
+	@Override
+	public int getValeurGame(int indexParty, int indexGame) {
+		return listParty.get(indexParty).getValeurGame(indexGame);
+	}
+
+	@Override
+	public void setValeurGame(int indexParty, int indexGame, int valeur) {
+		listParty.get(indexParty).setValeurGame(indexGame,valeur);
+	}
 }

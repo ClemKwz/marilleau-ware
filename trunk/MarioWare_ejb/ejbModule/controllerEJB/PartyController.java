@@ -68,4 +68,16 @@ public class PartyController implements PartyControllerRemote {
     	return message;
     }
 
+	@Override
+	public int getValeurGame(int indexGame) {
+		
+		return listGame.get(indexGame).getValeur();
+	}
+
+	@Override
+	public void setValeurGame(int indexGame, int valeur) {
+		
+		listGame.get(indexGame).setValeur(valeur);
+	}
+
 }
