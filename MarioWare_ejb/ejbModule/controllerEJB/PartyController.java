@@ -15,7 +15,7 @@ import javax.naming.NamingException;
 public class PartyController implements PartyControllerRemote {
 
 	int valeur;
-	ArrayList<Object> listGame;
+	ArrayList<GameControllerJeu1Remote> listGame;
     /**
      * Default constructor. 
      */
@@ -33,11 +33,8 @@ public class PartyController implements PartyControllerRemote {
     
     public void addGame(String name_JNDI,int valeur){
     	
-    	GameControllerJeu1Remote jeu1=null;
-    	GameControllerJeu2Remote jeu2=null;
-    	
     	if(listGame == null){
-    		listGame = new ArrayList<Object>();
+    		listGame = new ArrayList<GameControllerJeu1Remote>();
     	}
     	
     	Context ctx;
@@ -47,18 +44,11 @@ public class PartyController implements PartyControllerRemote {
 			h.put("java.naming.factory.url.pkgs", "org.objectweb.jonas.naming");
 			
 			ctx = new InitialContext(h);
-			Object ref = (Object) ctx.lookup(name_JNDI);
+			GameControllerJeu1Remote ref = (GameControllerJeu1Remote) ctx.lookup(name_JNDI);
 			
-			if(ref.getClass().getName() == "GameControllerJeu1Remote"){
-				jeu1 = (GameControllerJeu1Remote) ref;
-				jeu1.setValeur(valeur);
-				listGame.add(jeu1);
-			}
-			if(ref.getClass().getName() == "GameControllerJeu2Remote"){
-				jeu2 = (GameControllerJeu2Remote) ref;
-				jeu2.setValeur(valeur);
-				listGame.add(jeu2);
-			}
+			ref.setValeur(valeur);
+			listGame.add(ref);
+		
 
 	    	
 		} catch (NamingException e) {
@@ -66,10 +56,14 @@ public class PartyController implements PartyControllerRemote {
 		}
     }
     
-    public String toString(){
+    public String affiche(){
     	String message = "    Party:"+valeur+" Games:\n";
+    	
     	for(int i=0;i<listGame.size();i++){
-    		message += "        valGame:" + i + " : " + listGame.get(i).toString() + "\n";
+
+    		
+    		message += "valGame:" + i + " :x " + listGame.get(i).affiche() + "\n";
+    		
 		}
     	return message;
     }

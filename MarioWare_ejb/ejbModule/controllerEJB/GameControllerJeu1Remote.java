@@ -7,5 +7,5 @@ public interface GameControllerJeu1Remote {
 
 	public void setValeur(int id);
 	public int getValeur();
-	public String toString(); 
+	public String affiche(); 
 }
