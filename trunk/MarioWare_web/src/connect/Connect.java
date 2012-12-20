@@ -27,9 +27,15 @@ public class Connect extends HttpServlet {
 	
 	private static final int GETRESPONSE = 2;
 	private static final int INIT = 1;
+	private int x =0;
 	
-	@EJB
-	PartiesManagerLocal partiesManager;
+	/*@EJB
+	GameManagerLocal gameManager;*/
+	
+	/*@EJB
+	SimplePartieManagerLocal simplePartieManager;*/
+	
+	
     private PrintWriter out;   
     /**
      * @see HttpServlet#HttpServlet()
@@ -50,7 +56,6 @@ public class Connect extends HttpServlet {
 		int x,y;
 		x = 200;
 		y = 300;
-		
 		
 		out.close();
 	}
@@ -74,13 +79,17 @@ public class Connect extends HttpServlet {
 			int y2 = Integer.parseInt(request.getParameter("y"));
 			d = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
 			out.print("Distance entre les points : " + (int)d + " pixels");
-			System.out.println("Distance entre les points : " + d + " pixels");
+			//System.out.println("Distance entre les points : " + d + " pixels");
 			int doubl = (int) d;
-			partiesManager.setTest(doubl);
+			
+			//gameManager.play(request.getSession().getAttribute("sessionID"), doubl);
 			
 		}else{
+			//gameManager.connect();
 			out.print(x1 + ";" + y1);
 		}
+		x++;
+		System.out.println("x => " + x);
 		out.close();
 		
 	}

@@ -18,7 +18,7 @@ public class LinkBowser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@EJB
-	BowserController bowser;
+	BowserControllerLocal bowser;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,7 +34,7 @@ public class LinkBowser extends HttpServlet {
 	//	list.addOneTest(Integer.getInteger(request.getParameter("val")));
 		bowser.addParty(1, "PartyController");
 		
-		String s = bowser.toString();
+		String s = bowser.affiche();
 		//int i = list.showTest(1);
 		//String s = "HAHA"+i;
 		response.getWriter().print(s);

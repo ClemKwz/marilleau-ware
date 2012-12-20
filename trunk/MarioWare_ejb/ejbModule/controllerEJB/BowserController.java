@@ -11,10 +11,10 @@ import javax.naming.NamingException;
 /**
  * Session Bean implementation class Test
  */
-@Stateful(mappedName="BowserController")
-public class BowserController implements BowserControllerRemote {
+@Stateful
+public class BowserController implements BowserControllerLocal {
 
-	int valeur = 0;
+	private int valeur = 0;
 	ArrayList<PartyControllerRemote> listParty;
 	
     /**
@@ -50,16 +50,17 @@ public class BowserController implements BowserControllerRemote {
 	    	
 	    	//fonction de génération
 	    	ref.addGame("GameControllerJeu1", 2);
-	    	ref.addGame("GameControllerJeu2", 3);
+	    	ref.addGame("GameControllerJeu1", 3);
+	    	ref.addGame("GameControllerJeu1", 4);
 	    	listParty.add(ref);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
     }
-    public String toString(){
-    	String message = "Bowser:"+valeur+" Parties:\n";
+    public String affiche(){
+    	String message = "Bowser:0 Parties:\n";
     	for(int i=0;i<listParty.size();i++){
-    		message += "    valParty:" + i + " : " + listParty.get(i).toString() + "\n";
+    		message += "    valParty:" + i + " : " + listParty.get(i).affiche() + "\n";
 		}
     	return message;
     }
