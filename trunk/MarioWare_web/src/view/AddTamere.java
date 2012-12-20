@@ -16,7 +16,6 @@ import marioware_ejb.ListLocal;
 public class AddTamere extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	
 	@EJB
 	ListLocal list;
 	
