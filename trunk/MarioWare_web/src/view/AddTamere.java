@@ -31,14 +31,15 @@ public class AddTamere extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	//	list.addOneTest(Integer.getInteger(request.getParameter("val")));
-		list.addOneTest(1);
+		/*list.addOneTest(1);
 		list.addOneTest(2);
 		list.addOneTest(3);
 		list.addOneTest(4);
-		list.addOneTest(5);
+		list.addOneTest(5);*/
 		
-		String s = list.print();
-		
+		//String s = list.print();
+		int i = list.showTest(1);
+		String s = "HAHA"+i;
 		response.getWriter().print(s);
 		response.getWriter().close();
 	}

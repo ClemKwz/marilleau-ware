@@ -14,13 +14,13 @@ import javax.naming.NamingException;
 @Stateful
 public class List implements ListLocal {
 
-	ArrayList<TestRemote> list;
+	ArrayList<TestRemote> list = new ArrayList<TestRemote>();
 
     /**
      * Default constructor. 
      */
     public List() {
-    	list = new ArrayList<TestRemote>();
+    	//list = new ArrayList<TestRemote>();
     }
 
     public void addOneTest(int valeur){
@@ -38,6 +38,25 @@ public class List implements ListLocal {
 	    	list.add(ref);
 		} catch (NamingException e) {
 			e.printStackTrace();
+		}
+    }
+    
+ public int showTest(int valeur){
+    	
+    	Context ctx;
+		try {
+			Hashtable<String, String> h = new Hashtable<String, String>();
+			h.put("java.naming.factory.initial","org.objectweb.carol.jndi.spi.MultiOrbInitialContextFactory");
+			h.put("java.naming.factory.url.pkgs", "org.objectweb.jonas.naming");
+			
+			ctx = new InitialContext(h);
+	    	String JNDI_NAME = "Test";
+			TestRemote ref = (TestRemote) ctx.lookup(JNDI_NAME);
+	    	ref.setValeur(valeur);
+	    	return ref.getValeur();
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return -1;
 		}
     }
 
