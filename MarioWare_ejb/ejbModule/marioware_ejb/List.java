@@ -32,7 +32,7 @@ public class List implements ListLocal {
 			h.put("java.naming.factory.url.pkgs", "org.objectweb.jonas.naming");
 			
 			ctx = new InitialContext(h);
-	    	String JNDI_NAME = "Test";
+	    	String JNDI_NAME = "Test1";
 			TestRemote ref = (TestRemote) ctx.lookup(JNDI_NAME);
 	    	ref.setValeur(valeur);
 	    	list.add(ref);

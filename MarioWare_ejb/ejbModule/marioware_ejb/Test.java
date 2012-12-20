@@ -6,7 +6,7 @@ import javax.ejb.Stateful;
  * Session Bean implementation class Test
  */
 @Stateful(mappedName="Test1")
-public class Test implements TestLocal {
+public class Test implements TestRemote {
 
 	int valeur;
 	
