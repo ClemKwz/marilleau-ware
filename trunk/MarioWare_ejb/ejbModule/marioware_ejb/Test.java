@@ -5,7 +5,7 @@ import javax.ejb.Stateful;
 /**
  * Session Bean implementation class Test
  */
-@Stateful
+@Stateful(mappedName="Test1")
 public class Test implements TestLocal {
 
 	int valeur;
