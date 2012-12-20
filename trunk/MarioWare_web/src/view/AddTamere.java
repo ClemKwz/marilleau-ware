@@ -38,7 +38,10 @@ public class AddTamere extends HttpServlet {
 		list.addOneTest(4);
 		list.addOneTest(5);
 		
-		list.print();
+		String s = list.print();
+		
+		response.getWriter().print(s);
+		response.getWriter().close();
 	}
 
 	/**
