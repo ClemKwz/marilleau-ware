@@ -1,11 +1,11 @@
-package marioware_ejb;
+package controllerEJB;
 
 import javax.ejb.Remote;
 
 @Remote
-public interface TestRemote {
+public interface GameControllerJeu2Remote {
 
 	public void setValeur(int id);
 	public int getValeur();
-	
+	public String toString(); 
 }

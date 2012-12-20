@@ -1,4 +1,4 @@
-package marioware_ejb;
+package controllerEJB;
 
 import java.util.HashMap;
 import java.util.Iterator;
