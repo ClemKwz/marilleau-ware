@@ -50,7 +50,7 @@ public class List implements ListLocal {
 			h.put("java.naming.factory.url.pkgs", "org.objectweb.jonas.naming");
 			
 			ctx = new InitialContext(h);
-	    	String JNDI_NAME = "Test";
+	    	String JNDI_NAME = "marioware_ejb.Test";
 			TestRemote ref = (TestRemote) ctx.lookup(JNDI_NAME);
 	    	ref.setValeur(valeur);
 	    	return ref.getValeur();
