@@ -21,6 +21,10 @@ public class LinkBowser extends HttpServlet {
 	@EJB
 	BowserControllerLocal bowser;
 	
+	private static final int GETRESPONSE = 2;
+	private static final int INIT = 1;
+	private int x =0;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,8 +41,6 @@ public class LinkBowser extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		
-
-		
 		out.print("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">"+
 "<html>"+
 	"<head>"+
@@ -49,13 +51,8 @@ public class LinkBowser extends HttpServlet {
 	"</head>"+
 	"<body>");
 
-		
-		
 		out.print("<a href=\"LinkBowser?req=1\">creer une partie</a></br>");
 		out.print("<a href=\"LinkBowser?req=2\">recuperer valeur</a></br>");
-
-				
-		
 
 		out.print("<form action=\"\" method=\"POST\">" +
 				"<input type=\"text\" name=\"valeurgame\"></input>" +
@@ -79,7 +76,7 @@ public class LinkBowser extends HttpServlet {
 				out.print("</br>" +s);
 			}
 			if(req.equals("2")){
-				out.print("</br>get result : " + bowser.getValeurGame(0, 0));
+				out.print("</br>get result : " + bowser.getValeurGame(0, 1));
 				
 				String s = bowser.affiche();
 				out.print("</br>" +s);
@@ -89,8 +86,6 @@ public class LinkBowser extends HttpServlet {
 		//String s = "HAHA"+i;
 		//out.print(s);
 		
-		
-		
 		out.close();
 	}
 
@@ -98,10 +93,46 @@ public class LinkBowser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-PrintWriter out = response.getWriter();
-		
 
 		
+		bowser.addParty(1, "PartyController");
+
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/plain");
+        response.setHeader("Cache-Control", "no-cache");
+		out = response.getWriter();
+		int action = Integer.parseInt(request.getParameter("action"));
+		int x1,y1;
+		double d;
+		x1 = 10;
+		y1 = 10;
+		
+		if(action==GETRESPONSE){
+			int x2 = Integer.parseInt(request.getParameter("x"));
+			int y2 = Integer.parseInt(request.getParameter("y"));
+			d = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
+			//out.print("Distance entre les points : " + (int)d + " pixels");
+			//System.out.println("Distance entre les points : " + d + " pixels");
+			int doubl = (int) d;
+			bowser.setValeurGame(0, 1,(int)d);
+			out.print("Distance entre les points : " + (int)d + " pixels");
+			out.print("Bowser dit : <br> " + bowser.affiche());
+			
+			//gameManager.play(request.getSession().getAttribute("sessionID"), doubl);
+			
+		}else{
+			//gameManager.connect();
+			out.print(x1 + ";" + y1);
+		}
+		x++;
+		System.out.println("x => " + x);
+		out.close();
+		
+		/*
+		
+		// TESTS nuit de la PAD I
+		
+		PrintWriter out = response.getWriter();
 		out.print("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">"+
 "<html>"+
 	"<head>"+
@@ -111,14 +142,9 @@ PrintWriter out = response.getWriter();
 		"<title>Marilleau ware</title>"+
 	"</head>"+
 	"<body>");
-
-		
 		
 		out.print("<a href=\"LinkBowser?req=1\">creer une partie</a></br>");
 		out.print("<a href=\"LinkBowser?req=2\">recuperer valeur</a></br>");
-
-				
-		
 
 		out.print("<form action=\"\" method=\"POST\">" +
 				"<input type=\"text\" name=\"valeurgame\"></input>" +
@@ -135,10 +161,10 @@ PrintWriter out = response.getWriter();
 		// Verification de la presence du pseudo
 		if (!(req == null || req.equals(""))) {
 			out.print("valeurgame ok = " + req);
-			bowser.setValeurGame(0, 0,Integer.valueOf(req));
+			bowser.setValeurGame(0, 1,Integer.valueOf(req));
 			
 			String s = bowser.affiche();
 			out.print("</br>" +s);
-		}
+		}*/
 	}
 }
