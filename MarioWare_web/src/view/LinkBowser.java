@@ -52,7 +52,7 @@ public class LinkBowser extends HttpServlet {
 	"</head>"+
 	"<body>");
 
-		out.print("<a href=\"LinkBowser?req=1\">creer une partie</a></br>");
+		out.print("<a href=\"LinkBowser?req=1\">creeeeer une partie</a></br>");
 		out.print("<a href=\"LinkBowser?req=2\">recuperer valeur</a></br>");
 
 		out.print("<form action=\"\" method=\"POST\">" +
@@ -107,12 +107,15 @@ public class LinkBowser extends HttpServlet {
 		double d;
 		x1 = 10;
 		y1 = 10;
-		
+		int i = 0;
 		int idUser = 25;
 		int idParty = 0;
 		int idGame = 0;
-		
-		if(action==GETRESPONSE){
+		switch(action){
+		case INIT:
+			
+			break;
+		case GETRESPONSE:/* Fonction apellee chaque demi seconde par chaque joueur ayant termine pour avoir les scores*/
 			int x2 = Integer.parseInt(request.getParameter("x"));
 			int y2 = Integer.parseInt(request.getParameter("y"));
 			d = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
@@ -120,25 +123,23 @@ public class LinkBowser extends HttpServlet {
 			//System.out.println("Distance entre les points : " + d + " pixels");
 			int doubl = (int) d;
 			bowser.setValeurGame(0, 1,(int)d);
-			out.print("Distance entre les points : " + (int)d + " pixels");
-			out.print("Bowser dit : <br> " + bowser.affiche());
-			
+			//out.print("Distance entre les points : " + (int)d + " pixels");
+			//out.print("Bowser dit : <br> " + bowser.affiche());
 			//gameManager.play(request.getSession().getAttribute("sessionID"), doubl);
-			
-		}else{
-			if(action==GETENDGAME){
-				//TODO: On renvoie "Gagné ou perdu" + nb POints?
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				out.print("Gagn�");
-			}
+			break;
+		case GETENDGAME:
+			i++;
+			//TODO: On renvoie "Gagné ou perdu" + nb POints?
+			if(i==10)
+				out.print("Gagne");
+			break;
+		default:
 			//gameManager.connect();
 			out.print(idUser + ";" + idParty + ";" + idGame + ";" + x1 + ";" + y1);
+			break;
 		}
+		
+		
 		x++;
 		System.out.println("x => " + x);
 		out.close();
