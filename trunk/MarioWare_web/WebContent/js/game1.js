@@ -105,8 +105,10 @@ function checkResult(){
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        response = xhr.responseText;
-	    	document.getElementById('infos').innerHTML = response;
-	    	clearInterval(idEnd);
+	    	document.getElementById('infos').innerHTML += "<br>" + response;
+	    	if(response=="Gagne"){
+		    	clearInterval(idEnd);
+	    	}
 	   }
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
