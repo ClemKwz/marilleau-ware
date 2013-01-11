@@ -108,6 +108,10 @@ public class LinkBowser extends HttpServlet {
 		x1 = 10;
 		y1 = 10;
 		
+		int idUser = 25;
+		int idParty = 0;
+		int idGame = 0;
+		
 		if(action==GETRESPONSE){
 			int x2 = Integer.parseInt(request.getParameter("x"));
 			int y2 = Integer.parseInt(request.getParameter("y"));
@@ -123,10 +127,17 @@ public class LinkBowser extends HttpServlet {
 			
 		}else{
 			if(action==GETENDGAME){
-				//TODO: On renvoie "Gagné ou perdu" + nb POints?				
+				//TODO: On renvoie "Gagné ou perdu" + nb POints?
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				out.print("Gagn�");
 			}
 			//gameManager.connect();
-			out.print(x1 + ";" + y1);
+			out.print(idUser + ";" + idParty + ";" + idGame + ";" + x1 + ";" + y1);
 		}
 		x++;
 		System.out.println("x => " + x);
