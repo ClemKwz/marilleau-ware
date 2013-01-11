@@ -25,6 +25,7 @@ public class LinkBowser extends HttpServlet {
 	private static final int GETRESPONSE = 2;
 	private static final int INIT = 1;
 	private int x =0;
+	private int i =0;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -96,8 +97,6 @@ public class LinkBowser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
-		bowser.addParty(1, "PartyController");
-
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/plain");
         response.setHeader("Cache-Control", "no-cache");
@@ -107,7 +106,6 @@ public class LinkBowser extends HttpServlet {
 		double d;
 		x1 = 10;
 		y1 = 10;
-		int i = 0;
 		int idUser = 25;
 		int idParty = 0;
 		int idGame = 0;
@@ -115,7 +113,9 @@ public class LinkBowser extends HttpServlet {
 		case INIT:
 			
 			break;
-		case GETRESPONSE:/* Fonction apellee chaque demi seconde par chaque joueur ayant termine pour avoir les scores*/
+		case GETRESPONSE:
+			bowser.addParty(1, "PartyController");
+			i = 0;
 			int x2 = Integer.parseInt(request.getParameter("x"));
 			int y2 = Integer.parseInt(request.getParameter("y"));
 			d = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
@@ -123,15 +123,18 @@ public class LinkBowser extends HttpServlet {
 			//System.out.println("Distance entre les points : " + d + " pixels");
 			int doubl = (int) d;
 			bowser.setValeurGame(0, 1,(int)d);
-			//out.print("Distance entre les points : " + (int)d + " pixels");
-			//out.print("Bowser dit : <br> " + bowser.affiche());
+			out.print("Distance entre les points : " + (int)d + " pixels");
+			out.print("Bowser dit : <br> " + bowser.affiche());
 			//gameManager.play(request.getSession().getAttribute("sessionID"), doubl);
 			break;
-		case GETENDGAME:
+		case GETENDGAME:/* Fonction apellee chaque demi seconde par chaque joueur ayant termine pour avoir les scores*/
 			i++;
 			//TODO: On renvoie "Gagné ou perdu" + nb POints?
-			if(i==10)
+			if(i<10){
+				out.print("Wait");
+			}else{
 				out.print("Gagne");
+			}
 			break;
 		default:
 			//gameManager.connect();
