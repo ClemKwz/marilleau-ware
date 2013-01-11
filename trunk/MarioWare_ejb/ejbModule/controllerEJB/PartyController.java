@@ -57,12 +57,12 @@ public class PartyController implements PartyControllerRemote {
     }
     
     public String affiche(){
-    	String message = "    Party:"+valeur+" Games:\n";
+    	String message = "&nbsp;&nbsp;&nbsp;valParty : "+valeur+". Games: <br>";
     	
     	for(int i=0;i<listGame.size();i++){
 
     		
-    		message += "valGame:" + i + " :x " + listGame.get(i).affiche() + "\n";
+    		message += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;idGame : " + i + ", " + listGame.get(i).affiche() + "<br>";
     		
 		}
     	return message;

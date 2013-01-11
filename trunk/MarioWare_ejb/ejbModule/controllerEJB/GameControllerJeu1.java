@@ -26,7 +26,7 @@ public class GameControllerJeu1 implements GameControllerJeu1Remote {
     }
     
     public String affiche(){
-    	String message = "                 Game:"+valeur+"\n";
+    	String message = "&nbsp;&nbsp;&nbsp;x = "+valeur+"<br>";
     	return message;
     }
 
