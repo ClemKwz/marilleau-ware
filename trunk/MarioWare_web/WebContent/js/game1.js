@@ -6,11 +6,15 @@ var context;
 var hasplayed = false;
 var idCount;
 var idRefresh;
+var idEnd;
 var d;
 var end;
 var s, ms;
+var idUser;
+var idParty;
+var idGame;
 
-function begin1(x,y){
+function begin1(idUser, idParty, idGame, x,y){
 	var elem = document.getElementById('canvasElem');
 	if (!elem || !elem.getContext) {
 		return;
@@ -91,8 +95,8 @@ function finish(x,y){
 	   }
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("action=2&x=" + x + "&y=" + y);
-	setInterval(checkResult, 500);
+	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&x=" + x + "&y=" + y);
+	idEnd = setInterval(checkResult, 500);
 }
 
 function checkResult(){
@@ -102,6 +106,7 @@ function checkResult(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        response = xhr.responseText;
 	    	document.getElementById('infos').innerHTML = response;
+	    	clearInterval(idEnd);
 	   }
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
