@@ -58,9 +58,9 @@ public class BowserController implements BowserControllerLocal {
 		}
     }
     public String affiche(){
-    	String message = "Bowser:0 Parties:\n";
+    	String message = "Bowser : 0. Parties :<br>";
     	for(int i=0;i<listParty.size();i++){
-    		message += "    valParty:" + i + " : " + listParty.get(i).affiche() + "\n";
+    		message += "&nbsp;&nbsp;&nbsp;idParty : " + i + ", " + listParty.get(i).affiche() + "<br>";
 		}
     	return message;
     }
