@@ -21,6 +21,7 @@ public class LinkBowser extends HttpServlet {
 	@EJB
 	BowserControllerLocal bowser;
 	
+	private static final int GETENDGAME = 3;
 	private static final int GETRESPONSE = 2;
 	private static final int INIT = 1;
 	private int x =0;
@@ -121,6 +122,9 @@ public class LinkBowser extends HttpServlet {
 			//gameManager.play(request.getSession().getAttribute("sessionID"), doubl);
 			
 		}else{
+			if(action==GETENDGAME){
+				//TODO: On renvoie "Gagné ou perdu" + nb POints?				
+			}
 			//gameManager.connect();
 			out.print(x1 + ";" + y1);
 		}
