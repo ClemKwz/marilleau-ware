@@ -92,6 +92,20 @@ function finish(x,y){
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send("action=2&x=" + x + "&y=" + y);
+	setInterval(checkResult, 500);
+}
+
+function checkResult(){
+	var servletName = "LinkBowser";
+	xhr.open("POST", "./" + servletName, true);
+	xhr.onreadystatechange = function(){
+	    if(xhr.readyState == 4 && xhr.status == 200){
+	        response = xhr.responseText;
+	    	document.getElementById('infos').innerHTML = response;
+	   }
+	};
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send("action=3");
 }
 
 function count(){
