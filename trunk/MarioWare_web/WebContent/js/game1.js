@@ -81,13 +81,13 @@ function begin1(x,y){
 }
 
 function finish(x,y){
-	var servletName = "Connect";
+	var servletName = "LinkBowser";
 	xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        response = xhr.responseText;
-	    	//document.getElementById('infos').innerHTML = response;
+	    	document.getElementById('infos').innerHTML = response;
 	   }
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
