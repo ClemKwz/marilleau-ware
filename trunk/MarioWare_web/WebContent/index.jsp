@@ -13,6 +13,6 @@
            <input name="Valid" type="submit" />
 	</form>
 	<p><%=message%></p>
-	
+
 </div>
 

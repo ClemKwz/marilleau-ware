@@ -44,18 +44,19 @@ table {
 /* ======================== FIN RESET CSS =============================== */
 
 body{
-	background-color: #41737c;
+	background-color: #FAFAFA;
+	/*background-color: #41737c;*/
 }
 /* ======================== HEADER PAGE ================================= */
-#header{
+#header{	
 	width: 1024px;
-	min-height: 80px;
+	min-height: 120px;
 	border: solid black 1px;
 	margin: 5px auto;
-	background-color: #b2cbcf;
+	background-color: #ACB5F0;/*#b2cbcf*/
 }
 #logo{
-	height: 80px;
+	height: 100px;
 	margin: 10px;
 }
 /* ======================== FIN HEADER PAGE ============================= */
@@ -81,7 +82,7 @@ body{
 	min-height: 600px;
 	border: solid black 1px;
 	margin: 5px auto;
-	background-color: #b2cbcf;
+	background-color: #ACB5F0;
 	padding: -10px;
 }
 #bc_buttons{
@@ -99,21 +100,19 @@ body{
 
 /* Nouveau ajout*/
 #logo {
-	height: 106px;
-	width: 60px;
+	height: 100px;
+	width: 133px;
 	position:relative;
-        float:left;
-        margin-left:10px;
-        margin-top:10px;
-        background: url('../img/logo.jpg') no-repeat;
+    float:left;
+    margin-left:10px;
+    margin-top:10px;
+    background: url('../img/logo.jpg') no-repeat;
 }
 	
 /* navigation */
 
 #nav {
 	height: 40px;
-	width: 990px;
-	margin-left: 1px;
 	background: url('../img/nav.png') repeat-x;
 }
 
