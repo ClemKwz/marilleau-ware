@@ -11,9 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import managerDB.*;
 
-
-//import marioware_ejb.PartiesManagerLocal;
-
 /**
  * Servlet implementation class Login
  */
@@ -21,8 +18,6 @@ public class Login extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
     
-	//@EJB
-	//PartiesManagerLocal partiesManager;
 	@EJB
 	UserManagerLocal um;
 
@@ -55,7 +50,6 @@ public class Login extends HttpServlet {
 			return;
 		}
 		
-		// Insertion BDD
 		// TODO A voir suppression utilisateur de la BDD
 		
 		// Verification si le pseudo existe deja dans la DB
@@ -65,6 +59,7 @@ public class Login extends HttpServlet {
 			return;
 		}
 		
+		// Insertion BDD
 		// Ajout du nouvel utilisateur
 		um.createUser(pseudo, "", 0);
 		
