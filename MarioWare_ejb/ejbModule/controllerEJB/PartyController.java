@@ -1,6 +1,6 @@
 package controllerEJB;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 import javax.ejb.Stateful;
@@ -14,27 +14,26 @@ import javax.naming.NamingException;
 @Stateful(mappedName="PartyController")
 public class PartyController implements PartyControllerRemote {
 
-	int valeur;
-	ArrayList<GameControllerJeu1Remote> listGame;
-    /**
-     * Default constructor. 
-     */
+	int idParty;
+	//ArrayList<GameControllerRemote> listGame;
+	HashMap<Integer,GameControllerRemote> listGame;
+	
     public PartyController() {
-        // TODO Auto-generated constructor stub
+    	
     }
     
-    public void setValeur(int valeur) {
-    	this.valeur = valeur;
+    public void setId(int idParty) {
+    	this.idParty = idParty;
     }
     
-    public int getValeur() {
-    	return this.valeur;
+    public int getId() {
+    	return this.idParty;
     }
     
-    public void addGame(String name_JNDI,int valeur){
+    public void addGame(String name_JNDI, int idGame){
     	
     	if(listGame == null){
-    		listGame = new ArrayList<GameControllerJeu1Remote>();
+    		listGame = new HashMap<Integer,GameControllerRemote>();
     	}
     	
     	Context ctx;
@@ -44,40 +43,61 @@ public class PartyController implements PartyControllerRemote {
 			h.put("java.naming.factory.url.pkgs", "org.objectweb.jonas.naming");
 			
 			ctx = new InitialContext(h);
-			GameControllerJeu1Remote ref = (GameControllerJeu1Remote) ctx.lookup(name_JNDI);
+			GameControllerRemote game = (GameControllerRemote) ctx.lookup(name_JNDI);
+			game.setIdGame(idGame);
+			game.setValeur(-1);
 			
-			ref.setValeur(valeur);
-			listGame.add(ref);
-		
-
-	    	
+			listGame.put(idGame,game);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-    }
-    
-    public String affiche(){
-    	String message = "&nbsp;&nbsp;&nbsp;valParty : "+valeur+". Games: <br>";
     	
-    	for(int i=0;i<listGame.size();i++){
-
-    		
-    		message += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;idGame : " + i + ", " + listGame.get(i).affiche() + "<br>";
-    		
+    	/*
+    	if(listGame == null){
+    		listGame = new ArrayList<GameControllerRemote>();
+    	}
+    	
+    	Context ctx;
+		try {
+			Hashtable<String, String> h = new Hashtable<String, String>();
+			h.put("java.naming.factory.initial","org.objectweb.carol.jndi.spi.MultiOrbInitialContextFactory");
+			h.put("java.naming.factory.url.pkgs", "org.objectweb.jonas.naming");
+			
+			ctx = new InitialContext(h);
+			GameControllerRemote game = (GameControllerRemote) ctx.lookup(name_JNDI);
+			
+			game.setValeur(valeur);
+			listGame.add(game);
+		} catch (NamingException e) {
+			e.printStackTrace();
 		}
+		*/
+    }
+
+	@Override
+	public void setValeurGame(int idGame, int valeur) {
+		
+		listGame.get(idGame).setValeur(valeur);
+	}
+
+	@Override
+	public int getValeurGame(int idGame) {
+		
+		return listGame.get(idGame).getValeur();
+	}
+    
+    public String displayHTML(){
+    	
+    	String message = "&nbsp;&nbsp;&nbspidParty : "+idParty+". Games: <br>";
+    	
+    	/*for(int i=0;i<listGame.size();i++){
+    		message += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + listGame.get(i).displayHTML() + "<br>";
+		}*/
+    	
+    	for (Integer key : listGame.keySet()) {
+    		message += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + listGame.get(key).displayHTML() + "<br>";
+    	}
+    	
     	return message;
     }
-
-	@Override
-	public int getValeurGame(int indexGame) {
-		
-		return listGame.get(indexGame).getValeur();
-	}
-
-	@Override
-	public void setValeurGame(int indexGame, int valeur) {
-		
-		listGame.get(indexGame).setValeur(valeur);
-	}
-
 }

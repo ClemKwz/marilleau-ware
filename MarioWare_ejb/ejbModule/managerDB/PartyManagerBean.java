@@ -30,41 +30,45 @@ public class PartyManagerBean implements PartyManagerLocal {
 	 * (non-Javadoc)
 	 * @see controlerDB.PartiesManagerLocal#createPartie(java.lang.String, java.lang.String, int)
 	 */
-	public void createPartie(String name, String description, int idCreator) {
+	public void createPartie(String name, String description, User userCreator) {
+		
 		Party party = new Party();
 		party.setName(name);
 		party.setDescription(description);
-		addUserToParty(party.getIdPartie(),idCreator);	
+		party.setUser(userCreator);
+		
+		//addUserToParty(party.getIdPartie(),idCreator);
+		
 		this.em.persist(party);
 		this.em.flush();
-		
 	}
 
 	@Override
 	public int getIdByName(String name) {
-	// Creation de la requete
-			Query query = em.createQuery("FROM Party where name=:p");
-			query.setParameter("p", name);
-			
-			Party party;
-			
-			// Recuperation du resultat
-			try {
-				party = (Party) query.getSingleResult();
-			} catch (NoResultException e)  {
-				return -1;
-			}
-			
-			return party.getIdPartie();
+		
+		// Creation de la requete
+		Query query = em.createQuery("from Party where name=:p");
+		query.setParameter("p", name);
+		
+		Party party;
+		
+		// Recuperation du resultat
+		try {
+			party = (Party) query.getSingleResult();
+		} catch (NoResultException e)  {
+			return -1;
+		}
+		
+		return party.getIdPartie();
 	}
 
 	@Override
 	public void addUserToParty(int idParty,int idUser) {
 
 		Query query;
-		//On recherche la partie
+		// On recherche la partie
 		// Creation de la requete
-		query = em.createQuery("FROM Party where idParty=:p");
+		query = em.createQuery("from Party where idPartie=:p");
 		query.setParameter("p", idParty);
 
 		Party party= null;
@@ -91,6 +95,4 @@ public class PartyManagerBean implements PartyManagerLocal {
 		party.setUser(user);		
 
 	}
-    
-	
 }

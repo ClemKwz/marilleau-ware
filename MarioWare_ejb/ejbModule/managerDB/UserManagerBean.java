@@ -68,4 +68,23 @@ public class UserManagerBean implements UserManagerLocal {
 		
 		return user.getIdUser();
 	}
+	
+	@Override
+	public User getUserById(int idUser) {
+		
+		// Creation de la requete
+		Query query = em.createQuery("from User u where idUser=:i");
+		query.setParameter("i", idUser);
+		
+		User user;
+		
+		// Recuperation du resultat
+		try {
+			user = (User) query.getSingleResult();
+		} catch (NoResultException e)  {
+			return null;
+		}
+		
+		return user;
+	}
 }
