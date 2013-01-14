@@ -22,7 +22,10 @@ function begin1(x,y){
 	alert("coucou");
 }
 
-function begin1(idUser, idParty, idGame, x,y){
+function begin1(idUserServ, idPartyServ, idGameServ, x,y){
+	idUser = idUserServ;
+	idParty = idPartyServ;
+	idGame = idGameServ;
 	var elem = document.getElementById('canvasElem');
 	if (!elem || !elem.getContext) {
 		return;
@@ -36,7 +39,7 @@ function begin1(idUser, idParty, idGame, x,y){
 	 d = new Date();
 	 idCount = setInterval(count, 10);
 	
-	//document.getElementById('headConteneur').innerHTML = "Click on the (" + x + "," + y + ") pixel.";
+	document.getElementById('headConteneur').innerHTML += "Click on the (" + x + "," + y + ") pixel.";
 
 	var conteneur = document.getElementById('bc_games');
 	
@@ -93,7 +96,7 @@ function begin1(idUser, idParty, idGame, x,y){
 }
 
 function finish(x,y){
-	var servletName = "LinkBowser";
+	var servletName = "FindTheDot";
 	xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
@@ -104,11 +107,11 @@ function finish(x,y){
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&x=" + x + "&y=" + y);
-	idEnd = setInterval(checkResult, 500);
+	//idEnd = setInterval(checkResult, 500);
 }
 
 function checkResult(){
-	var servletName = "LinkBowser";
+	var servletName = "FindTheDot";
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
@@ -139,5 +142,6 @@ function count(){
 		clearInterval(idCount);
 		clearInterval(idRefresh);
 	}
+	var chrono = document.getElementById('chrono');
 	chrono.innerHTML = s2 + ":" + ms2;
 }

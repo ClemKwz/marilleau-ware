@@ -64,7 +64,7 @@ public class Connect extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("sa mere!!!!!!!!!!");
 		response.setContentType("text/plain");
         response.setHeader("Cache-Control", "no-cache");
 		out = response.getWriter();
