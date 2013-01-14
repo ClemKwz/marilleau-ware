@@ -22,7 +22,7 @@ public class GameController2 implements GameController2Local {
 	@EJB
 	PartyManagerLocal pm;
 	
-	final int nbGameMaxPerParty = 10; 
+	final int nbGameMaxPerParty = 3; 
 	
     public GameController2() {
     }
