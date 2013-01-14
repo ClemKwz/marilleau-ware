@@ -1,0 +1,18 @@
+package managerDB;
+
+import java.util.List;
+
+import javax.ejb.Local;
+
+import model.Party;
+
+@Local
+public interface PartyManagerLocal {
+
+	public void createPartie(String name, String description, int userCreator);
+	public int getIdByName(String name);
+	public void addUserToParty(int idParty,int idUser);
+	
+	public List<Party> getAllParty();
+	Party getPartyById(int idParty);
+}
