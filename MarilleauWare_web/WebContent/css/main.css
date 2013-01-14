@@ -1,0 +1,164 @@
+/*html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+/*article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}*/
+/* ======================== FIN RESET CSS =============================== */
+
+body{
+	background-color: #FAFAFA;
+	/*background-color: #41737c;*/
+}
+/* ======================== HEADER PAGE ================================= */
+#header{	
+	width: 1024px;
+	min-height: 120px;
+	border: solid black 1px;
+	margin: 5px auto;
+	background-color: #ACB5F0;/*#b2cbcf*/
+}
+#logo{
+	height: 100px;
+	margin: 10px;
+}
+/* ======================== FIN HEADER PAGE ============================= */
+
+#headConteneur{
+	margin: 5px auto;
+	width: 400px;
+	height: 40px;
+	border: 1px solid #5d7c82;
+} 
+
+#conteneur {
+	width: 400px;
+	height: 300px;
+	border: 1px solid #333;
+	margin: 0 auto;
+	background: #777777;
+	text-align: center;		
+}
+
+#container{
+	width: 1024px;
+	min-height: 600px;
+	border: solid black 1px;
+	margin: 5px auto;
+	background-color: #ACB5F0;
+	padding: -10px;
+}
+#bc_buttons{
+	width: 100%;
+	min-height: 30px;
+	border: solid #5d7c82 1px;
+}
+#bc_games{
+	width: 400px;
+	height: 300px;
+	border: solid #5d7c82 1px;
+	margin: 10px auto;
+	min-height: 200px;
+}
+
+/* Nouveau ajout*/
+#logo {
+	height: 100px;
+	width: 133px;
+	position:relative;
+    float:left;
+    margin-left:10px;
+    margin-top:10px;
+    background: url('../img/logo.jpg') no-repeat;
+}
+	
+/* navigation */
+
+#nav {
+	height: 40px;
+	background: url('../img/nav.png') repeat-x;
+}
+
+#nbar a {
+	font-weight: normal;
+}
+
+#nbar {
+	position: relative;
+	width: auto;
+	height: 40px;
+	margin: 0;
+	padding : 8px 0 0 0;
+	font: 12px/25px Verdana, Arial, Tahoma, Sans-serif;
+}
+
+#nbar ul {
+	float: left;
+	list-style : none;
+	margin: 0;
+	padding: 0;
+}
+
+#nbar ul li {
+	display: inline;
+}
+
+#nbar ul li a {
+	display: block;
+	height: 25px;
+	float: left;
+	padding: 0 10px;
+	color: #333;
+	text-decoration: none;
+	background: none;
+	border-right: dotted 1px #666;
+}
+
+
+#nbar ul li a:hover {
+	color: #000;
+	padding-top: 2px;
+}
+
+#nbar ul li#selected a {
+	color: #000;
+	background: url('../img/nbg-inv.png') top repeat-x;
+	font-weight: bold;
+}

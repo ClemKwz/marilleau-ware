@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.ow2.jonas.wtp.adapter.core.eid.runtimeClasspathProvider/JOnAS Runtime 5.x">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Program Files/OW2/jonas-full-5.2.2/lib/bootstrap/bundles-servlets-3.0/ow2-servlet-3.0-spec.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MarilleauWare_ejb"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
