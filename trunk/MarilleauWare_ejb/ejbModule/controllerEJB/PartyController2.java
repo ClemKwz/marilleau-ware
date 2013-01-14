@@ -52,4 +52,14 @@ public class PartyController2 implements PartyController2Local {
 		pm.setPartyCurrentGame(idParty,idGame);
 	}
 
+	@Override
+	public int getIdPartyByIdUser(int idUser) {
+		return pm.getIdPartyByIdUser(idUser);
+	}
+
+	@Override
+	public int getIdGameByIdParty(int idParty) {
+		return pm.getIdGameByIdParty(idParty);
+	}
+
 }

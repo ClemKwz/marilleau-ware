@@ -16,4 +16,8 @@ public interface PartyController2Local {
 	public Party getPartyById(int idParty);
 
 	public void initCurrentGame(int idParty);
+	
+	public int getIdPartyByIdUser(int idUser);
+	
+	public int getIdGameByIdParty(int idParty);
 }
