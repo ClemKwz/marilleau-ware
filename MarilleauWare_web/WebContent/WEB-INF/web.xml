@@ -79,4 +79,14 @@
     <servlet-name>JoinParty</servlet-name>
     <url-pattern>/JoinParty</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindTheDot</display-name>
+    <servlet-name>FindTheDot</servlet-name>
+    <servlet-class>linkGame.FindTheDot</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindTheDot</servlet-name>
+    <url-pattern>/FindTheDot</url-pattern>
+  </servlet-mapping>
 </web-app>
