@@ -58,6 +58,6 @@ public class GameController2 implements GameController2Local {
 
 	@Override
 	public void addScore(int idGame, int idUser, double score) {
-		gm.addScore(idGame, idUser, score);	
+		gm.addScore(idGame, idUser, (500-score)*1000);	
 	}
 }

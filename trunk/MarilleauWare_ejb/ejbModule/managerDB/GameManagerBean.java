@@ -133,7 +133,7 @@ public class GameManagerBean implements GameManagerLocal {
 				// Recuperation du resultat
 				try {
 					tj = (TjGamesUser) query.getSingleResult();
-					tj.setScore((int)score*1000);
+					tj.setScore((int)score);
 					this.em.persist(tj);
 					this.em.flush();
 				} catch (NoResultException e)  {
