@@ -86,13 +86,11 @@ public class JoinParty extends HttpServlet {
 			partyController.addUser(idParty,idUser);
 			System.out.println("User "+idUser+" added to party "+idParty);
 			
-			// Creation des games si le nombre de user est superieur a _
-			Party party = partyController.getPartyById(idParty);
+			//gameController.addUserGame(26, idUser);
 			
-			gameController.createGameParty(party);
-			System.out.println("Games was created in party "+idParty);
-			gameController.addUserGame(26, idUser);
+			out.print("Wait....");
 			// Recuperation du jeu en cours
+			/*
 			if(party.getStartParty()==0){
 				out.print("Wait....");
 				//ajout fonction ajax qui check letat de la partie
@@ -112,9 +110,7 @@ public class JoinParty extends HttpServlet {
 				out.print("</div>");
 				out.print("<div id=\"infos\"></div>");
 				out.print("<script type=\"text/javascript\"> init(); </script>");
-			}
-			
-			
+			}*/
 		}
 		out.close();
 	}

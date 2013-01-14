@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import controllerEJB.GameController2Local;
+import controllerEJB.PartyController2Local;
+
 import managerDB.PartyManagerLocal;
 import managerDB.UserManagerLocal;
-import model.User;
+import model.Party;
 
 /**
  * Servlet implementation class PartyCreation
@@ -25,6 +28,10 @@ public class PartyCreation extends HttpServlet {
 	PartyManagerLocal pm;
 	@EJB
 	UserManagerLocal um;
+	@EJB
+	GameController2Local gc;
+	@EJB
+	PartyController2Local pc;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -88,18 +95,22 @@ public class PartyCreation extends HttpServlet {
 		
 		// Insertion BDD
 		// Ajout de la nouvelle partie
-		/*
-		User user = um.getUserById(Integer.parseInt(idUser));
-		if(pm.getIdByName(nameParty) != -1){
-			String message = "name already exist !";
-			getServletContext().getRequestDispatcher("/partyCreation.jsp?message="+message).forward(request,response);
+		if(pm.getIdPartyByName(nameParty) != -1){
+			out.print("Name of party already used");
 			return;
-		}*/
-		pm.createPartie(nameParty,descriptionParty,Integer.parseInt(idUser));
+		}
 		
-		//request.set
+		pm.createPartie(nameParty,descriptionParty,Integer.parseInt(idUser));
+		int idParty = pm.getIdPartyByName(nameParty);
+		
+		// Creation des games
+		Party party = pm.getPartyById(idParty);
+		gc.createGameParty(party);
+		System.out.println("Games was created in party "+idParty);
+		pc.initCurrentGame(idParty);
+		
 		//getServletContext().getRequestDispatcher("/LinkBowser").forward(request,response);
-		out.print("Coucou");
+		out.print("Partie créé");
 	}
 
 }
