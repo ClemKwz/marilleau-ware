@@ -96,7 +96,8 @@ public class PartyCreation extends HttpServlet {
 		// Insertion BDD
 		// Ajout de la nouvelle partie
 		if(pm.getIdPartyByName(nameParty) != -1){
-			out.print("Name of party already used");
+			String message = "Name of party already used";
+			getServletContext().getRequestDispatcher("/partyCreation.jsp?message="+message).forward(request,response);
 			return;
 		}
 		
@@ -112,10 +113,9 @@ public class PartyCreation extends HttpServlet {
 		// Ajout de l'utilisateur createur dans la partie
 		pc.addUser(idParty,idUser);
 		// Ajout de l'utilisateur createur dans le game courant
-		gc.addUserGame(idParty, idUser);
+		//gc.addUserGame(idParty, idUser);
 		
-		//getServletContext().getRequestDispatcher("/LinkBowser").forward(request,response);
-		out.print("Partie cree");
+		getServletContext().getRequestDispatcher("/joinParty.jsp").forward(request,response);
 	}
 
 }
