@@ -86,7 +86,8 @@ public class JoinParty extends HttpServlet {
 			partyController.addUser(idParty,idUser);
 			System.out.println("User "+idUser+" added to party "+idParty);
 			
-			//gameController.addUserGame(26, idUser);
+			// Ajout de l'utilisateur dans le game courant
+			gameController.addUserGame(idParty, idUser);
 			
 			out.print("Wait....");
 			// Recuperation du jeu en cours

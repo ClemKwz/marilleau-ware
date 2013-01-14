@@ -72,7 +72,7 @@ public class PartyCreation extends HttpServlet {
 			return;
 		}
 
-		String idUser = session.getAttribute("idUser").toString();
+		int idUser = Integer.parseInt(session.getAttribute("idUser").toString());
 		
 		// Recuperation du champ nom de la partie
 		String nameParty = request.getParameter("nameParty").trim();
@@ -100,7 +100,7 @@ public class PartyCreation extends HttpServlet {
 			return;
 		}
 		
-		pm.createPartie(nameParty,descriptionParty,Integer.parseInt(idUser));
+		pm.createPartie(nameParty,descriptionParty,idUser);
 		int idParty = pm.getIdPartyByName(nameParty);
 		
 		// Creation des games
@@ -109,8 +109,13 @@ public class PartyCreation extends HttpServlet {
 		System.out.println("Games was created in party "+idParty);
 		pc.initCurrentGame(idParty);
 		
+		// Ajout de l'utilisateur createur dans la partie
+		pc.addUser(idParty,idUser);
+		// Ajout de l'utilisateur createur dans le game courant
+		gc.addUserGame(idParty, idUser);
+		
 		//getServletContext().getRequestDispatcher("/LinkBowser").forward(request,response);
-		out.print("Partie créé");
+		out.print("Partie cree");
 	}
 
 }
