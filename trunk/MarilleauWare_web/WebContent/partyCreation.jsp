@@ -25,7 +25,7 @@
 			<p>Connected with pseudo <b><%=pseudo%></b>, id : <%=id%></p>
 			<p>Cr&eacute;ation d'une nouvelle partie</p>
 			
-			<form action="/MarioWare_web2/PartyCreation" method="POST">
+			<form action="/MarilleauWare_web/PartyCreation" method="POST">
 				<table>
 					<tr>
 						<td>Nom :</td>
