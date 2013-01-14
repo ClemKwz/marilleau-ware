@@ -9,6 +9,6 @@ public interface GameController2Local {
 
 	public void createGameParty(Party party);
 
-	public void addUserGame(int idGame, int idUser);
+	public void addUserGame(int idParty, int idUser);
 
 }
