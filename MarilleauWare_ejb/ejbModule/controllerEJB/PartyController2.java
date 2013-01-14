@@ -4,9 +4,8 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
 
+import managerDB.GameManagerLocal;
 import managerDB.PartyManagerLocal;
 import model.Party;
 
@@ -18,6 +17,8 @@ public class PartyController2 implements PartyController2Local {
 
 	@EJB
 	PartyManagerLocal pm;
+	@EJB
+	GameManagerLocal gm;
 	
     /**
      * Default constructor. 
@@ -42,6 +43,13 @@ public class PartyController2 implements PartyController2Local {
 	public void addUser(int idParty, int idUser) {
 		
 		pm.addUserToParty(idParty, idUser);
+	}
+
+	@Override
+	public void initCurrentGame(int idParty) {
+		
+		int idGame = gm.getIdGameByPartyBySeq(idParty,0);
+		pm.setPartyCurrentGame(idParty,idGame);
 	}
 
 }

@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -27,6 +28,14 @@ public class Party implements Serializable {
 	private String name;
 
 	private int startParty;
+
+	//bi-directional many-to-one association to Game
+	@OneToMany(mappedBy="party")
+	private List<Game> games;
+
+	//bi-directional many-to-one association to User
+	@OneToMany(mappedBy="party")
+	private List<User> users;
 
 	public Party() {
 	}
@@ -85,6 +94,22 @@ public class Party implements Serializable {
 
 	public void setStartParty(int startParty) {
 		this.startParty = startParty;
+	}
+
+	public List<Game> getGames() {
+		return this.games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
+	}
+
+	public List<User> getUsers() {
+		return this.users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 }
