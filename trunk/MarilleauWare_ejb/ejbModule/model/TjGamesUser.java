@@ -20,12 +20,12 @@ public class TjGamesUser implements Serializable {
 
 	//bi-directional many-to-one association to Game
 	@ManyToOne
-	@JoinColumn(name="idGame",insertable = false, updatable = false)
+	@JoinColumn(name="idGame", insertable = false, updatable = false)
 	private Game game;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="idUser",insertable = false, updatable = false)
+	@JoinColumn(name="idUser", insertable = false, updatable = false)
 	private User user;
 
 	public TjGamesUser() {

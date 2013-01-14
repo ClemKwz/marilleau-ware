@@ -32,8 +32,6 @@ public class PartyManagerBean implements PartyManagerLocal {
 		party.setDescription(description);
 		party.setIdUserCreate(idUserCreator);
 		
-		//addUserToParty(party.getIdPartie(),idCreator);
-		
 		this.em.persist(party);
 		this.em.flush();
 	}
@@ -59,7 +57,7 @@ public class PartyManagerBean implements PartyManagerLocal {
 
 
 	@Override
-	public int getIdByName(String name) {
+	public int getIdPartyByName(String name) {
 		
 		// Creation de la requete
 		Query query = em.createQuery("from Party where name=:p");
@@ -110,11 +108,12 @@ public class PartyManagerBean implements PartyManagerLocal {
 		//arty.setUser(user);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Party> getAllParty() {
 		
 		List<Party> lp = new ArrayList<Party>();
-		List<Object[]> lo = null;
+		
 		Query query;
 		// On recherche la partie
 		// Creation de la requete
@@ -136,5 +135,25 @@ public class PartyManagerBean implements PartyManagerLocal {
 		}
 		
 		return lp;
+	}
+
+	@Override
+	public void setPartyCurrentGame(int idParty, int idGame) {
+		
+		Party party;
+		
+		Query query;
+		// On recherche la partie
+		// Creation de la requete
+		query = em.createQuery("from Party where idParty=:p");
+		query.setParameter("p", idParty);
+
+		// Recuperation du resultat
+		try {
+			party = (Party) query.getSingleResult();
+			party.setIdCurrentGame(idGame);
+		} catch (NoResultException e)  {
+			System.out.println("erreur");
+		}
 	}
 }

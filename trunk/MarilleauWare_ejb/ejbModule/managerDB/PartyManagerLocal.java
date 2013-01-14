@@ -10,9 +10,10 @@ import model.Party;
 public interface PartyManagerLocal {
 
 	public void createPartie(String name, String description, int userCreator);
-	public int getIdByName(String name);
+	public int getIdPartyByName(String name);
 	public void addUserToParty(int idParty,int idUser);
 	
 	public List<Party> getAllParty();
-	Party getPartyById(int idParty);
+	public Party getPartyById(int idParty);
+	public void setPartyCurrentGame(int idParty, int idGame);
 }

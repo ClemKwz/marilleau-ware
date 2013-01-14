@@ -40,17 +40,20 @@ public class GameManagerBean implements GameManagerLocal {
     }
 
 	@Override
-	public void createGame(GamesDesc gamesDesc, Party party) {
-		System.out.println("hohohhohhohohho");
+	public void createGame(GamesDesc gamesDesc, Party party, int sequence) {
+		
 		Game game = new Game();
 		game.setParty(party);
 		game.setGamesDesc(gamesDesc);
 		game.setStartGame(0);
 		game.setEndGame(0);
+		game.setSequence(sequence);
+		
 		this.em.persist(game);
 		this.em.flush();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<GamesDesc> getAllGamesDesc(){
 		
@@ -84,6 +87,26 @@ public class GameManagerBean implements GameManagerLocal {
 		// Creation de la requete
 		Query query = em.createQuery("from Game where name=:p");
 		query.setParameter("p", name);
+		
+		Game game;
+		
+		// Recuperation du resultat
+		try {
+			game = (Game) query.getSingleResult();
+		} catch (NoResultException e)  {
+			return -1;
+		}
+		
+		return game.getIdGame();
+	}
+
+	@Override
+	public int getIdGameByPartyBySeq(int idParty, int sequence) {
+		
+		// Creation de la requete
+		Query query = em.createQuery("from Game where idParty=:p and sequence=:s");
+		query.setParameter("p", idParty);
+		query.setParameter("s", sequence);
 		
 		Game game;
 		

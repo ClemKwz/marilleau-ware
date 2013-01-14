@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -19,6 +20,8 @@ public class Game implements Serializable {
 	private int idGame;
 
 	private int endGame;
+
+	private int sequence;
 
 	private int startGame;
 
@@ -53,6 +56,14 @@ public class Game implements Serializable {
 
 	public void setEndGame(int endGame) {
 		this.endGame = endGame;
+	}
+
+	public int getSequence() {
+		return this.sequence;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
 	}
 
 	public int getStartGame() {

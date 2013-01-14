@@ -1,6 +1,7 @@
 package controllerEJB;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -18,28 +19,33 @@ public class GameController2 implements GameController2Local {
 	@EJB
 	GameManagerLocal gm;
 	
+	final int nbGameMaxPerParty = 10; 
+	
     public GameController2() {
     }
 
 	@Override
 	public void createGameParty(Party party) {
 
-		System.out.println("11111111111111111111111111111111111okazedzehfihzecjo");
+		System.out.println("Creation des games de la partie ("+party.getIdParty()+")");
 		
 		// En fonction des games dans la table Game_desc
-		// on cree autant de jeu
+		// On cree autant de jeu
 		List<GamesDesc> lgd = gm.getAllGamesDesc();
-		System.out.println("okazedzehfihzecjo");
-		//gm.createGame(lgd.get(0), party);
 		
-		for (GamesDesc resultElement : lgd) {
-			System.out.println("jerico "+resultElement.getIdGame_desc());
-			gm.createGame(resultElement, party);
+		for(int i=0; i<nbGameMaxPerParty; i++){
+			Random random = new Random();
+			int index = random.nextInt(lgd.size());
+			gm.createGame(lgd.get(index), party, i);
 		}
 		
-		// et on ajoute les user dans la table tj_user_game
+		/*
+		for (GamesDesc resultElement : lgd) {
+			System.out.println("creation du game de type "+resultElement.getName()+" ("+resultElement.getIdGame_desc()+")");
+			gm.createGame(resultElement, party, sequence);
+		}*/
 	}
-
+	
 	@Override
 	public void addUserGame(int idGame, int idUser) {
 
