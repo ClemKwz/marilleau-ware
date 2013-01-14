@@ -15,6 +15,11 @@
 	String pseudo = session.getAttribute("pseudoUser").toString();
 	String id = session.getAttribute("idUser").toString();
 	
+	String message = "";
+	if (request.getParameter("message") != null) {
+		message = request.getParameter("message");
+	}
+	
 %>
 
 <jsp:include page="header.jsp"></jsp:include>
@@ -41,6 +46,7 @@
 				</table>
 				<input type="hidden" name="action" value="10"></input>
 			</form>
+			<p><%=message%></p>
 		</div>
 	</div>
 
