@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import managerDB.GameManagerLocal;
+import managerDB.PartyManagerLocal;
 import model.GamesDesc;
 import model.Party;
 
@@ -18,6 +19,8 @@ public class GameController2 implements GameController2Local {
 
 	@EJB
 	GameManagerLocal gm;
+	@EJB
+	PartyManagerLocal pm;
 	
 	final int nbGameMaxPerParty = 10; 
 	
@@ -47,8 +50,9 @@ public class GameController2 implements GameController2Local {
 	}
 	
 	@Override
-	public void addUserGame(int idGame, int idUser) {
+	public void addUserGame(int idParty, int idUser) {
 
-		gm.addUserGame(idGame, idUser);
+		Party party = pm.getPartyById(idParty);
+		gm.addUserGame(party.getIdCurrentGame(), idUser);
 	}
 }
