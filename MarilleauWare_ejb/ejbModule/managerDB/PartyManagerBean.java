@@ -156,4 +156,44 @@ public class PartyManagerBean implements PartyManagerLocal {
 			System.out.println("erreur");
 		}
 	}
+
+	@Override
+	public int getIdPartyByIdUser(int idUser) {
+		User user;
+		
+		Query query;
+		// On recherche la partie
+		// Creation de la requete
+		query = em.createQuery("from User where idUser=:p");
+		query.setParameter("p", idUser);
+
+		// Recuperation du resultat
+		try {
+			user = (User) query.getSingleResult();
+			return user.getParty().getIdParty();
+		} catch (NoResultException e)  {
+			System.out.println("erreur");
+			return -1;
+		}
+	}
+
+	@Override
+	public int getIdGameByIdParty(int idParty) {
+		Party party;
+		
+		Query query;
+		// On recherche la partie
+		// Creation de la requete
+		query = em.createQuery("from Party where idParty=:p");
+		query.setParameter("p", idParty);
+
+		// Recuperation du resultat
+		try {
+			party = (Party) query.getSingleResult();
+			return party.getIdCurrentGame();
+		} catch (NoResultException e)  {
+			System.out.println("erreur");
+			return -1;
+		}
+	}
 }

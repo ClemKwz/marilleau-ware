@@ -16,4 +16,7 @@ public interface PartyManagerLocal {
 	public List<Party> getAllParty();
 	public Party getPartyById(int idParty);
 	public void setPartyCurrentGame(int idParty, int idGame);
+	
+	public int getIdPartyByIdUser(int idUser);
+	public int getIdGameByIdParty(int idParty);
 }

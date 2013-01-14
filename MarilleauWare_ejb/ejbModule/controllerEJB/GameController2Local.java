@@ -10,5 +10,7 @@ public interface GameController2Local {
 	public void createGameParty(Party party);
 
 	public void addUserGame(int idParty, int idUser);
+	
+	public void addScore(int idGame, int idUser, double score);
 
 }

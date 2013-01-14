@@ -55,4 +55,9 @@ public class GameController2 implements GameController2Local {
 		Party party = pm.getPartyById(idParty);
 		gm.addUserGame(party.getIdCurrentGame(), idUser);
 	}
+
+	@Override
+	public void addScore(int idGame, int idUser, double score) {
+		gm.addScore(idGame, idUser, score);	
+	}
 }
