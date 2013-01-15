@@ -89,4 +89,14 @@
     <servlet-name>FindTheDot</servlet-name>
     <url-pattern>/FindTheDot</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Chat</display-name>
+    <servlet-name>Chat</servlet-name>
+    <servlet-class>marioware.Chat</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Chat</servlet-name>
+    <url-pattern>/Chat</url-pattern>
+  </servlet-mapping>
 </web-app>

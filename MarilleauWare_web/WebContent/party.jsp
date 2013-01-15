@@ -23,3 +23,9 @@
 %>
 	<p>La partie va commencer</p>
 	
+	
+	<div id="chat">
+		
+	
+	</div>
+	

@@ -36,6 +36,28 @@ function initJoinPartie(idUser){
 	xhr.send("action=1&idUser=" + idUser);
 }
 
+function initChat(){
+	var v = setinterale();
+}
+
+function getAllMessage(){
+	var servletName = "Chat";
+	xhr = getXhr();
+	xhr.open("POST", "./" + servletName, true);
+	xhr.onreadystatechange = function(){
+		
+        if(xhr.readyState == 4 && xhr.status == 200) {
+            response = xhr.responseText;
+            document.getElementById('chat').innerHTML = response;
+         
+       }
+	};
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send("action=1");
+
+
+}
+
 function joinPartie(idParty,idUser){
 	
 	var servletName = "JoinParty";
