@@ -5,9 +5,11 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import managerDB.ChatPartyManagerLocal;
 import managerDB.GameManagerLocal;
 import managerDB.PartyManagerLocal;
 import managerDB.UserManagerLocal;
+import model.ChatParty;
 import model.Party;
 import model.User;
 
@@ -23,6 +25,8 @@ public class PartyController2 implements PartyController2Local {
 	GameManagerLocal gm;
 	@EJB
 	UserManagerLocal um;
+	@EJB
+	ChatPartyManagerLocal cpm;
     /**
      * Default constructor. 
      */
@@ -67,6 +71,26 @@ public class PartyController2 implements PartyController2Local {
 	
 	public List<User> getAllUserPerParty(int idParty) {
 		return um.getAllUserPerParty(idParty);
+	}
+
+	@Override
+	public void addMessage(int idParty, int idUser, String message) {
+		cpm.addMessage(idParty, idUser, message);
+	}
+
+	@Override
+	public List<ChatParty> getAllMessages(int idParty) {
+		return cpm.getAllMessages(idParty);
+	}
+
+	@Override
+	public List<ChatParty> getAllMessagesLimit(int idParty, int limit) {
+		return cpm.getAllMessagesLimit(idParty, limit);
+	}
+
+	@Override
+	public List<ChatParty> getMessagesAfter(int Party, int idMessage) {
+		return cpm.getMessagesAfter(Party, idMessage);
 	}
 
 }

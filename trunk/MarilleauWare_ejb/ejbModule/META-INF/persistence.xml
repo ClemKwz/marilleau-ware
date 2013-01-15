@@ -8,5 +8,6 @@
 		<class>model.TjGamesUser</class>
 		<class>model.TjGamesUserPK</class>
 		<class>model.User</class>
+		<class>model.ChatParty</class>
 	</persistence-unit>
 </persistence>
