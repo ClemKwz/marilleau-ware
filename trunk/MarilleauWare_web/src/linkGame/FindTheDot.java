@@ -93,8 +93,6 @@ public class FindTheDot extends HttpServlet {
 			//System.out.println("Distance entre les points : " + d + " pixels");
 			int doubl = (int) d;
 			
-			
-			
 			//gameManager.play(request.getSession().getAttribute("sessionID"), doubl);
 			gc.addScore(idGame, idPlayer, doubl);
 			
