@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Party;
+import model.User;
 
 import controllerEJB.GameController2Local;
 import controllerEJB.PartyController2Local;
@@ -92,9 +93,18 @@ public class JoinParty extends HttpServlet {
 			// Recuperation de la partie en cours
 			Party party = partyController.getPartyById(idParty);
 			
+			// get all Utilisateur test
+			/* List<User> lu = partyController.getAllUserPerParty(idParty);
+			
+			for (User resultElement : lu) {
+				out.print("User : "+resultElement.getPseudo()+"','"+resultElement.getIdUser()+"</a><br>");
+			}*/
+			getServletContext().getRequestDispatcher("/party.jsp?idParty="+idParty).forward(request,response);
+			/*
 			if(party.getStartParty()==0){
 				out.print("Wait....");
 			}else{
+				getServletContext().getRequestDispatcher("party.jsp?idParty="+idParty).forward(request,response);
 				// Creation des infos dans la table de jointure pour les scores des users
 				//gameController.addUserGame(party.getIdCurrentGame(), idUser);
 				
@@ -110,7 +120,8 @@ public class JoinParty extends HttpServlet {
 				out.print("</div>");
 				out.print("<div id=\"infos\"></div>");
 				out.print("<script type=\"text/javascript\"> init(); </script>");
-			}
+				
+			}*/
 		}
 		out.close();
 	}
