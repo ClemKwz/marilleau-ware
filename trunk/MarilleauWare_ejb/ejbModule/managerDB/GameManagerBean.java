@@ -34,7 +34,7 @@ public class GameManagerBean implements GameManagerLocal {
     	key.setIdUser(idUser);
     	TjGamesUser table = new TjGamesUser();
     	table.setId(key);
-    	table.setScore(0);
+    	table.setScore(-1);
 		this.em.persist(table);
 		this.em.flush();
     }
