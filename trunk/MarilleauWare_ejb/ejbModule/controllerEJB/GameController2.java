@@ -58,6 +58,12 @@ public class GameController2 implements GameController2Local {
 
 	@Override
 	public void addScore(int idGame, int idUser, double score) {
-		gm.addScore(idGame, idUser, (500-score)*1000);	
+		gm.addScore(idGame, idUser, (500-score)*1000);
 	}
+	
+	public boolean containsEmptyScore(int idGame, int idUser) {
+		// on regarde s'il reste des scores a -1 dans TjUserGame
+		return gm.containsEmptyScore(idGame);
+	}
+	
 }

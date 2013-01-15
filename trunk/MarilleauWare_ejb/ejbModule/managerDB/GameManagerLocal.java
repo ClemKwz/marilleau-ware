@@ -16,4 +16,5 @@ public interface GameManagerLocal {
 	public void addUserGame(int idGame, int idUser);
 	public int getIdGameByPartyBySeq(int idParty, int sequence);
 	public void addScore(int idGame, int idUser, double score);
+	public boolean containsEmptyScore(int idGame);
 }
