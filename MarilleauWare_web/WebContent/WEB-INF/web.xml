@@ -99,4 +99,14 @@
     <servlet-name>Chat</servlet-name>
     <url-pattern>/Chat</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LinkParty</display-name>
+    <servlet-name>LinkParty</servlet-name>
+    <servlet-class>linkGame.LinkParty</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LinkParty</servlet-name>
+    <url-pattern>/LinkParty</url-pattern>
+  </servlet-mapping>
 </web-app>
