@@ -20,12 +20,16 @@
 		message = request.getParameter("message");
 	}
 	
+	int idParty = Integer.parseInt(request.getParameter("idParty").toString());
+	out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
+	out.print("<input name=\"message\" type=\"text\" value=\"\"/>" +
+			"<input name=\"Valid\" type=\"submit\" onclick=sendMessage("+idParty+","+Integer.valueOf(id)+") />" +
+			"<br>");
 %>
-	<p>La partie va commencer</p>
+	<p>La partie va commencer <%=idParty%></p>
 	
 	
 	<div id="chat">
-		
 	
 	</div>
 	
