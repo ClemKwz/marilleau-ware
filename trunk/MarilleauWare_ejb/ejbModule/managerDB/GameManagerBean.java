@@ -141,12 +141,17 @@ public class GameManagerBean implements GameManagerLocal {
 		}
 	}
 	
-	
-	public boolean containsEmptyScore(int idGame) {
+	public boolean containsNegativeScore(int idGame) {
 		// Creation de la requete
-		Query query = em.createQuery("from TjGamesUser where idGame=:p and score>=0");
+		Query query = em.createQuery("from TjGamesUser where idGame=:p and score<0");
 		query.setParameter("p", idGame);
-		return query.getResultList().isEmpty();
+		if(query.getResultList().isEmpty()){
+			System.out.println("La liste est vide : il n'y a pas de -1");
+			return false;
+		} else {
+			System.out.println("La liste n'est pas vide, il y a des -1");
+			return true;
+		}
 	}
 	
 
