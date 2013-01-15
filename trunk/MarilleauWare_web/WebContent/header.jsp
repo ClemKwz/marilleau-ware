@@ -26,11 +26,11 @@
             <div id="nav">
                 <div id="nbar">
                     <ul>
-                        <li id="selected"><a href="index.php">Accueil</a></li>
+                        <li id="selected"><a href="index.jsp">Accueil</a></li>
                         <li><a href="partyCreation.jsp">Cr&eacute;er une partie</a></li> 
                         <li><a href="joinParty.jsp">Rejoindre une partie</a></li>
-	                        <li><a href="#">Equipe</a></li>
-                        <li><a href="#">Aide</a></li>
+	                        <li><a href="equipe.jsp">Equipe</a></li>
+                        <li><a href="aide.jsp">Aide</a></li>
                     </ul>
                 </div>
             </div>
