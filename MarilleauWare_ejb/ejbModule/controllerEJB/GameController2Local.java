@@ -13,6 +13,6 @@ public interface GameController2Local {
 	
 	public void addScore(int idGame, int idUser, double score);
 	
-	public boolean containsEmptyScore(int idGame, int idUser);
+	public boolean containsNegativeScore(int idGame, int idUser);
 
 }

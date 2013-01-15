@@ -61,9 +61,9 @@ public class GameController2 implements GameController2Local {
 		gm.addScore(idGame, idUser, (500-score)*1000);
 	}
 	
-	public boolean containsEmptyScore(int idGame, int idUser) {
+	public boolean containsNegativeScore(int idGame, int idUser) {
 		// on regarde s'il reste des scores a -1 dans TjUserGame
-		return gm.containsEmptyScore(idGame);
+		return gm.containsNegativeScore(idGame);
 	}
 	
 }
