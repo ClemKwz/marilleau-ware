@@ -124,20 +124,30 @@ public class GameManagerBean implements GameManagerLocal {
 	public void addScore(int idGame, int idUser, double score) {
 		
 		// Creation de la requete
-				Query query = em.createQuery("from TjGamesUser where idGame=:p and idUser=:s");
-				query.setParameter("p", idGame);
-				query.setParameter("s", idUser);
-				
-				System.out.println("idGame => " + idGame + "  idUser => " + idUser + "  score => " + score);
-				TjGamesUser tj;
-				// Recuperation du resultat
-				try {
-					tj = (TjGamesUser) query.getSingleResult();
-					tj.setScore((int)score);
-					this.em.persist(tj);
-					this.em.flush();
-				} catch (NoResultException e)  {
-					e.printStackTrace();
-				}
+		Query query = em.createQuery("from TjGamesUser where idGame=:p and idUser=:s");
+		query.setParameter("p", idGame);
+		query.setParameter("s", idUser);
+
+		System.out.println("idGame => " + idGame + "  idUser => " + idUser + "  score => " + score);
+		TjGamesUser tj;
+		// Recuperation du resultat
+		try {
+			tj = (TjGamesUser) query.getSingleResult();
+			tj.setScore((int)score);
+			this.em.persist(tj);
+			this.em.flush();
+		} catch (NoResultException e)  {
+			e.printStackTrace();
+		}
 	}
+	
+	
+	public boolean containsEmptyScore(int idGame) {
+		// Creation de la requete
+		Query query = em.createQuery("from TjGamesUser where idGame=:p and score>=0");
+		query.setParameter("p", idGame);
+		return query.getResultList().isEmpty();
+	}
+	
+
 }
