@@ -35,12 +35,10 @@ function initJoinPartie(idUser){
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send("action=1&idUser=" + idUser);
 }
-
-function initChat(){
-	var v = setinterale();
+function initChat(idParty){
+	var v = setInterval("getAllMessage("+idParty+")", 100);
 }
-
-function getAllMessage(){
+function getAllMessage(idParty){
 	var servletName = "Chat";
 	xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
@@ -53,9 +51,24 @@ function getAllMessage(){
        }
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("action=1");
+	xhr.send("action=1&idParty="+idParty);
+}
 
-
+function sendMessage(idParty,idUser){
+	var servletName = "Chat";
+	xhr = getXhr();
+	xhr.open("POST", "./" + servletName, true);
+	xhr.onreadystatechange = function(){
+		
+        if(xhr.readyState == 4 && xhr.status == 200) {
+            response = xhr.responseText;
+            document.getElementById('chat').innerHTML = response;
+         
+       }
+	};
+	var msg = document.getElementsByName('message')[0].value;
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send("action=2&idParty="+idParty+"&idUser="+idUser+"&message="+msg);
 }
 
 function joinPartie(idParty,idUser){
