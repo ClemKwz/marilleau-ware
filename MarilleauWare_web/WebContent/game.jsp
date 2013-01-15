@@ -34,6 +34,7 @@
 		<script src="js/main.js" type="text/javascript"></script> 
 		<script src="js/functions.js" type="text/javascript"></script>
 		<script src="js/game1.js" type="text/javascript"></script>
+		<script src="js/gameCheckbox.js" type="text/javascript"></script>
 		
 		<title>Marilleau ware !</title>
 	</head>
