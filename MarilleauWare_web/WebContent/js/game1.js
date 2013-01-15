@@ -22,7 +22,7 @@ function begin1(x,y){
 	alert("coucou");
 }
 
-function begin1(idUserServ, idPartyServ, idGameServ, x,y){
+function begin(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInverted, yInverted){
 	idUser = idUserServ;
 	idParty = idPartyServ;
 	idGame = idGameServ;
@@ -35,16 +35,42 @@ function begin1(idUserServ, idPartyServ, idGameServ, x,y){
 		return;
 	}
 	
-	 hasplayed = false;
-	 d = new Date();
-	 idCount = setInterval(count, 10);
+	document.getElementById('headConteneur').innerHTML += "Click on the (" + goalX + "," + goalY + ") pixel !";
+
+	// Affichage de l'échelle
+	for(i = 50;i <= 250;i += 50)
+	{
+		context.fillRect(0, i+1, 5, 2);
+		if(yInverted == 1)
+		{	
+			goalY = 300 - goalY;
+			context.fillText(300-i, 7, i+5);
+		}
+		else
+		{
+			context.fillText(i, 7, i+5);
+		}
+	}
 	
-	document.getElementById('headConteneur').innerHTML += "Click on the (" + x + "," + y + ") pixel.";
+	for(j = 50;j <= 350;j += 50)
+	{
+		context.fillRect(j-1, 0, 2, 5);
+		if(xInverted == 1)
+		{
+			goalX = 400 - goalX;
+			context.fillText(400-j, j-5, 15);
+		}
+		else
+		{
+			context.fillText(j, j-5, 15);
+		}
+	}
+	
+	hasplayed = false;
+	d = new Date();
+	idCount = setInterval(count, 10);
 
 	var conteneur = document.getElementById('bc_games');
-	
-	context.fillStyle="#EE0000";
-	context.fillRect(x, y, 5, 5);
 	
 	conteneur.onmousemove = function(event){
 		var left = 0;
@@ -63,8 +89,6 @@ function begin1(idUserServ, idPartyServ, idGameServ, x,y){
 		var y = event.clientY;
 		var divInfo = document.getElementById('infos');
 		x = x - left;
-		y = y - top;
-		//divInfo.innerHTML = "x : " + x + " y : " + y;
 	};
 	// recuperer click souris
 	conteneur.onclick = function(event){
@@ -85,17 +109,33 @@ function begin1(idUserServ, idPartyServ, idGameServ, x,y){
 		var y = event.clientY;
 		x = x - left;
 		y = y - top;
+		
+		context.beginPath();
+		context.moveTo(x,y);
+		context.lineTo(goalX,goalY);
+		context.stroke();
+		
+		var d = Math.sqrt((x-goalX) * (x-goalX) + (y-goalY) * (y-goalY));
+		var distance = Math.floor(d);
+
+		var distanceX = goalX - (goalX - x)/2;
+		var distanceY = goalY - (goalY - y)/2;
+		context.fillText("distance = " + distance, distanceX, distanceY);
+	
+		context.fillStyle="#EE0000";
+		context.fillRect(goalX-1, goalY-1, 3, 3);
+		
 		context.fillStyle="#000000";
-		context.fillRect(x, y, 5, 5);
+		context.fillRect(x-1, y-1, 3, 3);
 		hasplayed = true;
 		clearInterval(idCount);
 		clearInterval(idRefresh);
-		finish(x, y);
+		finish(distance);
 		}
 	};
 }
 
-function finish(x,y){
+function finish(distance){
 	var servletName = "FindTheDot";
 	xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
@@ -106,8 +146,8 @@ function finish(x,y){
 	   }
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&x=" + x + "&y=" + y);
-	//idEnd = setInterval(checkResult, 500);
+	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&distance=" + distance);*/
+	idEnd = setInterval(checkResult, 500);
 }
 
 function checkResult(){
@@ -138,10 +178,11 @@ function count(){
 	{
 		s2 = 0;
 		ms2 = 0 + "00";
-		finish(999,999);
+		finish(999);
 		clearInterval(idCount);
 		clearInterval(idRefresh);
+		hasplayed = true;
 	}
 	var chrono = document.getElementById('chrono');
-	chrono.innerHTML = s2 + ":" + ms2;
+	chrono.innerHTML = "Time : " + s2 + ":" + ms2;
 }

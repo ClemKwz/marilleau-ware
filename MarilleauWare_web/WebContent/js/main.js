@@ -11,7 +11,7 @@ function init(){
             response = xhr.responseText;
             document.getElementById('infos').innerHTML = response;
             var x = response.split(';');
-            begin1(x[0], x[1], x[2], x[3], x[4]);
+            begin1(x[0], x[1], x[2], x[3], x[4], x[5], x[6]);
        }
 	var info = document.getElementById("infos");
 	};

@@ -68,6 +68,9 @@ public class FindTheDot extends HttpServlet {
 		x1 = (int) (Math.random()*400);
 		y1 = (int) (Math.random()*300);
 		
+		int xInverted = 0;
+		int yInverted = 0;
+		
 		int idPlayer = (int) request.getSession().getAttribute("idUser");
 		System.out.println("idUser => " + idPlayer);
 		int idParty = pc.getIdPartyByIdUser(idPlayer);
@@ -78,12 +81,13 @@ public class FindTheDot extends HttpServlet {
 		switch(action){
 		case INIT : 
 			//gameManager.connect();
-			out.print(idPlayer + ";" + idParty + ";" + idGame + ";" + x1 + ";" + y1);
+			out.print(idPlayer + ";" + idParty + ";" + idGame + ";" + x1 + ";" + y1 + ";" + xInverted + ";" + yInverted);
 			break;
 		case GETRESPONSE :
-			int x2 = Integer.parseInt(request.getParameter("x"));
+			/*int x2 = Integer.parseInt(request.getParameter("x"));
 			int y2 = Integer.parseInt(request.getParameter("y"));
-			d = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
+			d = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));*/
+			d = (double)Integer.parseInt(request.getParameter("distance"));
 			out.print("Distance entre les points : " + (int)d + " pixels");
 			System.out.println("distance : "+ d);
 			//System.out.println("Distance entre les points : " + d + " pixels");
