@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import model.ChatParty;
 import model.Party;
 import model.User;
 
@@ -23,4 +24,13 @@ public interface PartyController2Local {
 	public int getIdGameByIdParty(int idParty);
 	
 	public List<User> getAllUserPerParty(int idParty);
+	
+	//fonction chatParty
+	public void addMessage(int idParty,int idUser,String message);
+	
+	public List<ChatParty> getAllMessages(int idParty);
+	
+	public List<ChatParty> getAllMessagesLimit(int idParty,int limit);
+	
+	public List<ChatParty> getMessagesAfter(int Party,int idMessage);
 }
