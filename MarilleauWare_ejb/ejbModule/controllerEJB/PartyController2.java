@@ -7,7 +7,9 @@ import javax.ejb.Stateless;
 
 import managerDB.GameManagerLocal;
 import managerDB.PartyManagerLocal;
+import managerDB.UserManagerLocal;
 import model.Party;
+import model.User;
 
 /**
  * Session Bean implementation class PartyController2
@@ -19,7 +21,8 @@ public class PartyController2 implements PartyController2Local {
 	PartyManagerLocal pm;
 	@EJB
 	GameManagerLocal gm;
-	
+	@EJB
+	UserManagerLocal um;
     /**
      * Default constructor. 
      */
@@ -60,6 +63,10 @@ public class PartyController2 implements PartyController2Local {
 	@Override
 	public int getIdGameByIdParty(int idParty) {
 		return pm.getIdGameByIdParty(idParty);
+	}
+	
+	public List<User> getAllUserPerParty(int idParty) {
+		return um.getAllUserPerParty(idParty);
 	}
 
 }
