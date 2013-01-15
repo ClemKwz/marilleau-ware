@@ -1,11 +1,15 @@
 package managerDB;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import model.Party;
 import model.User;
 
 /**
@@ -83,5 +87,28 @@ public class UserManagerBean implements UserManagerLocal {
 		}
 		
 		return user;
+	}
+	
+	//@SuppressWarnings("unchecked")
+	@Override
+	public List<User> getAllUserPerParty(int idParty) {
+		
+		List<User> lu = new ArrayList<User>();
+		
+		Query query;
+		// On recherche la partie
+		// Creation de la requete
+		query = em.createQuery("SELECT u from User u where idParty =:id");
+		query.setParameter("id", idParty);
+
+		// Recuperation du resultat
+		try {
+			lu = query.getResultList();
+			
+		} catch (NoResultException e)  {
+			System.out.println("erreur");
+		}
+		
+		return lu;
 	}
 }
