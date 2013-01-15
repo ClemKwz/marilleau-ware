@@ -151,19 +151,24 @@ function finish(distance){
 }
 
 function checkResult(){
-	var servletName = "FindTheDot";
+	var b;
+	var servletName = "LinkParty";
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        response = xhr.responseText;
 	    	document.getElementById('infos').innerHTML += "<br>" + response;
-	    	if(response=="Gagne"){
+	    	if(response=="end"){
 		    	clearInterval(idEnd);
+		    	document.getElementById('infos').innerHTML += "<br>Avant initCheck";
+		    	initCheckbox();
+		    	document.getElementById('infos').innerHTML += "<br>Apres InitCheck";
 	    	}
 	   }
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send("action=3");
+		
 }
 
 function count(){
@@ -173,7 +178,7 @@ function count(){
 	ms = delta.getMilliseconds();
 	ms2 = 1000 - ms;
 	s = delta.getSeconds();
-	s2 = 7-s;
+	s2 = 30-s;
 	if(s2 <= -1)
 	{
 		s2 = 0;
