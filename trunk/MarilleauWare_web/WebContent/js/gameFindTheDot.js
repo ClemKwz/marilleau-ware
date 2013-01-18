@@ -148,7 +148,7 @@ function finish(distance){
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	document.getElementById('infos').innerHTML += "<br/><br/>action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&distance=" + distance;
 	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&distance=" + distance);
-	idEnd = setInterval(checkResult(), 500);
+	idEnd = setInterval("checkResult()", 500);
 }
 
 
