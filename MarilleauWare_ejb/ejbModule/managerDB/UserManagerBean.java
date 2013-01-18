@@ -111,4 +111,22 @@ public class UserManagerBean implements UserManagerLocal {
 		
 		return lu;
 	}
+
+	@Override
+	public void deleteUser(int idUser) {
+		
+		Query query = em.createQuery("DELETE FROM User u WHERE u.idUser =:id");
+		query.setParameter("id", idUser);
+		int deleted = query.executeUpdate();
+		this.em.flush();
+	}
+
+	@Override
+	public void deleteUserTableGame(int idUser) {
+		
+		Query query = em.createQuery("DELETE FROM TjGamesUser t WHERE t.id.idUser =:id");
+		query.setParameter("id", idUser);
+		int deleted = query.executeUpdate();
+		this.em.flush();
+	}
 }
