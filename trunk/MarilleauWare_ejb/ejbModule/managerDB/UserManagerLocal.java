@@ -15,4 +15,6 @@ public interface UserManagerLocal {
 	public int getIdByPseudo(String pseudo);
 	User getUserById(int idUser);
 	List<User> getAllUserPerParty(int idParty);
+	public void deleteUser(int idUser);
+	public void deleteUserTableGame(int idUser);
 }

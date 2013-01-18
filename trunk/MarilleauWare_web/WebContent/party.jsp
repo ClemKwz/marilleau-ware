@@ -13,29 +13,25 @@
 	}
 
 	String pseudo = session.getAttribute("pseudoUser").toString();
-	String id = session.getAttribute("idUser").toString();
-	
-	String message = "";
-	if (request.getParameter("message") != null) {
-		message = request.getParameter("message");
-	}
+	int idUser = Integer.parseInt(session.getAttribute("idUser").toString());
 	
 	int idParty = Integer.parseInt(request.getParameter("idParty").toString());
+	
 	out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
 	out.print("<script  type=\"javascript\">init();</script>");
-	out.print("<input name=\"message\" type=\"text\" value=\"\"/>" +
-			"<input name=\"Valid\" type=\"submit\" onclick=sendMessage("+idParty+","+Integer.valueOf(id)+") />" +
-			"<br>");
+	
 %>
+
+	<script src="js/functions.js" type="text/javascript"></script>
+	<script src="js/main.js" type="text/javascript"></script>
+	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	
 	<p>La partie va commencer <%=idParty%></p>
 	
 	<div id="container" style="margin: auto;">
 		<div style="margin: 50px;">
-			<p>Connected with pseudo <b><%=pseudo%></b>, id : <%=id%></p>
-			<script src="js/functions.js" type="text/javascript"></script>
-			<script src="js/main.js" type="text/javascript"></script>
-			<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-			<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+			<p>Connected with pseudo <b><%=pseudo%></b>, id : <%=idUser%></p>
 		</div>
 		<div id="headConteneur">
 			<div id="chrono"> </div>
@@ -48,9 +44,10 @@
 		</div>
 	</div>
 	
-	<div id="chat">
+	<%
+	out.print("<input name=\"message\" type=\"text\" value=\"\"/>" +
+		"<input name=\"Valid\" type=\"submit\" onclick=sendMessage("+idParty+","+idUser+") />" +
+		"<br>");
+	%>
 	
-	</div>
-	
-	
-	
+	<div id="chat"></div>

@@ -111,7 +111,7 @@ public class PartyCreation extends HttpServlet {
 		pc.initCurrentGame(idParty);
 		
 		// Ajout de l'utilisateur createur dans la partie
-		pc.addUser(idParty,idUser);
+		//pc.addUser(idParty,idUser);
 		// Ajout de l'utilisateur createur dans le game courant
 		//gc.addUserGame(idParty, idUser);
 		
