@@ -65,7 +65,7 @@ public class Chat extends HttpServlet {
 					out.print(lcp.get(i).getIdUser()+" dit : "+lcp.get(i).getMessage()+" <br> ");
 				}
 			}
-			out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
+			//out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
 			
 			out.print("End Chat<br>");
 		}else if(action==2){
