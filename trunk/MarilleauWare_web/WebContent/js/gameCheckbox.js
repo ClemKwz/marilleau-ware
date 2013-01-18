@@ -39,15 +39,11 @@ var x, y; // coordonnees pointeur
 var caseX, caseY; // coordonnees pointeur dans la grille 
 
 function initCheckbox(){
-	alert("sum");
-	document.getElementById('infos').innerHTML += 'Yeah';
 	initContext();
 	
-	//initInfo();
 	initRandomOrder();
-	//drawOrderedColor();
+	drawOrderedColor();
 	
-	//initCheckbox();
 	initCheckboxRandom();
 	initPlayer();
 
@@ -86,18 +82,18 @@ function initCheckbox(){
 function refreshGame() {
 	
 	if (!timeOver) {
-		//drawChronoAndScore();
+		drawChronoAndScore();
 	}
 		caseX = Math.floor(x/SIDE_CHECKBOX);
 		caseY = Math.floor(y/SIDE_CHECKBOX);
-		//debug();
+		debug();
 	if (chrono == 0) {
 		timeOver = true;
 	}
 }
 
 function drawChronoAndScore() {
-	info = document.getElementById('divChrono');
+	info = document.getElementById('chrono');
 	chrono--;
 	info.innerHTML = Math.floor(chrono/100) + "." + Math.floor(chrono%100);
 	
@@ -112,6 +108,7 @@ function initContext() {
 	if (!elem || !elem.getContext) {
 		return;
 	}
+	
 	// On recupere le contexte 2D
 	info = elem.getContext('2d');
 	if (!info) {
@@ -124,6 +121,7 @@ function initContext() {
 		return;
 	}
 	zoneJeu = elem.getContext('2d');
+	zoneJeu.clearRect(0,0,elem.width,elem.height);
 	if (!zoneJeu) {
 		return;
 	}
@@ -173,8 +171,7 @@ function getFreeOrder(random) {
 	return i-1;
 } 
 
-/* Initialise la grille de jeu et la grille de reponse du joueur */
-function initCheckbox() {
+function initCheckboxRandom() {
 	
 	tabCheckbox = [WIDTH];
 	for (var i=0; i<WIDTH; i++) {
@@ -186,126 +183,102 @@ function initCheckbox() {
 		}
 	}
 	
-	/*tabCheckbox[0][0] = 4;*/tabCheckbox[1][0] = 2;tabCheckbox[2][0] = 1;
-	tabCheckbox[0][1] = 2;tabCheckbox[1][1] = 0;tabCheckbox[2][1] = 2;
-	tabCheckbox[0][2] = 1;tabCheckbox[1][2] = 2;tabCheckbox[2][2] = 3;
-	tabCheckbox[0][3] = 0;tabCheckbox[1][3] = 2;tabCheckbox[2][3] = 3;
-	tabCheckbox[0][4] = 1;tabCheckbox[1][4] = 0;/*tabCheckbox[2][4] = 0;*/
-	tabCheckbox[WIDTH-1][HEIGHT-1] = 1;
+	for (var i=0; i<NB_CHECKBOX; i++) {
+		x = tabRandomPosition[i] % WIDTH; 
+		y = Math.floor(tabRandomPosition[i] / WIDTH);
+		tabCheckbox[x][y] = tabRandomColor[i] % NB_COLOR;
+	}
+}
+
+function initPlayer() {
+	tabPlayer = [WIDTH];
+	for (var i=0; i<WIDTH; i++) {
+		tabPlayer[i] = [HEIGHT];
+	}
+	for (var i=0; i<WIDTH; i++) {
+		for (var j=0; j<HEIGHT; j++) {
+			tabPlayer[i][j] = NB_COLOR;
+		}
+	}
+}
+
+function drawTabCheckbox() {
+	for (var i=0; i<WIDTH; i++) {
+		for (var j=0; j<HEIGHT; j++) {
+			drawEmptyCheckbox(SIDE_CHECKBOX*i, SIDE_CHECKBOX*j, getColor(tabCheckbox[i][j]));
+		}	
+	}
+}
+
+/* Met la couleur suivante a la box contenant le point (x,y) */
+function changeColor(x,y) {
+	
+	caseX = Math.floor(x/SIDE_CHECKBOX);
+	caseY = Math.floor(y/SIDE_CHECKBOX);
+	
+	if (tabCheckbox[caseX][caseY] >= 0 && tabCheckbox[caseX][caseY] < NB_COLOR) {
+		if (tabPlayer[caseX][caseY] == NB_COLOR) {
+			tabPlayer[caseX][caseY] = 0;
+		} else {
+			tabPlayer[caseX][caseY] = (tabPlayer[caseX][caseY] + 1) % NB_COLOR;
+		}
+		drawCheckbox(SIDE_CHECKBOX*caseX, SIDE_CHECKBOX*caseY, getColor(tabPlayer[caseX][caseY]));
+	}
 	
 }
 
-//function initCheckboxRandom() {
-//	
-//	tabCheckbox = [WIDTH];
-//	for (var i=0; i<WIDTH; i++) {
-//		tabCheckbox[i] = [HEIGHT];
-//	}
-//	for (var i=0; i<WIDTH; i++) {
-//		for (var j=0; j<HEIGHT; j++) {
-//			tabCheckbox[i][j] = -1;
-//		}
-//	}
-//	
-//	for (var i=0; i<NB_CHECKBOX; i++) {
-//		x = tabRandomPosition[i] % WIDTH; 
-//		y = Math.floor(tabRandomPosition[i] / WIDTH);
-//		tabCheckbox[x][y] = tabRandomColor[i] % NB_COLOR;
-//	}
-//}
-//
-//function initPlayer() {
-//	tabPlayer = [WIDTH];
-//	for (var i=0; i<WIDTH; i++) {
-//		tabPlayer[i] = [HEIGHT];
-//	}
-//	for (var i=0; i<WIDTH; i++) {
-//		for (var j=0; j<HEIGHT; j++) {
-//			tabPlayer[i][j] = NB_COLOR;
-//		}
-//	}
-//}
-//
-//function drawTabCheckbox() {
-//	for (var i=0; i<WIDTH; i++) {
-//		for (var j=0; j<HEIGHT; j++) {
-//			drawEmptyCheckbox(SIDE_CHECKBOX*i, SIDE_CHECKBOX*j, getColor(tabCheckbox[i][j]));
-//		}	
-//	}
-//}
-//
-///* Met la couleur suivante a la box contenant le point (x,y) */
-//function changeColor(x,y) {
-//	
-//	caseX = Math.floor(x/SIDE_CHECKBOX);
-//	caseY = Math.floor(y/SIDE_CHECKBOX);
-//	
-//	if (tabCheckbox[caseX][caseY] >= 0 && tabCheckbox[caseX][caseY] < NB_COLOR) {
-//		if (tabPlayer[caseX][caseY] == NB_COLOR) {
-//			tabPlayer[caseX][caseY] = 0;
-//		} else {
-//			tabPlayer[caseX][caseY] = (tabPlayer[caseX][caseY] + 1) % NB_COLOR;
-//		}
-//		drawCheckbox(SIDE_CHECKBOX*caseX, SIDE_CHECKBOX*caseY, getColor(tabPlayer[caseX][caseY]));
-//	}
-//	
-//}
-//
-//function drawCheckbox(x,y,color) {
-//	zoneJeu.fillStyle = color;
-//	zoneJeu.fillRect(x+MARGE+EPAISSEUR_COTE, y+MARGE+EPAISSEUR_COTE,
-//						SIDE_CHECKBOX-(MARGE+EPAISSEUR_COTE)*2, SIDE_CHECKBOX-(MARGE+EPAISSEUR_COTE)*2);
-//	
-//}
-//
-//function drawEmptyCheckbox(x,y,color) {
-//	zoneJeu.strokeStyle = color;
-//	zoneJeu.strokeRect(x+MARGE, y+MARGE, SIDE_CHECKBOX-(MARGE*2), SIDE_CHECKBOX-(MARGE*2));
-//}
-//
-//
-//function getColor(numColor) {
-//	var color;
-//	switch (numColor) {
-//		case ROUGE:
-//		color = "red";
-//		break;
-//		case VERT:
-//		color = "green";
-//		break;
-//		case JAUNE:
-//		color = "yellow";
-//		break;
-//		case BLEU: 
-//		color = "blue";
-//		break;
-//		default: 
-//		color = "white";
-//		break;
-//	}
-//	return color;
-//}
-//
-//function updateScore() {
-//	score = 0;
-//	for (var i=0; i<WIDTH; i++) {
-//		for (var j=0; j<HEIGHT; j++) {
-//			if (tabCheckbox[i][j]==tabPlayer[i][j]) {
-//				score++;
-//			}
-//		}	
-//	}
-//}
-//
-//function debug() {
-//	divInfo = document.getElementById('infos');
-//	divInfo.innerHTML =
-//	"x : " + x + " y : " + y + "<br />"
-//	+ tabCheckbox[caseX][caseY] + " == " + tabPlayer[caseX][caseY] + "<br />"
-//	+ "R="+ROUGE + "V="+VERT + "J="+JAUNE + "B="+BLEU
-//	;
-//}
-//
-//
-//
-//
+function drawCheckbox(x,y,color) {
+	zoneJeu.fillStyle = color;
+	zoneJeu.fillRect(x+MARGE+EPAISSEUR_COTE, y+MARGE+EPAISSEUR_COTE,
+						SIDE_CHECKBOX-(MARGE+EPAISSEUR_COTE)*2, SIDE_CHECKBOX-(MARGE+EPAISSEUR_COTE)*2);
+	
+}
+
+function drawEmptyCheckbox(x,y,color) {
+	zoneJeu.strokeStyle = color;
+	zoneJeu.strokeRect(x+MARGE, y+MARGE, SIDE_CHECKBOX-(MARGE*2), SIDE_CHECKBOX-(MARGE*2));
+}
+
+
+function getColor(numColor) {
+	var color;
+	switch (numColor) {
+		case ROUGE:
+		color = "red";
+		break;
+		case VERT:
+		color = "green";
+		break;
+		case JAUNE:
+		color = "yellow";
+		break;
+		case BLEU: 
+		color = "blue";
+		break;
+		default: 
+		color = "white";
+		break;
+	}
+	return color;
+}
+
+function updateScore() {
+	score = 0;
+	for (var i=0; i<WIDTH; i++) {
+		for (var j=0; j<HEIGHT; j++) {
+			if (tabCheckbox[i][j]==tabPlayer[i][j]) {
+				score++;
+			}
+		}	
+	}
+}
+
+function debug() {
+	divInfo = document.getElementById('infos');
+	divInfo.innerHTML =
+	"x : " + x + " y : " + y + "<br />"
+	+ tabCheckbox[caseX][caseY] + " == " + tabPlayer[caseX][caseY] + "<br />"
+	+ "R="+ROUGE + "V="+VERT + "J="+JAUNE + "B="+BLEU
+	+ "Yeah 52"
+	;
+}
