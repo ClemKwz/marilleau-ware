@@ -73,7 +73,20 @@
 			<script type="text/javascript"></script>
 		</div>
 		<div id="headConteneur">
-			<div id="chrono"> </div>
+			<!-- <div id="chrono"> </div>  -->
+			<table>
+				<tr>
+					<td>
+						<canvas id="canvasInfo" width="200" height="30"></canvas>
+					</td>
+					<td>
+						<div id="chrono"></div>
+					</td>
+					<td>
+						<div id="divScore"></div>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<div id="bc_games">
 			<canvas id="canvasElem" width="400" height="300">
