@@ -1,6 +1,8 @@
 
 var xhr;
 
+
+
 function init(){
 	var servletName = "FindTheDot";
 	xhr = getXhr();
@@ -11,7 +13,7 @@ function init(){
             response = xhr.responseText;
             document.getElementById('infos').innerHTML = response;
             var x = response.split(';');
-            begin(x[0], x[1], x[2], x[3], x[4], x[5], x[6]);
+            runFindTheDot(x[0], x[1], x[2], x[3], x[4], x[5], x[6]);
        }
 	var info = document.getElementById("infos");
 	};
@@ -80,7 +82,7 @@ function joinPartie(idParty,idUser){
         if(xhr.readyState == 4 && xhr.status == 200){
             response = xhr.responseText;
             document.getElementById('container').innerHTML = response;
-    		$.getScript("js/game1.js", function(){
+    		$.getScript("js/gameFindTheDot.js", function(){
     			var scripts = document.getElementById('container').getElementsByTagName('script');
     	    		for(var i=0; i < scripts.length;i++)
     	    		{

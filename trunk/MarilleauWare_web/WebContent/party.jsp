@@ -17,7 +17,7 @@
 	
 	int idParty = Integer.parseInt(request.getParameter("idParty").toString());
 	
-	out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
+	//out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
 	out.print("<script  type=\"javascript\">init();</script>");
 	
 %>

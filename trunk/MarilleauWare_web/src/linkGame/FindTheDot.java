@@ -27,6 +27,7 @@ public class FindTheDot extends HttpServlet {
 	private PrintWriter out;
 	private static final int INIT = 1;
 	private static final int GETRESPONSE = 2;
+	private static final int ISENDGAME = 3;
 	private int x;
 	private int x1, y1;
 	
@@ -95,6 +96,23 @@ public class FindTheDot extends HttpServlet {
 			//gameManager.play(request.getSession().getAttribute("sessionID"), doubl);
 			gc.addScore(idGame, idPlayer, doubl);
 			
+			break;
+		case ISENDGAME :
+			idPlayer = (int) request.getSession().getAttribute("idUser");
+			
+			idParty = pc.getIdPartyByIdUser(idPlayer);
+			idGame = pc.getIdGameByIdParty(idParty);
+			
+			System.out.println("");
+			if (gc.containsNegativeScore(idGame, idPlayer)) {
+				// Tout le monde n'a pas joue
+				System.out.println("Tout le monde n'a pas joué");
+				out.print("wait...");
+			} else {//Tout le monde a joue
+				System.out.println("Tout le monde a fini de joué");
+				out.print("end_" + idPlayer + "; " + idParty + ";" + idGame);
+				
+			}
 			break;
 		default :
 			break;
