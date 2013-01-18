@@ -34,7 +34,7 @@ function begin(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInverted, yIn
 	if (!context) {
 		return;
 	}
-	
+	context.clearRect(0,0,elem.width,elem.height);
 	document.getElementById('headConteneur').innerHTML += "Click on the (" + goalX + "," + goalY + ") pixel !";
 
 	// Affichage de l'échelle
@@ -153,15 +153,19 @@ function finish(distance){
 function checkResult(){
 	var b;
 	var servletName = "LinkParty";
+	var tabId = [];
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        response = xhr.responseText;
 	    	document.getElementById('infos').innerHTML += "<br>" + response;
-	    	if(response=="end"){
+	    	if(response.substring(0,4)=="end_"){
 		    	clearInterval(idEnd);
-		    	document.getElementById('infos').innerHTML += "<br>Avant initCheck";
-		    	initCheckbox();
+		    	document.getElementById('infos').innerHTML += "<br>Avant initCheck " + response.substring(0,4);
+		    	tabId = response.substring(4,response.length).split(";");
+		    	document.getElementById('infos').innerHTML += "<br>idPlayer =>  " + tabId[0] + "  idParty => " + tabId[1] + " idGame => " + tabId[2];
+		    	//initCheckbox();
+		    	begin(tabId[0], tabId[1], tabId[2], 100 ,200, 0, 0);
 		    	document.getElementById('infos').innerHTML += "<br>Apres InitCheck";
 	    	}
 	   }

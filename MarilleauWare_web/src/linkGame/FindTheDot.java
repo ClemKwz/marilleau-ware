@@ -21,7 +21,6 @@ import controllerEJB.PartyController2Local;
  * Servlet implementation class FindTheDot
  */
 @WebServlet("/FindTheDot")
-
 public class FindTheDot extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
