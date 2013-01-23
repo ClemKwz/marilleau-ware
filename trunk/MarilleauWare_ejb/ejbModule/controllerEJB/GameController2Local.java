@@ -18,5 +18,9 @@ public interface GameController2Local {
 	public boolean containsNegativeScore(int idGame, int idUser);
 
 	public TreeMap<String, Integer> getAllScore(int idGame);
+	
+	public int getNextgame(int idGame);
+	
+	public String getNameGameDesc(int idGame);
 
 }

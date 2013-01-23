@@ -102,5 +102,17 @@ public class GameController2 implements GameController2Local {
 	        
 	        return resultat;
 	    }
+	    
+	    
+	}
+
+	@Override
+	public int getNextgame(int idGame) {
+		return gm.getNextgame(idGame);
+	}
+
+	@Override
+	public String getNameGameDesc(int idGame) {
+		return gm.getNameGameDesc(idGame);
 	}
 }
