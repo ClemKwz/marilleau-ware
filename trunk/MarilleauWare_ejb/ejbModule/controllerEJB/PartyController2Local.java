@@ -36,4 +36,6 @@ public interface PartyController2Local {
 	public List<ChatParty> getMessagesAfter(int Party,int idMessage);
 
 	public TreeMap<String, Integer> getAllScore(int idParty);
+
+	public void incrementCurrentGame(int idParty);
 }

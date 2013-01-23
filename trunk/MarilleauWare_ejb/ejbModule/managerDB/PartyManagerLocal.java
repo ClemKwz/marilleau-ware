@@ -22,4 +22,5 @@ public interface PartyManagerLocal {
 	public int getIdGameByIdParty(int idParty);
 	
 	public HashMap<String, Integer> getAllScore(int idParty);
+	public void incrementCurrentGame(int idParty);
 }

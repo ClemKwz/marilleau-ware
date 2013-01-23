@@ -129,4 +129,10 @@ public class PartyController2 implements PartyController2Local {
 	        return resultat;
 	    }
 	}
+
+	@Override
+	public void incrementCurrentGame(int idParty) {
+		pm.incrementCurrentGame(idParty);
+		
+	}
 }
