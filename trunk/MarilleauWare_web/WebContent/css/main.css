@@ -162,3 +162,16 @@ body{
 	background: url('../img/nbg-inv.png') top repeat-x;
 	font-weight: bold;
 }
+
+#chrono {
+	width: 80px;
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+}
+#divScore {
+	width: 80px;
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+}
