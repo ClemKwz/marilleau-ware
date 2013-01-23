@@ -179,4 +179,54 @@ public class GameManagerBean implements GameManagerLocal {
 		}
 		return map;
 	}
+	
+	public int getNextgame(int idGame){
+		Query query = em.createQuery("from Game where idGame=:idG");
+			query.setParameter("idG", idGame);			
+			Game game;
+			
+			// Recuperation du resultat
+			try {
+				game = (Game) query.getSingleResult();
+			} catch (NoResultException e)  {
+				return -1;
+			}
+			
+			int sequence = game.getSequence();
+			sequence++;
+			Party party = game.getParty();
+			int idParty = party.getIdParty();
+			
+			
+			query = em.createQuery("from Game where idParty=:idP and sequence=:seq");
+			query.setParameter("idP", idParty);
+			query.setParameter("seq", sequence);
+			
+			try {
+				game = (Game) query.getSingleResult();
+			} catch (NoResultException e)  {
+				return -1;
+			}
+			
+			return game.getIdGame();
+}
+
+	@Override
+	public String getNameGameDesc(int idGame) {
+			// Creation de la requete
+			Query query = em.createQuery("from Game g GameDesc gd where g.idGame=:idg and gd.idGame_desc=g.idGame_desc");
+			query.setParameter("idg", idGame);
+			
+			Game game;
+			// Recuperation du resultat
+			try {
+				game = (Game) query.getSingleResult();
+			
+			} catch (NoResultException e)  {
+				e.printStackTrace();
+				return "";
+			}
+			
+			return game.getGamesDesc().getName();
+	}
 }

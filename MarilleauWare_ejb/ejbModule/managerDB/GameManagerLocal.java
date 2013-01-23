@@ -18,6 +18,7 @@ public interface GameManagerLocal {
 	public int getIdGameByPartyBySeq(int idParty, int sequence);
 	public void addScore(int idGame, int idUser, double score);
 	public boolean containsNegativeScore(int idGame);
-
+	public int getNextgame(int idGame);
 	public HashMap<String, Integer> getAllScore(int idGame);
+	public String getNameGameDesc(int idGame);
 }
