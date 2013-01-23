@@ -9,7 +9,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import model.Party;
 import model.User;
 
 /**
@@ -90,6 +89,7 @@ public class UserManagerBean implements UserManagerLocal {
 	}
 	
 	//@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getAllUserPerParty(int idParty) {
 		
@@ -117,7 +117,7 @@ public class UserManagerBean implements UserManagerLocal {
 		
 		Query query = em.createQuery("DELETE FROM User u WHERE u.idUser =:id");
 		query.setParameter("id", idUser);
-		int deleted = query.executeUpdate();
+		query.executeUpdate();
 		this.em.flush();
 	}
 
@@ -126,7 +126,7 @@ public class UserManagerBean implements UserManagerLocal {
 		
 		Query query = em.createQuery("DELETE FROM TjGamesUser t WHERE t.id.idUser =:id");
 		query.setParameter("id", idUser);
-		int deleted = query.executeUpdate();
+		query.executeUpdate();
 		this.em.flush();
 	}
 }
