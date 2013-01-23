@@ -1,6 +1,7 @@
 package managerDB;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -154,5 +155,27 @@ public class GameManagerBean implements GameManagerLocal {
 		}
 	}
 	
-
+	@SuppressWarnings("unchecked")
+	public HashMap<String, Integer> getAllScore(int idGame) {
+		
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		
+		Query query = em.createQuery("select u from TjGamesUser t and User u where u.idUser=t.idUser and t.idGame=:p");
+		query.setParameter("p", idGame);
+		
+		List<User> lu = null;
+		try {
+			lu = (List<User>)query.getResultList();
+		} catch (NoResultException e)  {
+			e.printStackTrace();
+		}
+		if(lu != null) {
+			for(int i=0; i<lu.size(); i++){
+				String pseudo = lu.get(i).getPseudo();
+				int score = lu.get(i).getTjGamesUsers().get(0).getScore();
+				map.put(pseudo, score);
+			}
+		}
+		return map;
+	}
 }

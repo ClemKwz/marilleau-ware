@@ -1,7 +1,11 @@
 package controllerEJB;
 
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -61,9 +65,38 @@ public class GameController2 implements GameController2Local {
 		gm.addScore(idGame, idUser, (500-score)*1000);
 	}
 	
+	@Override
 	public boolean containsNegativeScore(int idGame, int idUser) {
 		// on regarde s'il reste des scores a -1 dans TjUserGame
 		return gm.containsNegativeScore(idGame);
 	}
 	
+	@Override
+	public TreeMap<String, Integer> getAllScore(int idGame){
+	
+		
+		// Recuperation des scores du jeu dans la BDD
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		
+        TreeMap<String,Integer> sorted_map = new TreeMap<String,Integer>(new ValueComparator(map));
+        
+		return sorted_map;
+	}
+		
+	class ValueComparator implements Comparator<String> {
+
+	    Map<String, Integer> map;
+	    public ValueComparator(Map<String, Integer> map) {
+	        this.map = map;
+	    }
+
+	    // Note: this comparator imposes orderings that are inconsistent with equals.    
+	    public int compare(String a, String b) {
+	        if (map.get(a) >= map.get(b)) {
+	            return -1;
+	        } else {
+	            return 1;
+	        } // returning 0 would merge keys
+	    }
+	}
 }

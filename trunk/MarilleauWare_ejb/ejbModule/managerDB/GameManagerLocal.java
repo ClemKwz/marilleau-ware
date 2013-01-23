@@ -1,6 +1,8 @@
 package managerDB;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.ejb.Local;
 
@@ -17,4 +19,6 @@ public interface GameManagerLocal {
 	public int getIdGameByPartyBySeq(int idParty, int sequence);
 	public void addScore(int idGame, int idUser, double score);
 	public boolean containsNegativeScore(int idGame);
+
+	public HashMap<String, Integer> getAllScore(int idGame);
 }
