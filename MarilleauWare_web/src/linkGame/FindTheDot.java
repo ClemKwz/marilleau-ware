@@ -34,7 +34,6 @@ public class FindTheDot extends HttpServlet {
 	private static final int ISENDGAME = 3;
 	private int x;
 	private int x1, y1;
-	
 	private ArrayList<int[]> randomParam = new ArrayList<int[]>(); 
 
 	@EJB
@@ -138,7 +137,7 @@ public class FindTheDot extends HttpServlet {
 			int y2 = Integer.parseInt(request.getParameter("y"));
 			int xCalcul = x1;
 			int yCalcul = y1;
-			int[] tabParams;
+			int[] tabParams=null;
 			for(int i = 0;i < randomParam.size();i++)
 			{
 				int[] tabTmp = randomParam.get(i);
@@ -162,16 +161,19 @@ public class FindTheDot extends HttpServlet {
 			
 			//gameManager.play(request.getSession().getAttribute("sessionID"), doubl);
 			gc.addScore(idGame, idPlayer, doubl);
-			
+			if (!gc.containsNegativeScore(idGame)) {
+				pc.incrementCurrentGame(idParty);
+			}
 			break;
 		case ISENDGAME :
 			idPlayer = (int) request.getSession().getAttribute("idUser");
 			
 			idParty = pc.getIdPartyByIdUser(idPlayer);
-			idGame = pc.getIdGameByIdParty(idParty);
+			idGame = Integer.parseInt(request.getParameter("idGame"));
+			//idGame = pc.getIdGameByIdParty(idParty);
 			
-			System.out.println("");
-			if (gc.containsNegativeScore(idGame, idPlayer)) {
+			System.out.println("idGame "+idGame);
+			if (gc.containsNegativeScore(idGame)) {
 				// Tout le monde n'a pas joue
 				System.out.println("Tout le monde n'a pas joué");
 				out.print("wait...");
@@ -198,6 +200,9 @@ public class FindTheDot extends HttpServlet {
 				}
 				
 				recupScore = recupScore + "</table> ";
+				
+
+				
 				out.print("end_" + recupScore);
 				
 			}

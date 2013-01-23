@@ -167,7 +167,7 @@ function finish(x, y){
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	//document.getElementById('infos').innerHTML += "<br/><br/>action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&distance=" + distance;
 	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&x=" + x+ "&y=" + y);
-	idEnd = setInterval("checkResult()", 500);
+	idEnd = setInterval("checkResult("+idGame+")", 500);
 }
 
 
@@ -193,7 +193,7 @@ function count(){
 	chrono.innerHTML = /*"Time : "*/ + s2 + ":" + Math.floor(ms2/10);
 }
 
-function checkResult(){
+function checkResult(idGame){
 	
 	var servletName = "FindTheDot";
 	var tabId = [];
@@ -211,10 +211,10 @@ function checkResult(){
 	    		
 	    		//la game est fini on rempli les champs idGame et finishgame
 	    		
-	    		document.getElementById('idGameValue').setAttribute("value", idGame);
+	    		//document.getElementById('idGameValue').setAttribute("value", idGame);
 	    		
 		    	document.getElementById('infos').innerHTML += scoreEndGame;
-		    	alert("wait");
+		    	//alert("wait");
 		    	document.getElementById('finishGame').setAttribute("value", "true");
 		    	
 		    	//document.getElementById('infos').innerHTML += "<br>Apres InitCheck";
@@ -222,5 +222,5 @@ function checkResult(){
 	   }
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("action=3");	
+	xhr.send("action=3&idGame="+idGame);	
 }
