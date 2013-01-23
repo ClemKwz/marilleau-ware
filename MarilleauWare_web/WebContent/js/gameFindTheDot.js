@@ -157,8 +157,8 @@ function finish(x, y){
 	        response = xhr.responseText;
 	    	//document.getElementById('infos').innerHTML = response;
 			var dist = response;
-			var distanceX = goalX - (goalX - x)/2;
-			var distanceY = goalY - (goalY - y)/2;
+			var distanceX = goalXG - (goalXG - x)/2;
+			var distanceY = goalYG - (goalYG - y)/2;
 			context.fillText("distance = " + dist, distanceX, distanceY);
 	   }
 	};
