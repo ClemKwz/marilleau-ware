@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import model.Party;
 import model.User;
 
 @Local
