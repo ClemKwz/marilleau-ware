@@ -119,4 +119,14 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/Logout</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ScoreParty</display-name>
+    <servlet-name>ScoreParty</servlet-name>
+    <servlet-class>linkParty.ScoreParty</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ScoreParty</servlet-name>
+    <url-pattern>/ScoreParty</url-pattern>
+  </servlet-mapping>
 </web-app>
