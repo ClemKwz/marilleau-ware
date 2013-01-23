@@ -110,7 +110,7 @@ public class FindTheDot extends HttpServlet {
 				out.print("wait...");
 			} else {//Tout le monde a joue
 				System.out.println("Tout le monde a fini de joué");
-				out.print("end_" + idPlayer + "; " + idParty + ";" + idGame);
+				out.print("end_" + idPlayer + ";" + idParty + ";" + idGame);
 				
 			}
 			break;
