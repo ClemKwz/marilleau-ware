@@ -155,6 +155,7 @@ public class GameManagerBean implements GameManagerLocal {
 		}
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public HashMap<String, Integer> getAllScore(int idGame) {
 		
