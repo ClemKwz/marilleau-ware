@@ -51,22 +51,13 @@ public class LinkParty extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		out = response.getWriter();
 		
-//		idPlayer = (int) request.getSession().getAttribute("idUser");
-//		
-//		idParty = pc.getIdPartyByIdUser(idPlayer);
-//		int idGame = pc.getIdGameByIdParty(idParty);
-//		
-//		System.out.println("");
-//		if (gc.containsNegativeScore(idGame, idPlayer)) {
-//			// Tout le monde n'a pas joue
-//			System.out.println("Tout le monde n'a pas joué");
-//			out.print("wait...");
-//		} else {//Tout le monde a joue
-//			System.out.println("Tout le monde a fini de joué");
-//			out.print("end_" + idPlayer + "; " + idParty + ";" + idGame);
-//			
-//		}
+		//récupération de l'id du game suivant
+		int idGame = Integer.parseInt(request.getParameter("idGame"));
+		int idGameSuiv = gc.getNextgame(idGame);
 		
+		//récupération du type de jeu du game suivant;
+		gc.getNameGameDesc(idGameSuiv);
+		out.print("idGameSuiv");
 		
 		out.close();
 	}
