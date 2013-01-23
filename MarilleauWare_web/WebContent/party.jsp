@@ -38,7 +38,7 @@
 			<table>
 				<tr>
 					<td>
-						<canvas id="canvasInfo" width="200" height="30"></canvas>
+						<canvas id="canvasInfo" width="220" height="30"></canvas>
 					</td>
 					<td>
 						<div id="chrono"></div>
