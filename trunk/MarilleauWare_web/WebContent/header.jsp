@@ -13,7 +13,13 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" charset="utf-8" />
+		<script src="js/functions.js" type="text/javascript"></script>
+		<script src="js/main.js" type="text/javascript"></script>
+		<script src="js/gameCheckbox.js" type="text/javascript"></script>
+		<script src="js/gameFindTheDot.js" type="text/javascript"></script>
 		
+		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+		<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 		<title>Marilleau ware !</title>
 	</head>
 

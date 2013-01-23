@@ -1,29 +1,14 @@
 
 var xhr;
 var idReloadGame;
-
+var idParty;
 //Initalisation d'un la première game
 //TODO:enlever le code en dur
-function init(){
-	var servletName = "FindTheDot";
-	xhr = getXhr();
+function init(id_deParty){
 	
-	xhr.open("POST", "./" + servletName, true);
-	xhr.onreadystatechange = function(){
-		
-        if(xhr.readyState == 4 && xhr.status == 200) {
-            response = xhr.responseText;
-            document.getElementById('infos').innerHTML = response;
-            var x = response.split(';');
-            runFindTheDot(x[0], x[1], x[2], x[3], x[4], x[5], x[6]);
-            idReloadGame = setInterval("reloadGame()", 800);
-       }
-	var info = document.getElementById("infos");
-	};
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("action=1");
-
-
+	idParty = id_deParty;
+	changeGame();
+	
 }
 
 function initJoinPartie(idUser){
@@ -86,33 +71,64 @@ function reloadGame(){
 		xhr = getXhr();
 		clearInterval(idReloadGame);
 		document.getElementById('finishGame').value = "false";
-		//récupération de l'id du game fini
-		var idGame= document.getElementById('idGameValue').value;
+		changeGame();
 		
 		
 		
-		//récupération du nom du jeu suivant + idgamesuivan
-		var tabId = [];
-		xhr.open("POST", "./LinkParty", true);
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-		        response = xhr.responseText;
-				
-				//alert(response);
-				var tab = response.split(";");
-				var idNextGame= tab[0];
-				var servletNextGame = tab[1];
-				//alert("servlet : "+servletNextGame + "\nidNextGame : " + idNextGame+ "\nservletNextGame : " + servletNextGame);
-				//servletNextGame= "CheckBox";
-				eval("run"+servletNextGame+"()");
-			}
-			
-		};
-		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		xhr.send("idGame="+idGame);
+		
 	}
 }
 
+function changeGame(){
+	//récupération du nom du jeu suivant + idgamesuivan
+	var tabId = [];
+	xhr.open("POST", "./LinkParty", true);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+	        response = xhr.responseText;
+			
+			var servletNextGame = response
+			alert("ResponseLinkParty : "+ response);
+			//La partie est fini
+			if(response =="0"){
+				alert(fini);
+				return;
+			}
+			servletNextGame="FindTheDot";
+			
+			//on demande à la servlet concerncé de nous envoyé les paramètres
+			servletName = servletNextGame;
+			xhr = getXhr();
+			
+			xhr.open("POST", "./" + servletName, true);
+			xhr.onreadystatechange = function(){
+				
+		        if(xhr.readyState == 4 && xhr.status == 200) {
+		            response = xhr.responseText;
+		            document.getElementById('infos').innerHTML = response;
+		            var param = response.split(';');
+		            var stringParam="";
+		            
+		          //On créer la liste des paramètre sous forme de string
+					for(var i=0;i<param.length -1;i++){
+						stringParam += param[i]+","
+					}
+					stringParam += param[param.length-1];
+					
+					//On lance la fonction concerné
+		            eval("run"+servletNextGame+"(" + stringParam + ")");
+		            idReloadGame = setInterval("reloadGame()", 800);
+		       }
+			var info = document.getElementById("infos");
+			};
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.send("action=1");
+		}
+		
+	};
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send("idParty="+idParty);
+}
 function joinPartie(idParty,idUser){
 	
 	var servletName = "JoinParty";
@@ -123,7 +139,7 @@ function joinPartie(idParty,idUser){
             response = xhr.responseText;
             document.getElementById('container').innerHTML = response;
     		$.getScript("js/gameFindTheDot.js", function(){
-    			var scripts = document.getElementById('container').getElementsByTagName('script');
+   			var scripts = document.getElementById('container').getElementsByTagName('script');
     	    		for(var i=0; i < scripts.length;i++)
     	    		{
     	    			/*Sous IE il faut faire un execScript pour que les fonctions soient définie en globale*/
