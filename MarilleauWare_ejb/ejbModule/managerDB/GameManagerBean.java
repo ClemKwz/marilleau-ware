@@ -214,7 +214,7 @@ public class GameManagerBean implements GameManagerLocal {
 	@Override
 	public String getNameGameDesc(int idGame) {
 			// Creation de la requete
-			Query query = em.createQuery("from Game g GameDesc gd where g.idGame=:idg and gd.idGame_desc=g.idGame_desc");
+			Query query = em.createQuery("from Game g where g.idGame=:idg");
 			query.setParameter("idg", idGame);
 			
 			Game game;
