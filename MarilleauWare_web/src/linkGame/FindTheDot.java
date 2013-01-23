@@ -2,6 +2,8 @@ package linkGame;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -110,7 +112,28 @@ public class FindTheDot extends HttpServlet {
 				out.print("wait...");
 			} else {//Tout le monde a joue
 				System.out.println("Tout le monde a fini de joué");
-				out.print("end_" + idPlayer + ";" + idParty + ";" + idGame);
+				
+				//récupération des score
+				TreeMap<String,Integer> listeScore =  gc.getAllScore(idGame);
+				/*TreeMap<String,Integer> listeScore= new TreeMap<String,Integer>();
+				listeScore.put("LePNJ", 500);
+				listeScore.put("Fabien", 500);
+				listeScore.put("Paul", 480);
+				listeScore.put("Clément", 200);
+				listeScore.put("Pierre", 0);*/
+				
+				
+				//Mise en place du tableau html contenant les scores
+				String recupScore;
+				int i =1;
+				recupScore = "<table><tr><td>Rank</td><td>Pseudo</td><td>Score</td> ";
+				for(String login : listeScore.keySet()){
+					recupScore = recupScore +  "<tr>"+
+										"<td>"+i +". </td><td>"+login+" : </td><td>"+ listeScore.get(login)+ "</td><tr>";
+				}
+				
+				recupScore = recupScore + "</table> ";
+				out.print("end_" + recupScore);
 				
 			}
 			break;

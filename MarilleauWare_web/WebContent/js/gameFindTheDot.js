@@ -182,18 +182,20 @@ function checkResult(){
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        response = xhr.responseText;
-	    	document.getElementById('infos').innerHTML += "<br>" + response;
-	    	/* end_numJeuSuivant;param1;param2;param3;... */
+	    	//document.getElementById('infos').innerHTML += "<br>" + response;
+	    	/* end_score */
 	    	if(response.substring(0,4)=="end_"){
 		    	clearInterval(idEnd);
-	    		var nextGame = response.substring(4,5);
-		    	tabId = response.substring(5,response.length).split(";");
-		    	document.getElementById('infos').innerHTML += "<br>idPlayer =>  " + tabId[0] + "  idParty => " + tabId[1] + " idGame => " + tabId[2];
+	    		var scoreEndGame = response.substring(4,response.length-1);
+		    	document.getElementById('infos').innerHTML += scoreEndGame;
+		    	//document.getElementById('infos').innerHTML += "idUser : " + idUser + "idGame " + idGame + "idParty " + idParty;
+
+		    		//"<br>idPlayer =>  " + tabId[0] + "  idParty => " + tabId[1] + " idGame => " + tabId[2];
 	    		
-		    	document.getElementById('infos').innerHTML += "<br>Avant initCheck " + response.substring(0,4);
+		    	//document.getElementById('infos').innerHTML += "<br>Avant initCheck " + response.substring(0,4);
 		    	
 		    	//Appel du jeu
-		    	runFindTheDot(tabId[0], tabId[1], tabId[2], tabId[3] ,tabId[4], tabId[5], tabId[6]);
+		    	//runFindTheDot(tabId[0], tabId[1], tabId[2], tabId[3] ,tabId[4], tabId[5], tabId[6]);
 		    	
 		    	document.getElementById('infos').innerHTML += "<br>Apres InitCheck";
 	    	}
