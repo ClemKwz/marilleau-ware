@@ -1,6 +1,7 @@
 package controllerEJB;
 
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.ejb.Local;
 
@@ -33,4 +34,6 @@ public interface PartyController2Local {
 	public List<ChatParty> getAllMessagesLimit(int idParty,int limit);
 	
 	public List<ChatParty> getMessagesAfter(int Party,int idMessage);
+
+	public TreeMap<String, Integer> getAllScore(int idParty);
 }

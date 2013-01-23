@@ -1,5 +1,6 @@
 package managerDB;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -19,4 +20,6 @@ public interface PartyManagerLocal {
 	
 	public int getIdPartyByIdUser(int idUser);
 	public int getIdGameByIdParty(int idParty);
+	
+	public HashMap<String, Integer> getAllScore(int idParty);
 }
