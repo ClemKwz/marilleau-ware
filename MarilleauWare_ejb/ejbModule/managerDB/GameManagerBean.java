@@ -161,7 +161,7 @@ public class GameManagerBean implements GameManagerLocal {
 		
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		
-		Query query = em.createQuery("select u from TjGamesUser t and User u where u.idUser=t.idUser and t.idGame=:p");
+		Query query = em.createQuery("select u from TjGamesUser t, User u where u.idUser=t.id.idUser and t.id.idGame=:p");
 		query.setParameter("p", idGame);
 		
 		List<User> lu = null;
