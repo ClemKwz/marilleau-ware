@@ -74,11 +74,9 @@ public class GameController2 implements GameController2Local {
 	@Override
 	public TreeMap<String, Integer> getAllScore(int idGame){
 	
-		
-		// Recuperation des scores du jeu dans la BDD
-		HashMap<String,Integer> map = new HashMap<String,Integer>();
-		
-        TreeMap<String,Integer> sorted_map = new TreeMap<String,Integer>(new ValueComparator(map));
+		HashMap<String,Integer> map = gm.getAllScore(idGame);
+		TreeMap<String,Integer> sorted_map = new TreeMap<String,Integer>(new ValueComparator(map));
+        sorted_map.putAll(map);
         
 		return sorted_map;
 	}
@@ -92,11 +90,17 @@ public class GameController2 implements GameController2Local {
 
 	    // Note: this comparator imposes orderings that are inconsistent with equals.    
 	    public int compare(String a, String b) {
-	        if (map.get(a) >= map.get(b)) {
-	            return -1;
-	        } else {
-	            return 1;
-	        } // returning 0 would merge keys
+	    	
+	    	int resultat = 0;
+	    	
+	        if (map.get(a) < map.get(b)) {
+	        	resultat = -1;
+	        } 
+	        if (map.get(a) > map.get(b)) {
+	        	resultat = 1;
+	        }
+	        
+	        return resultat;
 	    }
 	}
 }
