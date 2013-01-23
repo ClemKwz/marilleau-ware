@@ -159,7 +159,7 @@ function finish(x, y){
 			var dist = response;
 			var distanceX = goalX - (goalX - x)/2;
 			var distanceY = goalY - (goalY - y)/2;
-			context.fillText("distance = " + distance, distanceX, distanceY);
+			context.fillText("distance = " + dist, distanceX, distanceY);
 	   }
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
