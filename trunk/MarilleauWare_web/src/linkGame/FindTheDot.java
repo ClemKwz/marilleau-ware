@@ -86,11 +86,12 @@ public class FindTheDot extends HttpServlet {
 			out.print(idPlayer + ";" + idParty + ";" + idGame + ";" + x1 + ";" + y1 + ";" + xInverted + ";" + yInverted);
 			break;
 		case GETRESPONSE :
-			/*int x2 = Integer.parseInt(request.getParameter("x"));
+			int x2 = Integer.parseInt(request.getParameter("x"));
 			int y2 = Integer.parseInt(request.getParameter("y"));
-			d = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));*/
-			d = (double)Integer.parseInt(request.getParameter("distance"));
-			out.print("Distance entre les points : " + (int)d + " pixels");
+			d = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
+			//d = (double)Integer.parseInt(request.getParameter("distance"));
+			
+			out.print(d);
 			System.out.println("distance : "+ d);
 			//System.out.println("Distance entre les points : " + d + " pixels");
 			int doubl = (int) d;
