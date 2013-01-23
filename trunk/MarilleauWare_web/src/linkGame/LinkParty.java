@@ -41,7 +41,7 @@ public class LinkParty extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		out = response.getWriter();
-		out.print("sucemesdboules 2 fois");
+		out.print("Prout 2 fois");
 		out.close();
 	}
 

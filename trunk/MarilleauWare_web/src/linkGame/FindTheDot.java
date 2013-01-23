@@ -197,6 +197,7 @@ public class FindTheDot extends HttpServlet {
 				for(String login : listeScore.keySet()){
 					recupScore = recupScore +  "<tr>"+
 										"<td>"+i +". </td><td>"+login+" : </td><td>"+ listeScore.get(login)+ "</td><tr>";
+					i++;
 				}
 				
 				recupScore = recupScore + "</table> ";
