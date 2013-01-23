@@ -2,8 +2,10 @@ package linkGame;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
+import java.util.Vector;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -33,6 +35,7 @@ public class FindTheDot extends HttpServlet {
 	private int x;
 	private int x1, y1;
 	
+	private ArrayList<int[]> randomParam = new ArrayList<int[]>(); 
 
 	@EJB
 	PartyController2Local pc;
@@ -67,23 +70,68 @@ public class FindTheDot extends HttpServlet {
 		int action = Integer.parseInt(request.getParameter("action"));
 		double d;
 		
+		
+		/*
 		x1 = (int) (Math.random()*400);
 		y1 = (int) (Math.random()*300);
 		
 		int xInverted = 0;
-		int yInverted = 0;
+		int yInverted = 0;*/
 		
 		int idPlayer = (int) request.getSession().getAttribute("idUser");
 		System.out.println("idUser => " + idPlayer);
 		int idParty = pc.getIdPartyByIdUser(idPlayer);
 		int idGame = pc.getIdGameByIdParty(idParty);
+		int[] tab = new int[5];
+		boolean find = false;
+		if(randomParam.size() == 0)
+		{
+			x1 = (int) (Math.random()*400);
+			y1 = (int) (Math.random()*300);
+
+			int xInverted = (int) ((Math.random()>0.5)?0:1);
+			int yInverted = (int) ((Math.random()>0.5)?0:1);
+			tab[0] = idGame;
+			tab[1] = x1;
+			tab[2] = y1;
+			tab[3] = xInverted;
+			tab[4] = yInverted;
+			randomParam.add(tab);
+		}
+		else
+		{
+			for(int i = 0;i < randomParam.size();i++)
+			{
+				int[] tabTmp = randomParam.get(i);
+				if(tabTmp[0] == idGame)
+				{
+					tab = tabTmp;
+					find = true;
+				}
+			}
+			if(!find)
+			{
+				x1 = (int) (Math.random()*400);
+				y1 = (int) (Math.random()*300);
+				
+				int xInverted = (int) ((Math.random()>=0.5)?0:1);
+				int yInverted = (int) ((Math.random()>=0.5)?0:1);
+				System.out.println("x => " + xInverted  + "\n" + "y => " + yInverted);
+				tab[0] = idGame;
+				tab[1] = x1;
+				tab[2] = y1;
+				tab[3] = xInverted;
+				tab[4] = yInverted;
+				randomParam.add(tab);
+			}
+		}
 		
 		System.out.println("Donnée recu de l'user : " + idPlayer);
 		
 		switch(action){
 		case INIT : 
 			//gameManager.connect();
-			out.print(idPlayer + ";" + idParty + ";" + idGame + ";" + x1 + ";" + y1 + ";" + xInverted + ";" + yInverted);
+			out.print(idPlayer + ";" + idParty + ";" + idGame + ";" + tab[1] + ";" + tab[2] + ";" + tab[3] + ";" + tab[4]);
 			break;
 		case GETRESPONSE :
 			int x2 = Integer.parseInt(request.getParameter("x"));
