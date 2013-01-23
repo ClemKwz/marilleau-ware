@@ -56,8 +56,9 @@ public class LinkParty extends HttpServlet {
 		int idGameSuiv = gc.getNextgame(idGame);
 		
 		//récupération du type de jeu du game suivant;
-		gc.getNameGameDesc(idGameSuiv);
-		out.print("idGameSuiv");
+		String ServletName = gc.getNameGameDesc(idGameSuiv);
+		//System.out.println("TEST1:"+ServletName + "   num : " + idGameSuiv);
+		out.print(idGameSuiv+";"+ServletName+";");
 		
 		out.close();
 	}

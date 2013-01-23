@@ -191,22 +191,23 @@ function checkResult(){
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        response = xhr.responseText;
-	    	//document.getElementById('infos').innerHTML += "<br>" + response;
-	    	/* end_score */
+	
+	        //la partie est terminé
 	    	if(response.substring(0,4)=="end_"){
+	    		
 		    	clearInterval(idEnd);
 	    		var scoreEndGame = response.substring(4,response.length-1);
-		    	document.getElementById('infos').innerHTML += scoreEndGame;
-		    	//document.getElementById('infos').innerHTML += "idUser : " + idUser + "idGame " + idGame + "idParty " + idParty;
-
-		    		//"<br>idPlayer =>  " + tabId[0] + "  idParty => " + tabId[1] + " idGame => " + tabId[2];
 	    		
-		    	//document.getElementById('infos').innerHTML += "<br>Avant initCheck " + response.substring(0,4);
+	    		
+	    		//la game est fini on rempli les champs idGame et finishgame
+	    		
+	    		document.getElementById('idGameValue').setAttribute("value", idGame);
+	    		
+		    	document.getElementById('infos').innerHTML += scoreEndGame;
+		    	alert("wait");
+		    	document.getElementById('finishGame').setAttribute("value", "true");
 		    	
-		    	//Appel du jeu
-		    	//runFindTheDot(tabId[0], tabId[1], tabId[2], tabId[3] ,tabId[4], tabId[5], tabId[6]);
-		    	
-		    	document.getElementById('infos').innerHTML += "<br>Apres InitCheck";
+		    	//document.getElementById('infos').innerHTML += "<br>Apres InitCheck";
 	    	}
 	   }
 	};
