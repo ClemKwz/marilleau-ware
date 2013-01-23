@@ -1,6 +1,10 @@
 package controllerEJB;
 
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -92,5 +96,37 @@ public class PartyController2 implements PartyController2Local {
 	public List<ChatParty> getMessagesAfter(int Party, int idMessage) {
 		return cpm.getMessagesAfter(Party, idMessage);
 	}
+	
+	@Override
+	public TreeMap<String, Integer> getAllScore(int idParty){
+	
+		HashMap<String,Integer> map = pm.getAllScore(idParty);
+		TreeMap<String,Integer> sorted_map = new TreeMap<String,Integer>(new ValueComparator(map));
+        sorted_map.putAll(map);
+        
+		return sorted_map;
+	}
+		
+	class ValueComparator implements Comparator<String> {
 
+	    Map<String, Integer> map;
+	    public ValueComparator(Map<String, Integer> map) {
+	        this.map = map;
+	    }
+
+	    // Note: this comparator imposes orderings that are inconsistent with equals.    
+	    public int compare(String a, String b) {
+	    	
+	    	int resultat = 0;
+	    	
+	        if (map.get(a) < map.get(b)) {
+	        	resultat = -1;
+	        } 
+	        if (map.get(a) > map.get(b)) {
+	        	resultat = 1;
+	        }
+	        
+	        return resultat;
+	    }
+	}
 }

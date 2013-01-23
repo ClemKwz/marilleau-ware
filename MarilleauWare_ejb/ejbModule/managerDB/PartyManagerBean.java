@@ -1,6 +1,7 @@
 package managerDB;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -195,5 +196,30 @@ public class PartyManagerBean implements PartyManagerLocal {
 			System.out.println("erreur");
 			return -1;
 		}
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public HashMap<String, Integer> getAllScore(int idParty) {
+		
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		
+		Query query = em.createQuery("select u from Party p, User u where u.idUser=p.idUser and t.idParty=:p");
+		query.setParameter("p", idParty);
+		
+		List<User> lu = null;
+		try {
+			lu = (List<User>)query.getResultList();
+		} catch (NoResultException e)  {
+			e.printStackTrace();
+		}
+		if(lu != null) {
+			for(int i=0; i<lu.size(); i++){
+				String pseudo = lu.get(i).getPseudo();
+				int score = lu.get(i).getScore();
+				map.put(pseudo, score);
+			}
+		}
+		return map;
 	}
 }
