@@ -3,6 +3,7 @@ var xhr;
 
 /* Context graphique */
 var context;
+var canvasInfo;
 var hasplayed = false;
 var idCount;
 var idRefresh;
@@ -35,9 +36,15 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 		return;
 	}
 	context.clearRect(0,0,elem.width,elem.height);
-	document.getElementById('headConteneur').innerHTML += "Click on the (" + goalX + "," + goalY + ") pixel !";
+	
+	 canvasInfo = document.getElementById('canvasInfo');
+	 var info = canvasInfo.getContext('2d');
+	 info.font="bold 13px Verdana";
+	 info.fillText("Click on the (" + goalX + "," + goalY + ") pixel !", 10, 20);
+	 
+	//document.getElementById('headConteneur').innerHTML += "Click on the (" + goalX + "," + goalY + ") pixel !";
 
-	// Affichage de l'échelle
+	// Affichage de l'echelle
 	for(i = 50;i <= 250;i += 50)
 	{
 		context.fillRect(0, i+1, 5, 2);
@@ -75,12 +82,12 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 	conteneur.onmousemove = function(event){
 		var left = 0;
 		var top = 0;
-		/*On récupère l'élément*/
+		/*On recupere l'element*/
 		var e = document.getElementById('bc_games');
-		/*Tant que l'on a un élément parent*/
+		/*Tant que l'on a un element parent*/
 		while (e.offsetParent != undefined && e.offsetParent != null)
 		{
-			/*On ajoute la position de l'élément parent*/
+			/*On ajoute la position de l'element parent*/
 			left += e.offsetLeft + (e.clientLeft != null ? e.clientLeft : 0);
 			top += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);
 			e = e.offsetParent;
@@ -100,7 +107,7 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 		var e = document.getElementById('bc_games');
 		while (e.offsetParent != undefined && e.offsetParent != null)
 		{
-			/*On ajoute la position de l'élément parent*/
+			/*On ajoute la position de l'element parent*/
 			left += e.offsetLeft + (e.clientLeft != null ? e.clientLeft : 0);
 			top += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);
 			e = e.offsetParent;
@@ -122,6 +129,8 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 		var distanceY = goalY - (goalY - y)/2;
 		context.fillText("distance = " + distance, distanceX, distanceY);
 	
+		document.getElementById('divScore').innerHTML = distance;
+		
 		context.fillStyle="#EE0000";
 		context.fillRect(goalX-1, goalY-1, 3, 3);
 		
@@ -171,7 +180,7 @@ function count(){
 		hasplayed = true;
 	}
 	var chrono = document.getElementById('chrono');
-	chrono.innerHTML = "Time : " + s2 + ":" + ms2;
+	chrono.innerHTML = /*"Time : "*/ + s2 + ":" + Math.floor(ms2/10);
 }
 
 function checkResult(){
