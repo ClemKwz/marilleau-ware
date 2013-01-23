@@ -19,6 +19,7 @@
 	
 	//out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
 	out.print("<script  type=\"javascript\">init();</script>");
+	out.print("<script  type=\"javascript\">initScoreParty("+idParty+");</script>");
 	
 %>
 
@@ -64,3 +65,4 @@
 	%>
 	
 	<div id="chat"></div>
+	<div id="scoreparty"></div>
