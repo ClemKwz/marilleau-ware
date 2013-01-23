@@ -14,6 +14,8 @@ var s, ms;
 var idUser;
 var idParty;
 var idGame;
+var goalXG;
+var goalYG;
 
 function salut(){
 	alert("ok");
@@ -27,6 +29,8 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 	idUser = idUserServ;
 	idParty = idPartyServ;
 	idGame = idGameServ;
+	goalXG = goalX;
+	goalYG = goalY;
 	var elem = document.getElementById('canvasElem');
 	if (!elem || !elem.getContext) {
 		return;
@@ -125,9 +129,9 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 		var d = Math.sqrt((x-goalX) * (x-goalX) + (y-goalY) * (y-goalY));
 		var distance = Math.floor(d);
 
-		var distanceX = goalX - (goalX - x)/2;
+		/*var distanceX = goalX - (goalX - x)/2;
 		var distanceY = goalY - (goalY - y)/2;
-		context.fillText("distance = " + distance, distanceX, distanceY);
+		context.fillText("distance = " + distance, distanceX, distanceY);*/
 	
 		document.getElementById('divScore').innerHTML = distance;
 		
@@ -139,24 +143,28 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 		hasplayed = true;
 		clearInterval(idCount);
 		clearInterval(idRefresh);
-		finish(distance);
+		finish(x, y);
 		}
 	};
 }
 
-function finish(distance){
+function finish(x, y){
 	var servletName = "FindTheDot";
 	xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        response = xhr.responseText;
-	    	document.getElementById('infos').innerHTML = response;
+	    	//document.getElementById('infos').innerHTML = response;
+			var dist = response;
+			var distanceX = goalX - (goalX - x)/2;
+			var distanceY = goalY - (goalY - y)/2;
+			context.fillText("distance = " + distance, distanceX, distanceY);
 	   }
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	document.getElementById('infos').innerHTML += "<br/><br/>action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&distance=" + distance;
-	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&distance=" + distance);
+	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&x=" + x+ "&y=" + y);
 	idEnd = setInterval("checkResult()", 500);
 }
 
