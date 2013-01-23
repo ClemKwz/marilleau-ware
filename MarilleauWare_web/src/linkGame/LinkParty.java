@@ -52,13 +52,17 @@ public class LinkParty extends HttpServlet {
 		out = response.getWriter();
 		
 		//récupération de l'id du game suivant
-		int idGame = Integer.parseInt(request.getParameter("idGame"));
-		int idGameSuiv = gc.getNextgame(idGame);
-		
-		//récupération du type de jeu du game suivant;
-		String ServletName = gc.getNameGameDesc(idGameSuiv);
-		//System.out.println("TEST1:"+ServletName + "   num : " + idGameSuiv);
-		out.print(idGameSuiv+";"+ServletName+";");
+		int idParty = Integer.parseInt(request.getParameter("idParty"));
+		int idGameSuiv = gc.getNextgame(idParty);
+		System.out.println("LinkParty:  idParty: "+idParty+ " ||idGameSuiv: "+ idGameSuiv);
+		String ServletName;
+		if(idGameSuiv >-1){
+			//récupération du type de jeu du game suivant;
+			ServletName = gc.getNameGameDesc(idGameSuiv);
+		}else{
+			ServletName = "0";
+		}
+		out.print(""+ServletName);
 		
 		out.close();
 	}

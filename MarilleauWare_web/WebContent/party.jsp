@@ -18,23 +18,19 @@
 	int idParty = Integer.parseInt(request.getParameter("idParty").toString());
 	
 	//out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
-	out.print("<script  type=\"javascript\">init();</script>");
+	out.print("<script  type=\"javascript\">init("+idParty+");</script>");
 	out.print("<script  type=\"javascript\">initScoreParty("+idParty+");</script>");
 	
 %>
 
-	<script src="js/functions.js" type="text/javascript"></script>
-	<script src="js/main.js" type="text/javascript"></script>
-	<script src="js/gameCheckbox.js" type="text/javascript"></script>
-	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
 	
 	<p>La partie va commencer <%=idParty%></p>
 	
 	
 	<!-- On rajoute un champs permettants de dire à main.js que nous avons terminé -->
 	<input type="hidden" id="finishGame" value="false"/>
-	<input type="hidden" id="idGameValue" value="-1"/>
+	<!--<input type="hidden" id="idGameValue" value="-1"/> -->
 	<div id="container" style="margin: auto;">
 		<div style="margin: 50px;">
 			<p>Connected with pseudo <b><%=pseudo%></b>, id : <%=idUser%></p>
