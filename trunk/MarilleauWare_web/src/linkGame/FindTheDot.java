@@ -136,7 +136,23 @@ public class FindTheDot extends HttpServlet {
 		case GETRESPONSE :
 			int x2 = Integer.parseInt(request.getParameter("x"));
 			int y2 = Integer.parseInt(request.getParameter("y"));
-			d = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
+			int xCalcul = x1;
+			int yCalcul = y1;
+			int[] tabParams;
+			for(int i = 0;i < randomParam.size();i++)
+			{
+				int[] tabTmp = randomParam.get(i);
+				if(tabTmp[0] == idGame)
+				{
+					tabParams = tabTmp;
+				}
+			}
+			if(tabParams[3] == 1)
+				xCalcul = 400-x1;
+			if(tabParams[4] == 1)
+				yCalcul = 300-y1;
+			
+			d = Math.sqrt((x2-xCalcul) * (x2-xCalcul) + (y2-yCalcul) * (y2-yCalcul));
 			//d = (double)Integer.parseInt(request.getParameter("distance"));
 			
 			out.print(d);

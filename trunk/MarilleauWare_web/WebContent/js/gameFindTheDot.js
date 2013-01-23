@@ -29,8 +29,7 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 	idUser = idUserServ;
 	idParty = idPartyServ;
 	idGame = idGameServ;
-	goalXG = goalX;
-	goalYG = goalY;
+	
 	var elem = document.getElementById('canvasElem');
 	if (!elem || !elem.getContext) {
 		return;
@@ -76,6 +75,9 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 			context.fillText(j, j-5, 15);
 		}
 	}
+	
+	goalXG = goalX;
+	goalYG = goalY;
 	
 	hasplayed = false;
 	d = new Date();
