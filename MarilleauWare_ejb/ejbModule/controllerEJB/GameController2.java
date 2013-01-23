@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 
 import managerDB.GameManagerLocal;
 import managerDB.PartyManagerLocal;
+import model.Game;
 import model.GamesDesc;
 import model.Party;
 
@@ -57,7 +58,12 @@ public class GameController2 implements GameController2Local {
 	public void addUserGame(int idParty, int idUser) {
 
 		Party party = pm.getPartyById(idParty);
-		gm.addUserGame(party.getIdCurrentGame(), idUser);
+		
+		List<Game> listGame = party.getGames();
+		for(int i=0;i<listGame.size();i++){
+			gm.addUserGame(listGame.get(i).getIdGame(), idUser);
+		}
+		
 	}
 
 	@Override
@@ -66,7 +72,7 @@ public class GameController2 implements GameController2Local {
 	}
 	
 	@Override
-	public boolean containsNegativeScore(int idGame, int idUser) {
+	public boolean containsNegativeScore(int idGame) {
 		// on regarde s'il reste des scores a -1 dans TjUserGame
 		return gm.containsNegativeScore(idGame);
 	}
@@ -112,7 +118,7 @@ public class GameController2 implements GameController2Local {
 	}
 
 	@Override
-	public String getNameGameDesc(int idGame) {
-		return gm.getNameGameDesc(idGame);
+	public String getNameGameDesc(int idParty) {
+		return gm.getNameGameDesc(idParty);
 	}
 }

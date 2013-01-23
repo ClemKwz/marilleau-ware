@@ -222,4 +222,54 @@ public class PartyManagerBean implements PartyManagerLocal {
 		}
 		return map;
 	}
+
+	@Override
+	public void incrementCurrentGame(int idParty) {
+		Party party = null;
+		Query query;
+		// On recherche la partie
+		// Creation de la requete
+		query = em.createQuery("from Party where idParty=:p");
+		query.setParameter("p", idParty);
+
+		// Recuperation du resultat
+		try {
+			party = (Party) query.getSingleResult();
+		} catch (NoResultException e)  {
+			System.out.println("erreur");
+		}
+		int sequence=-1;
+		int idGameSuiv = -1;
+		int sequencesuiv=-1;
+		//on recupere la sequence courante
+		for(int i = 0 ; i < party.getGames().size();i++ ){
+			
+			if(party.getGames().get(i).getIdGame() == party.getIdCurrentGame()){
+				sequence = party.getGames().get(i).getSequence();
+				System.out.println("PartyManager : Sequence courante:"+sequence);
+				System.out.println("PartyManager : id game courant:"+party.getGames().get(i).getIdGame());
+			}
+		}
+		if(  sequence == party.getGames().size() -1 ){
+			
+			System.out.println("PartyManager :finfinfin");
+			party.setIdCurrentGame(-1);
+			party.setEndParty(1);
+		}else{
+			//on recupere l'id de la game suivante
+			for(int i = 0 ; i < party.getGames().size();i++ ){
+				
+				if(party.getGames().get(i).getSequence() == sequence +1){
+					
+					sequencesuiv = party.getGames().get(i).getSequence();
+					idGameSuiv = party.getGames().get(i).getIdGame();
+					System.out.println("PartyManager : Sequence du game suivant:"+sequencesuiv);
+					System.out.println("PartyManager : id game suivant:"+idGameSuiv);
+					
+				}
+			}
+			party.setIdCurrentGame(idGameSuiv);
+		}
+		
+	}
 }

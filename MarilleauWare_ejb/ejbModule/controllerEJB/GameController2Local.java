@@ -15,11 +15,11 @@ public interface GameController2Local {
 	
 	public void addScore(int idGame, int idUser, double score);
 	
-	public boolean containsNegativeScore(int idGame, int idUser);
+	public boolean containsNegativeScore(int idGame);
 
 	public TreeMap<String, Integer> getAllScore(int idGame);
 	
-	public int getNextgame(int idGame);
+	public int getNextgame(int idParty);
 	
 	public String getNameGameDesc(int idGame);
 
