@@ -99,7 +99,7 @@ function changeGame(){
 				alert(fini);
 				return;
 			}
-			servletNextGame="FindTheDot";
+			servletNextGame="CheckBox";
 			
 			//on demande à la servlet concerncé de nous envoyé les paramètres
 			servletName = servletNextGame;
