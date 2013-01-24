@@ -68,23 +68,21 @@ public class BuildPath extends HttpServlet {
 		int action = Integer.parseInt(request.getParameter("action"));
 		
 		int idPlayer = (int) request.getSession().getAttribute("idUser");
-		System.out.println("idUser => " + idPlayer);
+		//System.out.println("idUser => " + idPlayer);
 		int idParty = pc.getIdPartyByIdUser(idPlayer);
 		int idGame = pc.getIdGameByIdParty(idParty);
 		
-		System.out.println("Donnée recu de l'user : " + idPlayer);
+		//System.out.println("Donnée recu de l'user : " + idPlayer);
 		
 		switch(action){
 		case INIT : 
-			String s = "";
+			String s = "" + idPlayer + ";" + idParty + ";" + idGame + ";";
 			int nbPath = (int) (Math.random()*6);
 			nbPath += 6;
 			int neg;
 			int posX=0;
 			int posY=0;
 			int ran;
-			posX=0;
-			posY=0;
 			for(int i=0; i<nbPath; i++){
 				do{
 					ran = ((int)(Math.random()*50))+20;
@@ -98,12 +96,27 @@ public class BuildPath extends HttpServlet {
 				s += ran + ";";
 			}
 
-			System.out.println(s);
+			//System.out.println(s);
 			out.print(s);
 			break;
 			// Pas besoin de reponse, l'utilisateur a son temps, il sait deja s'il a perdu, ilattend juste le tableau des resultats
 		case GETRESPONSE :
-			System.out.println("Reponse de js : " + request.getParameter("sec") + "s" + request.getParameter("msec") + "ms");
+			int sec = Integer.parseInt(request.getParameter("sec"));
+			int msec = Integer.parseInt(request.getParameter("msec"));
+			int nbPoint;
+			if(sec==-1 || msec==-1){
+				out.print("Nombre de points : 0");
+				nbPoint = 0;
+			}
+			else{
+				nbPoint = (200000-(10000*sec+100*msec));
+				out.print("Nombre de points : " + nbPoint);
+			}
+			System.out.println("score : " + nbPoint);
+			gc.addScore(idGame, idPlayer, nbPoint);
+			if (!gc.containsNegativeScore(idGame)) {
+				pc.incrementCurrentGame(idParty);
+			}
 			break;
 		case ISENDGAME :
 			idPlayer = (int) request.getSession().getAttribute("idUser");
@@ -112,13 +125,21 @@ public class BuildPath extends HttpServlet {
 			idGame = Integer.parseInt(request.getParameter("idGame"));
 			//idGame = pc.getIdGameByIdParty(idParty);
 			
-			System.out.println("idGame "+idGame);
+			//System.out.println("BuildPath : idGame "+idGame);
 			if (gc.containsNegativeScore(idGame)) {// Tout le monde n'a pas joue
 				out.print("wait...");
 			} else {//Tout le monde a joue
 				//récupération des score
-				TreeMap<String,Integer> listeScore =  gc.getAllScore(idGame);
+				//TreeMap<String,Integer> listeScore =  gc.getAllScore(idGame);
 				//Mise en place du tableau html contenant les scores
+				
+				TreeMap<String,Integer> listeScore = new TreeMap<String,Integer>();
+				listeScore.put("LePNJ", 500);
+				listeScore.put("Fabien", 500);
+				listeScore.put("Paul", 480);
+				listeScore.put("Clément", 200);
+				listeScore.put("Pierre", 0);
+				
 				String recupScore;
 				int i =1;
 				recupScore = "<table><tr><td>Rank</td><td>Pseudo</td><td>Score</td> ";
