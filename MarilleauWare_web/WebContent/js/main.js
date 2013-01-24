@@ -113,11 +113,13 @@ function changeGame(){
 		            response = xhr2.responseText;
 		            document.getElementById('infos').innerHTML = response;
 					
+		            
+		            alert("response: "+response);
 					//On lance la fonction concerné
 		           // alert("response: "+response);
 		            eval("run"+servletNextGame+"('" + response + "')");
-		            alert("response: "+response);
-		            eval("run"+servletNextGame+"('" + stringParam + "')");
+		           
+		          
 		            idReloadGame = setInterval("reloadGame()", 800);
 		       }
 			document.getElementById("infos");

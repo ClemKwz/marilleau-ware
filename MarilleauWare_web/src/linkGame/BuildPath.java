@@ -114,6 +114,7 @@ public class BuildPath extends HttpServlet {
 			}
 			System.out.println("score : " + nbPoint);
 			gc.addScore(idGame, idPlayer, nbPoint);
+			gc.addScore(idParty, idPlayer, nbPoint);
 			if (!gc.containsNegativeScore(idGame)) {
 				pc.incrementCurrentGame(idParty);
 			}
@@ -130,15 +131,15 @@ public class BuildPath extends HttpServlet {
 				out.print("wait...");
 			} else {//Tout le monde a joue
 				//récupération des score
-				//TreeMap<String,Integer> listeScore =  gc.getAllScore(idGame);
+				TreeMap<String,Integer> listeScore =  gc.getAllScore(idGame);
 				//Mise en place du tableau html contenant les scores
 				
-				TreeMap<String,Integer> listeScore = new TreeMap<String,Integer>();
-				listeScore.put("LePNJ", 500);
-				listeScore.put("Fabien", 500);
-				listeScore.put("Paul", 480);
-				listeScore.put("Clément", 200);
-				listeScore.put("Pierre", 0);
+//				TreeMap<String,Integer> listeScore = new TreeMap<String,Integer>();
+//				listeScore.put("LePNJ", 500);
+//				listeScore.put("Fabien", 500);
+//				listeScore.put("Paul", 480);
+//				listeScore.put("Clément", 200);
+//				listeScore.put("Pierre", 0);
 				
 				String recupScore;
 				int i =1;
