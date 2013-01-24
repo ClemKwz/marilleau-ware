@@ -35,6 +35,7 @@ function joinPartie(idParty,idUser){
    			var scripts = document.getElementById('container').getElementsByTagName('script');
     	    		for(var i=0; i < scripts.length;i++)
     	    		{
+    	    			alert(""+scripts[i].text);
     	    			/*Sous IE il faut faire un execScript pour que les fonctions soient définie en globale*/
     	    			if (window.execScript)
     	    			{
@@ -96,7 +97,7 @@ function changeGame(){
 			//alert("ResponseLinkParty : "+ response);
 			//La partie est fini
 			if(response =="0"){
-				alert(fini);
+				alert("partie finie");
 				return;
 			}
 			servletNextGame="CheckBox";

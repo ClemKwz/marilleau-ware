@@ -204,7 +204,7 @@ public class PartyManagerBean implements PartyManagerLocal {
 		
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		
-		Query query = em.createQuery("select u from Party p, User u where u.idUser=p.idUser and t.idParty=:p");
+		Query query = em.createQuery("select u from Party t, User u where u.party.idParty=t.idParty and t.idParty=:p");
 		query.setParameter("p", idParty);
 		
 		List<User> lu = null;
@@ -271,5 +271,27 @@ public class PartyManagerBean implements PartyManagerLocal {
 			party.setIdCurrentGame(idGameSuiv);
 		}
 		
+	}
+
+	@Override
+	public void addScore(int idParty, int idPlayer, int score) {
+		
+		// Creation de la requete
+		Query query = em.createQuery("from User where idUser=:p");
+		query.setParameter("p", idPlayer);
+
+		System.out.println("idParty => " + idParty + "  idUser => " + idPlayer + "  score => " + score);
+
+		User user = null;
+		// Recuperation du resultat
+		try {
+			user = (User) query.getSingleResult();
+			int scorePrec = user.getScore();
+			user.setScore(scorePrec+(int)score);
+			this.em.persist(user);
+			this.em.flush();
+		} catch (NoResultException e)  {
+			e.printStackTrace();
+		}
 	}
 }

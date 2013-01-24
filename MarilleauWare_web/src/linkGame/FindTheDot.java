@@ -80,42 +80,25 @@ public class FindTheDot extends HttpServlet {
 		int idPlayer = (int) request.getSession().getAttribute("idUser");
 		System.out.println("idUser => " + idPlayer);
 		int idParty = pc.getIdPartyByIdUser(idPlayer);
-		int idGame = pc.getIdGameByIdParty(idParty);
-		int[] tab = new int[5];
-		boolean find = false;
-		if(randomParam.size() == 0)
-		{
-			x1 = (int) (Math.random()*400);
-			y1 = (int) (Math.random()*300);
-
-			int xInverted = (int) ((Math.random()>0.5)?0:1);
-			int yInverted = (int) ((Math.random()>0.5)?0:1);
-			tab[0] = idGame;
-			tab[1] = x1;
-			tab[2] = y1;
-			tab[3] = xInverted;
-			tab[4] = yInverted;
-			randomParam.add(tab);
-		}
-		else
-		{
-			for(int i = 0;i < randomParam.size();i++)
-			{
-				int[] tabTmp = randomParam.get(i);
-				if(tabTmp[0] == idGame)
-				{
-					tab = tabTmp;
-					find = true;
-				}
-			}
-			if(!find)
+		//int idGame = pc.getIdGameByIdParty(idParty);
+		int idGame;
+		
+		
+		System.out.println("Donnée recu de l'user : " + idPlayer);
+		
+		switch(action){
+		case INIT : 
+			//gameManager.connect();
+			idGame = pc.getIdGameByIdParty(idParty);
+			int[] tab = new int[5];
+			boolean find = false;
+			if(randomParam.size() == 0)
 			{
 				x1 = (int) (Math.random()*400);
 				y1 = (int) (Math.random()*300);
-				
-				int xInverted = (int) ((Math.random()>=0.5)?0:1);
-				int yInverted = (int) ((Math.random()>=0.5)?0:1);
-				System.out.println("x => " + xInverted  + "\n" + "y => " + yInverted);
+
+				int xInverted = (int) ((Math.random()>0.5)?0:1);
+				int yInverted = (int) ((Math.random()>0.5)?0:1);
 				tab[0] = idGame;
 				tab[1] = x1;
 				tab[2] = y1;
@@ -123,16 +106,38 @@ public class FindTheDot extends HttpServlet {
 				tab[4] = yInverted;
 				randomParam.add(tab);
 			}
-		}
-		
-		System.out.println("Donnée recu de l'user : " + idPlayer);
-		
-		switch(action){
-		case INIT : 
-			//gameManager.connect();
+			else
+			{
+				for(int i = 0;i < randomParam.size();i++)
+				{
+					int[] tabTmp = randomParam.get(i);
+					if(tabTmp[0] == idGame)
+					{
+						tab = tabTmp;
+						find = true;
+					}
+				}
+				if(!find)
+				{
+					x1 = (int) (Math.random()*400);
+					y1 = (int) (Math.random()*300);
+					
+					int xInverted = (int) ((Math.random()>=0.5)?0:1);
+					int yInverted = (int) ((Math.random()>=0.5)?0:1);
+					System.out.println("x => " + xInverted  + "\n" + "y => " + yInverted);
+					tab[0] = idGame;
+					tab[1] = x1;
+					tab[2] = y1;
+					tab[3] = xInverted;
+					tab[4] = yInverted;
+					randomParam.add(tab);
+				}
+			}
+			
 			out.print(idPlayer + ";" + idParty + ";" + idGame + ";" + tab[1] + ";" + tab[2] + ";" + tab[3] + ";" + tab[4]);
 			break;
 		case GETRESPONSE :
+			idGame = pc.getIdGameByIdParty(idParty);
 			int x2 = Integer.parseInt(request.getParameter("x"));
 			int y2 = Integer.parseInt(request.getParameter("y"));
 			int xCalcul = x1;
@@ -161,6 +166,7 @@ public class FindTheDot extends HttpServlet {
 			
 			//gameManager.play(request.getSession().getAttribute("sessionID"), doubl);
 			gc.addScore(idGame, idPlayer, doubl);
+			pc.addScore(idParty, idPlayer, doubl);
 			if (!gc.containsNegativeScore(idGame)) {
 				pc.incrementCurrentGame(idParty);
 			}
