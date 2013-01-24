@@ -154,4 +154,10 @@ public class PartyController2 implements PartyController2Local {
 		
 		return pm.isStarted(idParty);
 	}
+
+	@Override
+	public void deletePartyAndCo(int idParty) {
+		pm.deletePartyAndCo(idParty);
+		
+	}
 }
