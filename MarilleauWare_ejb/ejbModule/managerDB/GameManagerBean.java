@@ -122,7 +122,7 @@ public class GameManagerBean implements GameManagerLocal {
 	}
 
 	@Override
-	public void addScore(int idGame, int idUser, double score) {
+	public void addScore(int idGame, int idUser, int score) {
 		
 		// Creation de la requete
 		Query query = em.createQuery("from TjGamesUser where idGame=:p and idUser=:s");

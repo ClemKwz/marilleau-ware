@@ -13,7 +13,7 @@ public interface GameController2Local {
 
 	public void addUserGame(int idParty, int idUser);
 	
-	public void addScore(int idGame, int idUser, double score);
+	public void addScore(int idGame, int idUser, int score);
 	
 	public boolean containsNegativeScore(int idGame);
 
