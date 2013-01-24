@@ -54,6 +54,11 @@ public class PartyController2 implements PartyController2Local {
 	public void addUser(int idParty, int idUser) {
 		
 		pm.addUserToParty(idParty, idUser);
+		//on vérifie qu'il y a le nombre adéquat de joueur
+		if(pm.getAllScore(idParty).size()>1){
+			pm.setStarted(idParty);
+		}
+		
 	}
 
 	@Override
@@ -138,6 +143,12 @@ public class PartyController2 implements PartyController2Local {
 
 	@Override
 	public void addScore(int idParty, int idPlayer, int score) {
-		pm.addScore(idParty, idPlayer, (500-score)*1000);
+		pm.addScore(idParty, idPlayer, score);
+	}
+
+	@Override
+	public boolean isStarted(int idParty) {
+		
+		return pm.isStarted(idParty);
 	}
 }

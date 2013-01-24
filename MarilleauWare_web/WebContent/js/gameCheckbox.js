@@ -72,7 +72,7 @@ function runCheckBox(listeparam){
 	chrono = 500; // en centieme
 	timeOver = false;
 	CB_order = [true,true,true,true];
-	alert("listeparam  dans runCheckBox: "+listeparam);
+	//alert("listeparam  dans runCheckBox: "+listeparam);
 	
 	  var param = listeparam.split(';');
 	  idUserCheckBox = parseInt(param[0], 10);
@@ -140,7 +140,7 @@ function refreshGame() {
 		debug();
 	if (chrono == 0) {
 		clearInterval(idInterv);
-		alert("dans refreshGame");
+		//alert("dans refreshGame");
 		timeOver = true;
 		finishCheckBox();
 	}
@@ -343,7 +343,7 @@ function debug() {
 
 function finishCheckBox(){
 	
-	alert("Dans finish");
+	//alert("Dans finish");
 	var servletName = "CheckBox";
 	xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
@@ -362,7 +362,7 @@ function finishCheckBox(){
 }
 
 function checkResultCheckBox(idGameCB){
-	alert("checkResult:"+idGameCB);
+	//alert("checkResult:"+idGameCB);
 	if(endtamere==false){
 		//alert("checkResult:Hihi je suis un connard");
 		//clearInterval(idEndCheckBox);
@@ -376,7 +376,7 @@ function checkResultCheckBox(idGameCB){
 		        //la partie est terminé
 		    	if(response.substring(0,4)=="end_"){
 		    		endtamere = true;
-		    		alert("Fin du jeu ok");
+		    		//alert("Fin du jeu ok");
 			    	clearInterval(idEndCheckBox);
 		    		var scoreEndGame = response.substring(4,response.length-1);
 		    		
