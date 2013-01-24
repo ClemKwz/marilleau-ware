@@ -3,7 +3,7 @@
 
 var xhr;
 var idReloadGame;
-var idParty;
+var idPartyMain;
 
 /** Fonctions pour afficher et joindre les parties **/
 
@@ -35,7 +35,7 @@ function joinPartie(idParty,idUser){
    			var scripts = document.getElementById('container').getElementsByTagName('script');
     	    		for(var i=0; i < scripts.length;i++)
     	    		{
-    	    			alert(""+scripts[i].text);
+    	    			//alert(""+scripts[i].text);
     	    			/*Sous IE il faut faire un execScript pour que les fonctions soient définie en globale*/
     	    			if (window.execScript)
     	    			{
@@ -65,7 +65,7 @@ function joinPartie(idParty,idUser){
 //TODO:enlever le code en dur
 function init(id_deParty){
 	
-	idParty = id_deParty;
+	idPartyMain = id_deParty;
 	changeGame();
 	
 }
@@ -94,7 +94,7 @@ function changeGame(){
 	        response = xhr.responseText;
 			
 			var servletNextGame = response;
-			//alert("ResponseLinkParty : "+ response);
+			alert("ResponseLinkParty : "+ response);
 			//La partie est fini
 			if(response =="0"){
 				alert("partie finie");
@@ -104,37 +104,31 @@ function changeGame(){
 			
 			//on demande à la servlet concerncé de nous envoyé les paramètres
 			servletName = servletNextGame;
-			xhr = getXhr();
+			var xhr2 = getXhr();
 			
-			xhr.open("POST", "./" + servletName, true);
-			xhr.onreadystatechange = function(){
+			xhr2.open("POST", "./" + servletName, true);
+			xhr2.onreadystatechange = function(){
 				
-		        if(xhr.readyState == 4 && xhr.status == 200) {
-		            response = xhr.responseText;
+		        if(xhr2.readyState == 4 && xhr2.status == 200) {
+		            response = xhr2.responseText;
 		            document.getElementById('infos').innerHTML = response;
-//		            var param = response.split(';');
-		            var stringParam=response;
-		            
-//		          //On créer la liste des paramètre sous forme de string
-//					for(var i=0;i<param.length -1;i++){
-//						stringParam += param[i]+",";
-//					}
-					//stringParam += param[param.length-1];
 					
 					//On lance la fonction concerné
+		           // alert("response: "+response);
+		            eval("run"+servletNextGame+"('" + response + "')");
 		            alert("response: "+response);
 		            eval("run"+servletNextGame+"('" + stringParam + "')");
 		            idReloadGame = setInterval("reloadGame()", 800);
 		       }
 			document.getElementById("infos");
 			};
-			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xhr.send("action=1");
+			xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr2.send("action=1");
 		}
 		
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("idParty="+idParty);
+	xhr.send("idParty="+idPartyMain);
 }
 
 
