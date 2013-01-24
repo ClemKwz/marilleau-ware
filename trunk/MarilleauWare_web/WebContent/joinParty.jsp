@@ -19,7 +19,7 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 
-	<div id="container" style="margin: auto;">
+	<div id="containerJoinParty" style="margin: auto;">
 		<div style="margin: 50px;">
 			<p>Connected with pseudo <b><%=pseudo%></b>, id : <%=id%></p>
 			<script src="js/functions.js" type="text/javascript"></script>

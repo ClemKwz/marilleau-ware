@@ -38,10 +38,17 @@ function runFindTheDot(listeparam){
 	if (!context) {
 		return;
 	}
-	context.clearRect(0,0,elem.width,elem.height);
+	
 	
 	 canvasInfo = document.getElementById('canvasInfo');
 	 var info = canvasInfo.getContext('2d');
+
+	 /* Flush */
+	 context.fillStyle = "#000000";
+	 context.clearRect(0,0,elem.width,elem.height);
+	 info.fillStyle = "#000000";
+	 info.clearRect(0, 0, canvasInfo.width, canvasInfo.height);
+	 
 	 info.font="bold 13px Verdana";
 	 info.fillText("Click on the (" + goalX + "," + goalY + ") pixel !", 10, 20);
 	 
@@ -120,9 +127,8 @@ function runFindTheDot(listeparam){
 		}
 		var x = event.clientX;
 		var y = event.clientY;
-		x = x - left;
-		y = y - top;
-		
+		x = x - left + window.scrollX;
+		y = y - top + window.scrollY;
 		context.beginPath();
 		context.moveTo(x,y);
 		context.lineTo(goalX,goalY);

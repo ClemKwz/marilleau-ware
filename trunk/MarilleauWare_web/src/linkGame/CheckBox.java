@@ -36,7 +36,7 @@ public class CheckBox extends HttpServlet {
 	@EJB
 	GameController2Local gc;
 	@EJB
-	CheckBoxControllerLocal checkbox;
+	CheckBoxControllerLocal cbc;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -78,29 +78,41 @@ public class CheckBox extends HttpServlet {
 		switch(action){
 		case INIT : 
 			//gameManager.connect();
+			
+			String params = idPlayer + ";" + idParty + ";" + idGameRes + ";";
+			
+			// TODO
+			String paramDBB = cbc.getDataGame(idGameRes);
+			if(paramDBB == null) {
+				paramDBB = cbc.generateDataGame(idGameRes);
+			}
+			params += paramDBB;
+			out.print(params);
+			
 			// genere les parametres aleatoires si ce n'est pas deja fait pour la game courante
-			if (randomParam.isEmpty() || !randomParamContainsIdGame(idGameRes)) {
+			/*if (randomParam.isEmpty() || !randomParamContainsIdGame(idGameRes)) {
 				coordAndColor = createRandomTab(idGameRes);
 			} else { // sinon on les recupere
 				coordAndColor = getRandomTab(idGameRes);
 			}
 			
-			String envoiParam = idPlayer + ";" + idParty + ";" + idGameRes + ";";
+			String params = idPlayer + ";" + idParty + ";" + idGameRes + ";";
+			
+			
 			for (int i=1; i < coordAndColor.length-1; i++) {
-				envoiParam += coordAndColor[i] + ";";
+				params += coordAndColor[i] + ";";
 			}
 			envoiParam += coordAndColor[coordAndColor.length-1];
-			out.print(envoiParam);
+			out.print(envoiParam);*/
 			break;
 		case GETRESPONSE :
 			int score = Integer.parseInt(request.getParameter("score"));
-			int scorefinal = checkbox.calculScoreFinal(score);
+			int scorefinal = cbc.calculScoreFinal(score);
 			gc.addScore(idGameRes, idPlayer, scorefinal);
 			pc.addScore(idParty, idPlayer, scorefinal);
 			if (!gc.containsNegativeScore(idGameRes)) {
 				pc.incrementCurrentGame(idParty);
 			}
-			
 			out.print(scorefinal);
 			break;
 		case ISENDGAME :
@@ -143,7 +155,7 @@ public class CheckBox extends HttpServlet {
 		default :
 			break;
 		}
-		out.close();
+		//out.close();
 	}
 	
 	
