@@ -38,46 +38,48 @@ var timeOver = false;
 var x, y; // coordonnees pointeur
 var caseX, caseY; // coordonnees pointeur dans la grille 
 
-function runCheckBox(){
-	alert("ok mon frère c'est gagné");
-//	initContext();
-//	
-//	initRandomOrder();
-//	drawOrderedColor();
-//	
-//	initCheckboxRandom();
-//	initPlayer();
-//
-//	drawTabCheckbox();
-//	var mouseInfo = document.getElementById('canvasElem');
-//	
-//	var conteneur = document.getElementById('bc_games');
-//	
-//	conteneur.onclick = function(event){
-//		var left = 0;
-//		var top = 0;
-//		/*On recupere l'element*/
-//		var e = document.getElementById('bc_games');
-//		/*Tant que l'on a un element parent*/
-//		while (e.offsetParent != undefined && e.offsetParent != null)
-//		{
-//			/*On ajoute la position de l'element parent*/
-//			left += e.offsetLeft + (e.clientLeft != null ? e.clientLeft : 0);
-//			top += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);
-//			e = e.offsetParent;
-//		}
-//		x = event.clientX;
-//		y = event.clientY;
-//		x = x - left;
-//		y = y - top;
-//		if (!timeOver) {
-//			changeColor(x,y);
-//			updateScore();
-//		}
-//	};
-//	
-//	// Boucle de rafraichissement du contexte 2D
-//	idInterv = setInterval(refreshGame, 10);
+function runCheckBox(listeparam){
+	
+	alert("listeparam 0:"+listeparam[0]);
+	//alert("ok mon frère c'est gagné");
+	initContext();
+	
+	initRandomOrder();
+	drawOrderedColor();
+	
+	initCheckboxRandom();
+	initPlayer();
+
+	drawTabCheckbox();
+	var mouseInfo = document.getElementById('canvasElem');
+	
+	var conteneur = document.getElementById('bc_games');
+	
+	conteneur.onclick = function(event){
+		var left = 0;
+		var top = 0;
+		/*On recupere l'element*/
+		var e = document.getElementById('bc_games');
+		/*Tant que l'on a un element parent*/
+		while (e.offsetParent != undefined && e.offsetParent != null)
+		{
+			/*On ajoute la position de l'element parent*/
+			left += e.offsetLeft + (e.clientLeft != null ? e.clientLeft : 0);
+			top += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);
+			e = e.offsetParent;
+		}
+		x = event.clientX;
+		y = event.clientY;
+		x = x - left;
+		y = y - top;
+		if (!timeOver) {
+			changeColor(x,y);
+			updateScore();
+		}
+	};
+	
+	// Boucle de rafraichissement du contexte 2D
+	idInterv = setInterval(refreshGame, 10);
 }
 
 function refreshGame() {
@@ -306,7 +308,6 @@ function finish(x, y){
 function checkResult(idGame){
 	
 	var servletName = "CheckBox";
-	var tabId = [];
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
