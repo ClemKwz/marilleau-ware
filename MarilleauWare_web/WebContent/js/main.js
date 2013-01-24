@@ -1,7 +1,6 @@
 
 /** Variables **/
 
-var xhr;
 var idReloadGame;
 var idPartyMain;
 var idInitGame;
@@ -10,12 +9,12 @@ var idInitGame;
 function initJoinPartie(idUser){
 	
 	var servletName = "JoinParty";
-	xhr = getXhr();
+	var xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
             response = xhr.responseText;
-            document.getElementById('container').innerHTML = response;
+            document.getElementById('containerJoinParty').innerHTML = response;
        }
     };
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -25,14 +24,14 @@ function initJoinPartie(idUser){
 function joinPartie(idParty,idUser){
 	
 	var servletName = "JoinParty";
-	xhr = getXhr();
+	var xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
             response = xhr.responseText;
-            document.getElementById('container').innerHTML = response;
-    		$.getScript("js/gameFindTheDot.js", function(){
-   			var scripts = document.getElementById('container').getElementsByTagName('script');
+            document.getElementById('containerJoinParty').innerHTML = response;
+    		//$.getScript("js/gameFindTheDot.js", function(){
+   			var scripts = document.getElementById('containerJoinParty').getElementsByTagName('script');
     	    		for(var i=0; i < scripts.length;i++)
     	    		{
     	    			//alert(""+scripts[i].text);
@@ -48,7 +47,7 @@ function joinPartie(idParty,idUser){
     	    				window.eval(scripts[i].text);
     	    			}
     	    		}
-    		});
+    		//});
        }
     };
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -78,14 +77,17 @@ function reloadGame(){
 	var finished = document.getElementById('finishGame').value;
 
 	if(finished == "true"){
-
+		
 		xhr = getXhr();
 		clearInterval(idReloadGame);
+		
+		sleep(3000);
+		
 		//Réinitialisation des div
 		document.getElementById('finishGame').value = "false";
-		document.getElementById('headConteneur').value = "";
-		document.getElementById('bc_games').value = "";
-		document.getElementById('infos').value = "";
+		document.getElementById('canvasInfo').value = "";
+		document.getElementById('chrono').value = "";
+		document.getElementById('divScore').value = "";
 		
 		changeGame();
 	}
@@ -93,10 +95,11 @@ function reloadGame(){
 
 function initParty(){
 	
-	xhr.open("POST", "./LinkParty", true);
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-	        response = xhr.responseText;
+	var xhrInitParty = getXhr();
+	xhrInitParty.open("POST", "./LinkParty", true);
+	xhrInitParty.onreadystatechange = function(){
+		if(xhrInitParty.readyState == 4 && xhrInitParty.status == 200){
+	        response = xhrInitParty.responseText;
 			
 			var servletNextGame = response;
 			//alert("ResponseLinkParty : "+ response);
@@ -114,10 +117,15 @@ function initParty(){
 	
 			clearInterval(idInitGame);
 			//on demande à la servlet concerncé de nous envoyé les paramètres
-			servletName = servletNextGame;
+			//servletName = servletNextGame;
+			
+			//servletName="CheckBox";
+			//servletNextGame="CheckBox";
+			
 			var xhr2 = getXhr();
 			
-			xhr2.open("POST", "./" + servletName, true);
+			//xhr2.open("POST", "./" + servletName, true);
+			xhr2.open("POST", "./" + servletNextGame, true);
 			xhr2.onreadystatechange = function(){
 				
 		        if(xhr2.readyState == 4 && xhr2.status == 200) {
@@ -140,12 +148,13 @@ function initParty(){
 		}
 		
 	};
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("idParty="+idPartyMain);
+	xhrInitParty.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhrInitParty.send("idParty="+idPartyMain);
 }
 function changeGame(){
 	//récupération du nom du jeu suivant + idgamesuivan
 	
+	var xhr = getXhr();
 	xhr.open("POST", "./LinkParty", true);
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
@@ -163,10 +172,14 @@ function changeGame(){
 			//servletNextGame="BuildPath";
 			
 			//on demande à la servlet concerncé de nous envoyé les paramètres
-			servletName = servletNextGame;
-			var xhr2 = getXhr();
+			//servletName = servletNextGame;
 			
-			xhr2.open("POST", "./" + servletName, true);
+			var xhr2 = getXhr();
+			//servletName="CheckBox";
+			
+			
+			//xhr2.open("POST", "./" + servletName, true);
+			xhr2.open("POST", "./" + servletNextGame, true);
 			xhr2.onreadystatechange = function(){
 				
 		        if(xhr2.readyState == 4 && xhr2.status == 200) {
@@ -205,7 +218,7 @@ function initScoreParty(idParty){
 
 function scoreParty(idParty){
 	var servletName = "ScoreParty";
-	xhr = getXhr();
+	var xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
 		
@@ -230,7 +243,7 @@ function initChat(idParty){
 
 function getAllMessage(idParty){
 	var servletName = "Chat";
-	xhr = getXhr();
+	var xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
 		
@@ -245,7 +258,7 @@ function getAllMessage(idParty){
 
 function sendMessage(idParty,idUser){
 	var servletName = "Chat";
-	xhr = getXhr();
+	var xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
 		
@@ -255,6 +268,19 @@ function sendMessage(idParty,idUser){
        }
 	};
 	var msg = document.getElementsByName('message')[0].value;
+	document.getElementsByName('message')[0].value = "";
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send("action=2&idParty="+idParty+"&idUser="+idUser+"&message="+msg);
 }
+
+/* Fonction de sleep */
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+

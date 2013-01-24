@@ -17,9 +17,9 @@
 	
 	int idParty = Integer.parseInt(request.getParameter("idParty").toString());
 	
-	//out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
+	out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
 	out.print("<script  type=\"javascript\">init("+idParty+");</script>");
-	//out.print("<script  type=\"javascript\">initScoreParty("+idParty+");</script>");
+	out.print("<script  type=\"javascript\">initScoreParty("+idParty+");</script>");
 	
 %>
 
@@ -35,35 +35,44 @@
 		<div style="margin: 50px;">
 			<p>Connected with pseudo <b><%=pseudo%></b>, id : <%=idUser%></p>
 		</div>
-		<div id="headConteneur">
-			<!-- <div id="chrono"> </div>  -->
-			<table>
-				<tr>
-					<td>
-						<canvas id="canvasInfo" width="220" height="30"></canvas>
-					</td>
-					<td>
-						<div id="chrono"></div>
-					</td>
-					<td>
-						<div id="divScore"></div>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<div id="bc_games">
-			<canvas id="canvasElem" width="400" height="300">
-			</canvas>
-		</div>
-		<div id="infos">
-		</div>
+		<table style="margin: 0px auto;">
+		<tr>
+		<td><div id="scoreparty"></div></td>
+		<td>
+			<div id="headConteneur">
+				<!-- <div id="chrono"> </div>  -->
+				<table>
+					<tr>
+						<td>
+							<canvas id="canvasInfo" width="220" height="30"></canvas>
+						</td>
+						<td>
+							<div id="chrono"></div>
+						</td>
+						<td>
+							<div id="divScore"></div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="bc_games">
+				<canvas id="canvasElem" width="400" height="300">
+				</canvas>
+			</div>
+			<div id="infos">
+			</div>
+			</td>
+			<td><div id="chat"></div><%
+	out.print("<div><input name=\"message\" type=\"text\" value=\"\"/>" +
+		"<input name=\"Valid\" type=\"submit\" onclick=sendMessage("+idParty+","+idUser+") />" +
+		"</div>");
+	%>
+			</td>
+		</tr>
+		</table>
 	</div>
 	
-	<%
-	out.print("<input name=\"message\" type=\"text\" value=\"\"/>" +
-		"<input name=\"Valid\" type=\"submit\" onclick=sendMessage("+idParty+","+idUser+") />" +
-		"<br>");
-	%>
 	
-	<div id="chat"></div>
-	<div id="scoreparty"></div>
+	
+	
+	

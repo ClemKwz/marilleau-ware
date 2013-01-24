@@ -85,6 +85,15 @@ body{
 	background-color: #ACB5F0;
 	padding: -10px;
 }
+
+#containerJoinParty{
+	width: 1024px;
+	min-height: 600px;
+	border: solid black 1px;
+	margin: 5px auto;
+	background-color: #ACB5F0;
+	padding: -10px;
+}
 #bc_buttons{
 	width: 100%;
 	min-height: 30px;
@@ -97,7 +106,16 @@ body{
 	margin: 10px auto;
 	min-height: 200px;
 }
-
+#chat{
+	background-color: #FFFFFF;
+    border: 1px solid black;
+    max-height: 300px;
+    padding: 5px;
+    min-height: 300px;
+    overflow-y:  scroll;
+    width: 220px;
+    font-size: 11px;
+}
 /* Nouveau ajout*/
 #logo {
 	height: 100px;

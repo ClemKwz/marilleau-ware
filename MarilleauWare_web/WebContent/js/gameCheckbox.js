@@ -64,6 +64,7 @@ function runCheckBox(listeparam){
 	HEIGHT = ZONE_JEU_HEIGHT / SIDE_CHECKBOX;
 
 	
+
 	
 	/* valeurs aleatoire recues */
 	tabRandomPosition =[];
@@ -103,6 +104,9 @@ function runCheckBox(listeparam){
 	
 	var conteneur = document.getElementById('bc_games');
 	
+
+	
+	
 	conteneur.onclick = function(event){
 		var left = 0;
 		var top = 0;
@@ -118,8 +122,8 @@ function runCheckBox(listeparam){
 		}
 		x = event.clientX;
 		y = event.clientY;
-		x = x - left;
-		y = y - top;
+		x = x - left + window.scrollX;
+		y = y - top + window.scrollY;
 		if (!timeOver) {
 			changeColor(x,y);
 			updateScore();
@@ -175,7 +179,13 @@ function initContext() {
 		return;
 	}
 	zoneJeu = elem.getContext('2d');
-	zoneJeu.clearRect(0,0,elem.width,elem.height);
+	
+	 /* Flush */
+	 zoneJeu.fillStyle = "#000000";
+	 zoneJeu.clearRect(0,0,elem.width,elem.height);
+	 info.fillStyle = "#000000";
+	 info.clearRect(0, 0, elem.width, elem.height);
+	
 	if (!zoneJeu) {
 		return;
 	}

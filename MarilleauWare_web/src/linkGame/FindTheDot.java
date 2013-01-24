@@ -1,5 +1,7 @@
 package linkGame;
 
+import gameEJB.FindTheDotControllerLocal;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -40,6 +42,8 @@ public class FindTheDot extends HttpServlet {
 	PartyController2Local pc;
 	@EJB
 	GameController2Local gc;
+	@EJB
+	FindTheDotControllerLocal ftdc;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -67,20 +71,12 @@ public class FindTheDot extends HttpServlet {
         response.setHeader("Cache-Control", "no-cache");
 		out = response.getWriter();
 		int action = Integer.parseInt(request.getParameter("action"));
-		double d;
-		
-		
-		/*
-		x1 = (int) (Math.random()*400);
-		y1 = (int) (Math.random()*300);
-		
-		int xInverted = 0;
-		int yInverted = 0;*/
-		
+		double distance;
+				
 		int idPlayer = (int) request.getSession().getAttribute("idUser");
 		System.out.println("idUser => " + idPlayer);
+		
 		int idParty = pc.getIdPartyByIdUser(idPlayer);
-		//int idGame = pc.getIdGameByIdParty(idParty);
 		int idGame;
 		
 		
@@ -90,6 +86,18 @@ public class FindTheDot extends HttpServlet {
 		case INIT : 
 			//gameManager.connect();
 			idGame = pc.getIdGameByIdParty(idParty);
+			String params = "";
+			params = idPlayer + ";" + idParty + ";" + idGame + ";";
+			
+			// TODO
+			String paramDBB = ftdc.getDataGame(idGame);
+			if(paramDBB == null) {
+				paramDBB = ftdc.generateDataGame(idGame);
+			}
+			params += paramDBB;
+			out.print(params);
+			
+			/*
 			int[] tab = new int[5];
 			boolean find = false;
 			if(randomParam.size() == 0)
@@ -134,7 +142,7 @@ public class FindTheDot extends HttpServlet {
 				}
 			}
 			
-			out.print(idPlayer + ";" + idParty + ";" + idGame + ";" + tab[1] + ";" + tab[2] + ";" + tab[3] + ";" + tab[4]);
+			out.print(idPlayer + ";" + idParty + ";" + idGame + ";" + tab[1] + ";" + tab[2] + ";" + tab[3] + ";" + tab[4]);*/
 			break;
 		case GETRESPONSE :
 			idGame = pc.getIdGameByIdParty(idParty);
@@ -142,32 +150,32 @@ public class FindTheDot extends HttpServlet {
 			int y2 = Integer.parseInt(request.getParameter("y"));
 			int xCalcul = x1;
 			int yCalcul = y1;
-			int[] tabParams=null;
-			for(int i = 0;i < randomParam.size();i++)
+			
+			String paramBDD = ftdc.getDataGame(idGame);
+			String[] tabstring = paramBDD.split(";");
+			
+			int[] tabParams = new int[5];
+			for(int i = 0;i < tabstring.length;i++)
 			{
-				int[] tabTmp = randomParam.get(i);
-				if(tabTmp[0] == idGame)
-				{
-					tabParams = tabTmp;
-				}
+				tabParams[i] = Integer.parseInt(tabstring[i]);
 			}
 			if(tabParams[3] == 1)
 				xCalcul = 400-x1;
 			if(tabParams[4] == 1)
 				yCalcul = 300-y1;
 			
-			d = Math.sqrt((x2-xCalcul) * (x2-xCalcul) + (y2-yCalcul) * (y2-yCalcul));
+			distance = Math.sqrt((x2-xCalcul) * (x2-xCalcul) + (y2-yCalcul) * (y2-yCalcul));
 			//d = (double)Integer.parseInt(request.getParameter("distance"));
 			
-			out.print(d);
-			System.out.println("distance : "+ d);
+			out.print(distance);
+			System.out.println("distance : "+ distance);
 			//System.out.println("Distance entre les points : " + d + " pixels");
-			int doubl =  (500- (int)d )*1000;
 			
+			int scorefinal = ftdc.calculScoreFinal((int)distance);
 			//gameManager.play(request.getSession().getAttribute("sessionID"), doubl);
 			
-			gc.addScore(idGame, idPlayer, doubl);
-			pc.addScore(idParty, idPlayer, doubl);
+			gc.addScore(idGame, idPlayer, scorefinal);
+			pc.addScore(idParty, idPlayer, scorefinal);
 			if (!gc.containsNegativeScore(idGame)) {
 				pc.incrementCurrentGame(idParty);
 			}
@@ -220,7 +228,7 @@ public class FindTheDot extends HttpServlet {
 		}
 		x++;
 		//System.out.println("x => " + x);
-		out.close();
+		//out.close();
 	}
 
 }
