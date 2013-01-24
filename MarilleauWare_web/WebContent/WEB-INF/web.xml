@@ -139,4 +139,14 @@
     <servlet-name>CheckBox</servlet-name>
     <url-pattern>/CheckBox</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BuildPath</display-name>
+    <servlet-name>BuildPath</servlet-name>
+    <servlet-class>linkGame.BuildPath</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BuildPath</servlet-name>
+    <url-pattern>/BuildPath</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -24,11 +24,17 @@ var s, ms;
 var idCount;
 var idRefresh;
 
-var gagne;
+var gagne = false;
 var hasBegin = false;
+var hasFinish = false;
 var tabParam;
 
-function runBuildPath(response){
+var idGame;
+var idParty;
+var idUser;
+
+function runBuildPath(listeParam){
+	
 	//tabObstacle  = new Array(ZONE_JEU_WIDTH, ZONE_JEU_HEIGHT);
 	// On recupere l'objet canvas
 	var elem = document.getElementById('canvasElem');
@@ -42,12 +48,18 @@ function runBuildPath(response){
 	if (!context) {
 		return;
 	}
+	context.clearRect(0,0,elem.width,elem.height);
+	context.fillStyle="#000000";
 	var i;
 	var j;
 	gagne = false;
 	
 	
-	tabParam = response.split(';');
+	tabParam = listeParam.split(';');
+	idUser = tabParam[0];
+	idParty = tabParam[1];
+	idGame = tabParam[2];
+	
 	
 	/* Remplissage de la zone d'arrivee */
 	for(i=0; i<ZONE_JEU_WIDTH; i++){
@@ -140,34 +152,42 @@ function runBuildPath(response){
 		x = x - left;
 		y = y - top;
 		//mouseInfo.innerHTML = "x : " + x + "  y : " + y;
-		if(hasBegin){
+		if(hasBegin && !hasFinish){
 			if(tabObstacle[x][y] == 1 || x<=1 || y<=1 || x >= ZONE_JEU_WIDTH-1 || y >= ZONE_JEU_HEIGHT-1){
 				if(tabFinish[x][y]==1)
 					gagne = true;
-				finish();
+				finishBP();
 			}
 		}
 	};
 	
 }
 
-function finish(){
+function finishBP(){
+	hasFinish = true;
 	xhr = getXhr();
 	clearInterval(idCount);
 	clearInterval(idRefresh);
-	document.getElementById('headConteneur').innerHTML = (gagne)?"GAGNE !!!":"PERDU";
+	if(gagne){
+		document.getElementById('headConteneur').innerHTML = "Bravo!";
+	}else{
+		document.getElementById('headConteneur').innerHTML = "Pas cool...";
+		s = -1;
+		ms = -1;
+	}
 	var servletName = "BuildPath";
 	xhr.open("POST", "./" + servletName, true);
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        response = xhr.responseText;
+	        alert(response);
 	   }
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "sec=" + s + "msec" + ms);
-	idEnd = setInterval("checkResult("+idGame+")", 500);
+	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&sec=" + s + "&msec=" + ms);
+	idEnd = setInterval("checkResultBP("+idGame+")", 500);
 }
-function checkResult(idGame){
+function checkResultBP(idGame){
 	
 	var servletName = "BuildPath";
 	var tabId = [];
@@ -180,14 +200,14 @@ function checkResult(idGame){
 	    	if(response.substring(0,4)=="end_"){
 	    		
 		    	clearInterval(idEnd);
-	    		var scoreEndGame = response.substring(4,response.length-1);
+	    		var bp_scoreEndGame = response.substring(4,response.length-1);
 	    		
 	    		
 	    		//la game est fini on rempli les champs idGame et finishgame
 	    		
 	    		//document.getElementById('idGameValue').setAttribute("value", idGame);
 	    		
-		    	document.getElementById('infos').innerHTML += scoreEndGame;
+		    	document.getElementById('infos').innerHTML += bp_scoreEndGame;
 		    	//alert("wait");
 		    	document.getElementById('finishGame').setAttribute("value", "true");
 		    	
@@ -233,8 +253,8 @@ function drawFinish(){
 
 function drawTheLab(){
 	var tabParam2 = Array();
-	for(var i=0; i<tabParam.length; i++){
-		tabParam2[i] = parseInt(tabParam[i], 10);
+	for(var i=3; i<tabParam.length; i++){
+		tabParam2[i-3] = parseInt(tabParam[i], 10);
 	}
 	drawLab(tabParam2);
 }
