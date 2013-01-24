@@ -135,4 +135,9 @@ public class PartyController2 implements PartyController2Local {
 		pm.incrementCurrentGame(idParty);
 		
 	}
+
+	@Override
+	public void addScore(int idParty, int idPlayer, int score) {
+		pm.addScore(idParty, idPlayer, (500-score)*1000);
+	}
 }
