@@ -100,7 +100,7 @@ function changeGame(){
 				alert("partie finie");
 				return;
 			}
-			servletNextGame="CheckBox";
+			servletNextGame="BuildPath";
 			
 			//on demande à la servlet concerncé de nous envoyé les paramètres
 			servletName = servletNextGame;
@@ -123,7 +123,7 @@ function changeGame(){
 					
 					//On lance la fonction concerné
 		            alert("response: "+response);
-		            eval("run"+servletNextGame+"(" + stringParam + ")");
+		            eval("run"+servletNextGame+"('" + stringParam + "')");
 		            idReloadGame = setInterval("reloadGame()", 800);
 		       }
 			document.getElementById("infos");

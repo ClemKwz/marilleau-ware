@@ -103,7 +103,7 @@ public class BuildPath extends HttpServlet {
 			break;
 			// Pas besoin de reponse, l'utilisateur a son temps, il sait deja s'il a perdu, ilattend juste le tableau des resultats
 		case GETRESPONSE :
-			
+			System.out.println("Reponse de js : " + request.getParameter("sec") + "s" + request.getParameter("msec") + "ms");
 			break;
 		case ISENDGAME :
 			idPlayer = (int) request.getSession().getAttribute("idUser");
