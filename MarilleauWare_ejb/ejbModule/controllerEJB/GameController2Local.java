@@ -23,4 +23,8 @@ public interface GameController2Local {
 	
 	public String getNameGameDesc(int idGame);
 
+	public void addDataGame(int idGame, String data);
+
+	public String getDataFromGame(int idGame);
+
 }

@@ -6,4 +6,8 @@ import javax.ejb.Local;
 public interface CheckBoxControllerLocal {
 
 public int calculScoreFinal(int score);
+
+public String getDataGame(int idGame);
+
+public String generateDataGame(int idGame);
 }

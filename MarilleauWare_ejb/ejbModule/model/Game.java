@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
 import java.util.List;
 
 
@@ -18,6 +17,8 @@ public class Game implements Serializable {
 	@Id
 	@GeneratedValue
 	private int idGame;
+
+	private String data;
 
 	private int endGame;
 
@@ -48,6 +49,14 @@ public class Game implements Serializable {
 
 	public void setIdGame(int idGame) {
 		this.idGame = idGame;
+	}
+
+	public String getData() {
+		return this.data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
 	}
 
 	public int getEndGame() {

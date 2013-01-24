@@ -21,4 +21,6 @@ public interface GameManagerLocal {
 	public int getNextgame(int idParty);
 	public HashMap<String, Integer> getAllScore(int idGame);
 	public String getNameGameDesc(int idGame);
+	public void addDataGame(int idGame, String data);
+	public String getDataFromGame(int idGame);
 }

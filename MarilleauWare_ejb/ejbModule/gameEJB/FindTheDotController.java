@@ -6,25 +6,24 @@ import javax.ejb.Stateless;
 import controllerEJB.GameController2Local;
 
 /**
- * Session Bean implementation class CheckBoxController
+ * Session Bean implementation class FindTheDotController
  */
 @Stateless
-public class CheckBoxController implements CheckBoxControllerLocal {
+public class FindTheDotController implements FindTheDotControllerLocal {
 
 	@EJB
 	GameController2Local gc;
-	
+    
     /**
      * Default constructor. 
      */
-    public CheckBoxController() {
-        // TODO Auto-generated constructor stub
+    public FindTheDotController() {
+        
     }
-
-	@Override
+	
+    @Override
 	public int calculScoreFinal(int score) {
-		return score*10000;
-		
+		return (500-score)*1000;
 	}
 	
 	/*
@@ -36,23 +35,21 @@ public class CheckBoxController implements CheckBoxControllerLocal {
 	@Override
 	public String generateDataGame(int idGame) {
 		
-		int possiblePositions = 20*15 + 1; // nombre de positions possibles pour les checkbox dans le canvasElem
-		int nb_checkbox = 20;
-		int sizeTab = 1 + 2 * nb_checkbox;
-		int[] randTab = new int[sizeTab];
+		int[] tab = new int[5];
+		
+		int x1 = (int) (Math.random()*400);
+		int y1 = (int) (Math.random()*300);
+
+		int xInverted = (int) ((Math.random()>0.5)?0:1);
+		int yInverted = (int) ((Math.random()>0.5)?0:1);
+		tab[0] = idGame;
+		tab[1] = x1;
+		tab[2] = y1;
+		tab[3] = xInverted;
+		tab[4] = yInverted;
+			
 		String params = "";
-		
-		randTab[0] = idGame;
-		
-		for (int i=1; i<sizeTab; i++) {
-			randTab[i] = (int) (Math.random()*possiblePositions);
-		}
-		
-		//String params = idPlayer + ";" + idParty + ";" + idGame + ";";
-		for (int i=1; i < randTab.length-1; i++) {
-			params += randTab[i] + ";";
-		}
-		params += randTab[randTab.length-1];
+		params = tab[1] + ";" + tab[2] + ";" + tab[3] + ";" + tab[4];
 		
 		// Insertion dans la base
 		gc.addDataGame(idGame,params);

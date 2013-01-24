@@ -49,6 +49,7 @@ public class GameManagerBean implements GameManagerLocal {
 		game.setStartGame(0);
 		game.setEndGame(0);
 		game.setSequence(sequence);
+		game.setData("");
 		
 		this.em.persist(game);
 		this.em.flush();
@@ -212,5 +213,49 @@ public class GameManagerBean implements GameManagerLocal {
 			}
 			
 			return game.getGamesDesc().getName();
+	}
+
+	@Override
+	public void addDataGame(int idGame, String data) {
+		
+		// Creation de la requete
+		Query query = em.createQuery("from Game g where g.idGame=:idg");
+		query.setParameter("idg", idGame);
+		
+		Game game;
+		// Recuperation du resultat
+		try {
+			game = (Game) query.getSingleResult();
+			game.setData(data);
+			em.persist(game);
+			em.flush();
+		} catch (NoResultException e)  {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public String getDataFromGame(int idGame) {
+		
+		String data = null;
+		
+		Query query = em.createQuery("from Game g where g.idGame=:idg");
+		query.setParameter("idg", idGame);
+		
+		Game game;
+		// Recuperation du resultat
+		try {
+			game = (Game) query.getSingleResult();
+			data = game.getData();
+			System.out.println("data de la game "+ idGame + " : " + data);
+		} catch (NoResultException e)  {
+			e.printStackTrace();
+			data = null;
+		}
+		if(data!=null && data.equals("")){
+			data = null;
+		}
+		
+		return data;
 	}
 }

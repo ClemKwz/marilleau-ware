@@ -121,4 +121,18 @@ public class GameController2 implements GameController2Local {
 	public String getNameGameDesc(int idParty) {
 		return gm.getNameGameDesc(idParty);
 	}
+
+	@Override
+	public void addDataGame(int idGame, String data) {
+		
+		gm.addDataGame(idGame,data);
+	}
+
+	@Override
+	public String getDataFromGame(int idGame) {
+		
+		String data = gm.getDataFromGame(idGame);
+		
+		return data;
+	}
 }

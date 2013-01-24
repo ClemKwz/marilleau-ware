@@ -31,6 +31,9 @@ public class PartyController2 implements PartyController2Local {
 	UserManagerLocal um;
 	@EJB
 	ChatPartyManagerLocal cpm;
+	
+	final int NBPLAYERMIN = 2;
+	
     /**
      * Default constructor. 
      */
@@ -55,7 +58,7 @@ public class PartyController2 implements PartyController2Local {
 		
 		pm.addUserToParty(idParty, idUser);
 		//on vérifie qu'il y a le nombre adéquat de joueur
-		if(pm.getAllScore(idParty).size()>1){
+		if(pm.getAllScore(idParty).size()>=NBPLAYERMIN){
 			pm.setStarted(idParty);
 		}
 		
