@@ -1,6 +1,6 @@
 package linkGame;
 
-import gameEJB.CheckBoxController;
+import gameEJB.CheckBoxControllerLocal;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,7 +36,7 @@ public class CheckBox extends HttpServlet {
 	@EJB
 	GameController2Local gc;
 	@EJB
-	CheckBoxController checkbox;
+	CheckBoxControllerLocal checkbox;
 	
     /**
      * @see HttpServlet#HttpServlet()
