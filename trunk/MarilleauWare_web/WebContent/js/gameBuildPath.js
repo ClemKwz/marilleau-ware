@@ -119,8 +119,8 @@ function runBuildPath(listeParam){
 		var x = event.clientX;
 		var y = event.clientY;
 		var divInfo = document.getElementById('infos');
-		x = x - left;
-		y = y - top;
+		x = x - left + window.scrollX;
+		y = y - top + window.scrollY;
 		
 		if(x <= BEGIN_WIDTH && y <= BEGIN_HEIGHT){
 			game();
