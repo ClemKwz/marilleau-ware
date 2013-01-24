@@ -136,12 +136,12 @@ function runBuildPath(listeParam){
 		
 		
 		
-		/*On récupère l'élément*/
+		/*On recupere l'element*/
 		var e = document.getElementById('bc_games');
-		/*Tant que l'on a un élément parent*/
+		/*Tant que l'on a un element parent*/
 		while (e.offsetParent != undefined && e.offsetParent != null)
 		{
-			/*On ajoute la position de l'élément parent*/
+			/*On ajoute la position de l'element parent*/
 			left += e.offsetLeft + (e.clientLeft != null ? e.clientLeft : 0);
 			top += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);
 			e = e.offsetParent;
