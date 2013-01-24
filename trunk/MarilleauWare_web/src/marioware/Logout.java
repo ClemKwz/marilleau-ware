@@ -52,7 +52,7 @@ public class Logout extends HttpServlet {
 		int idUser = Integer.parseInt(session.getAttribute("idUser").toString());
 		
 		uc.deleteUser(idUser);
-		
+	
 		session.invalidate();
 		String message = "Logout Ok";
 		getServletContext().getRequestDispatcher("/index.jsp?message="+message).forward(request,response);
