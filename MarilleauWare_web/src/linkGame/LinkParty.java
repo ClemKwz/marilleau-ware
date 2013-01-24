@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Party;
+
 import controllerEJB.GameController2Local;
 import controllerEJB.PartyController2Local;
 
@@ -21,6 +23,7 @@ public class LinkParty extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	int idPlayer;
 	int idParty;
+	
 	@EJB
 	PartyController2Local pc;
 
@@ -63,14 +66,20 @@ public class LinkParty extends HttpServlet {
 			}else{
 				int idGameSuiv = gc.getNextgame(idParty);
 				System.out.println("LinkParty:  idParty: "+idParty+ " ||idGameSuiv: "+ idGameSuiv);
-				String ServletName;
+				String servletName;
 				if(idGameSuiv >-1){
 					//récupération du type de jeu du game suivant;
-					ServletName = gc.getNameGameDesc(idGameSuiv);
+					servletName = gc.getNameGameDesc(idGameSuiv);
 				}else{
-					ServletName = "0";
+					
+					servletName = "0";
+					Party suppr = pc.getPartyById(idParty);
+					if(suppr!=null){
+						pc.deletePartyAndCo(idParty);
+					}
+
 				}
-				out.print(""+ServletName);
+				out.print(""+servletName);
 			}
 		
 		out.close();

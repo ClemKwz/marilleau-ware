@@ -26,4 +26,5 @@ public interface PartyManagerLocal {
 	public void addScore(int idParty, int idPlayer, int score);
 	public boolean isStarted(int idParty);
 	public void setStarted(int idParty);
+	public void deletePartyAndCo(int idParty);
 }

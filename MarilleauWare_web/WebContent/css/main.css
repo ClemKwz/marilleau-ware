@@ -55,10 +55,6 @@ body{
 	margin: 5px auto;
 	background-color: #ACB5F0;/*#b2cbcf*/
 }
-#logo{
-	height: 100px;
-	margin: 10px;
-}
 /* ======================== FIN HEADER PAGE ============================= */
 
 #headConteneur{
@@ -124,7 +120,7 @@ body{
     float:left;
     margin-left:10px;
     margin-top:10px;
-    background: url('../img/logo.jpg') no-repeat;
+    background: url('../img/logo.png') no-repeat;
 }
 	
 /* navigation */

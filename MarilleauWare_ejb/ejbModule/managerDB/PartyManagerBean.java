@@ -340,4 +340,56 @@ public class PartyManagerBean implements PartyManagerLocal {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void deletePartyAndCo(int idParty) {
+		
+		Query query = em.createQuery("from Party where idParty =:p");
+		query.setParameter("p", idParty);
+
+		//System.out.println("idParty => " + idParty + "  idUser => " + idPlayer + "  score => " + score);
+
+		Party party = null;
+		
+		// Recuperation du resultat
+		try {
+			party = (Party) query.getSingleResult();
+		}catch(NoResultException e)  {
+			e.printStackTrace();
+		}
+		//suppression des scores (entre user et games)
+		List <Game> Allgame = party.getGames();
+			for(int i=0;i<Allgame.size();i++){
+				query = em.createQuery("DELETE FROM TjGamesUser t WHERE t.id.idGame =:id");
+				query.setParameter("id", Allgame.get(i).getIdGame());
+				query.executeUpdate();
+				this.em.flush();
+			}
+				//suppression des games 
+				query = em.createQuery("DELETE FROM Game g WHERE g.party =:id");
+				query.setParameter("id", party);
+				query.executeUpdate();
+				this.em.flush();
+				
+				
+				//suppression du chat
+				query = em.createQuery("DELETE FROM ChatParty p WHERE p.idParty =:id ");
+				query.setParameter("id", idParty);
+				query.executeUpdate();
+				this.em.flush();
+				
+				//Update de l'utilisateur
+				List <User> allUser = party.getUsers();
+				for(int i=0;i<allUser.size();i++){
+					allUser.get(i).setScore(0);
+					allUser.get(i).setParty(null);
+				}
+				this.em.flush();
+				//suppression de la partie
+				query = em.createQuery("DELETE FROM Party p WHERE p.idParty =:id ");
+				query.setParameter("id", idParty);
+				query.executeUpdate();
+				this.em.flush();
+				
+	}
 }

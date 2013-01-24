@@ -52,6 +52,7 @@ function runFindTheDot(listeparam){
 	 info.font="bold 13px Verdana";
 	 info.fillText("Click on the (" + goalX + "," + goalY + ") pixel !", 10, 20);
 	 
+
 	//document.getElementById('headConteneur').innerHTML += "Click on the (" + goalX + "," + goalY + ") pixel !";
 
 	// Affichage de l'echelle
@@ -112,6 +113,8 @@ function runFindTheDot(listeparam){
 	};
 	// recuperer click souris
 	conteneur.onclick = function(event){
+	
+		
 		
 	if(!hasplayed)
 	{
