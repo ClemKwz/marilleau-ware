@@ -129,4 +129,14 @@
     <servlet-name>ScoreParty</servlet-name>
     <url-pattern>/ScoreParty</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CheckBox</display-name>
+    <servlet-name>CheckBox</servlet-name>
+    <servlet-class>linkGame.CheckBox</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckBox</servlet-name>
+    <url-pattern>/CheckBox</url-pattern>
+  </servlet-mapping>
 </web-app>

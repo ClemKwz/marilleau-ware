@@ -90,6 +90,7 @@ function refreshGame() {
 		debug();
 	if (chrono == 0) {
 		timeOver = true;
+		finish();
 	}
 }
 
@@ -282,4 +283,54 @@ function debug() {
 	+ "R="+ROUGE + "V="+VERT + "J="+JAUNE + "B="+BLEU
 	+ "Yeah 52"
 	;
+}
+
+function finish(x, y){
+	var servletName = "CheckBox";
+	xhr = getXhr();
+	xhr.open("POST", "./" + servletName, true);
+	xhr.onreadystatechange = function(){
+	    if(xhr.readyState == 4 && xhr.status == 200){
+	        response = xhr.responseText;
+	    	document.getElementById('divScore').innerHTML = response;
+			
+	   }
+	};
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	//document.getElementById('infos').innerHTML += "<br/><br/>action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&distance=" + distance;
+	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&score=" + score);
+	idEnd = setInterval("checkResult("+idGame+")", 500);
+}
+
+
+function checkResult(idGame){
+	
+	var servletName = "CheckBox";
+	var tabId = [];
+	xhr.open("POST", "./" + servletName, true);
+	xhr.onreadystatechange = function(){
+	    if(xhr.readyState == 4 && xhr.status == 200){
+	        response = xhr.responseText;
+	
+	        //la partie est terminé
+	    	if(response.substring(0,4)=="end_"){
+	    		
+		    	clearInterval(idEnd);
+	    		var scoreEndGame = response.substring(4,response.length-1);
+	    		
+	    		
+	    		//la game est fini on rempli les champs idGame et finishgame
+	    		
+	    		//document.getElementById('idGameValue').setAttribute("value", idGame);
+	    		
+		    	document.getElementById('infos').innerHTML += scoreEndGame;
+		    	//alert("wait");
+		    	document.getElementById('finishGame').setAttribute("value", "true");
+		    	
+		    	//document.getElementById('infos').innerHTML += "<br>Apres InitCheck";
+	    	}
+	   }
+	};
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send("action=3&idGame="+idGame);	
 }
