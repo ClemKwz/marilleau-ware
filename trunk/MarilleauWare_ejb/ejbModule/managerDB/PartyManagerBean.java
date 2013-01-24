@@ -270,6 +270,8 @@ public class PartyManagerBean implements PartyManagerLocal {
 			}
 			party.setIdCurrentGame(idGameSuiv);
 		}
+		this.em.persist(party);
+		this.em.flush();
 		
 	}
 
@@ -291,6 +293,50 @@ public class PartyManagerBean implements PartyManagerLocal {
 			this.em.persist(user);
 			this.em.flush();
 		} catch (NoResultException e)  {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public boolean isStarted(int idParty) {
+		// Creation de la requete
+		Query query = em.createQuery("from Party where idParty=:p");
+		query.setParameter("p", idParty);
+
+		//System.out.println("idParty => " + idParty + "  idUser => " + idPlayer + "  score => " + score);
+
+		Party party = null;
+		// Recuperation du resultat
+		try {
+			party = (Party) query.getSingleResult();
+			int started = party.getStartParty();
+			if(started ==0){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (NoResultException e)  {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public void setStarted(int idParty) {
+		Query query = em.createQuery("from Party where idParty=:p");
+		query.setParameter("p", idParty);
+
+		//System.out.println("idParty => " + idParty + "  idUser => " + idPlayer + "  score => " + score);
+
+		Party party = null;
+		
+		// Recuperation du resultat
+		try {
+			party = (Party) query.getSingleResult();
+			party.setStartParty(1);
+			this.em.persist(party);
+			this.em.flush();
+		}catch(NoResultException e)  {
 			e.printStackTrace();
 		}
 	}

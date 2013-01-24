@@ -40,4 +40,6 @@ public interface PartyController2Local {
 	public void incrementCurrentGame(int idParty);
 
 	public void addScore(int idParty, int idPlayer, int score);
+
+	public boolean isStarted(int idParty);
 }

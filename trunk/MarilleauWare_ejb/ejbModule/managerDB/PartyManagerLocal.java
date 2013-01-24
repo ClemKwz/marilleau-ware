@@ -24,4 +24,6 @@ public interface PartyManagerLocal {
 	public HashMap<String, Integer> getAllScore(int idParty);
 	public void incrementCurrentGame(int idParty);
 	public void addScore(int idParty, int idPlayer, int score);
+	public boolean isStarted(int idParty);
+	public void setStarted(int idParty);
 }

@@ -4,7 +4,7 @@
 var xhr;
 var idReloadGame;
 var idPartyMain;
-
+var idInitGame;
 /** Fonctions pour afficher et joindre les parties **/
 
 function initJoinPartie(idUser){
@@ -66,7 +66,8 @@ function joinPartie(idParty,idUser){
 function init(id_deParty){
 	
 	idPartyMain = id_deParty;
-	changeGame();
+	 idInitGame = setInterval("initParty()", 2000);
+	 
 	
 }
 
@@ -80,11 +81,68 @@ function reloadGame(){
 
 		xhr = getXhr();
 		clearInterval(idReloadGame);
+		//Réinitialisation des div
 		document.getElementById('finishGame').value = "false";
+		document.getElementById('headConteneur').value = "";
+		document.getElementById('bc_games').value = "";
+		document.getElementById('infos').value = "";
+		
 		changeGame();
 	}
 }
 
+function initParty(){
+	
+	xhr.open("POST", "./LinkParty", true);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+	        response = xhr.responseText;
+			
+			var servletNextGame = response;
+			//alert("ResponseLinkParty : "+ response);
+			
+			//La partie est en attente
+			if(response =="-2"){
+				return;
+			}
+			
+			if(response =="0"){
+				alert("partie finie INIT erreur");
+				clearInterval(idInitGame);
+				return;
+			}
+	
+			clearInterval(idInitGame);
+			//on demande à la servlet concerncé de nous envoyé les paramètres
+			servletName = servletNextGame;
+			var xhr2 = getXhr();
+			
+			xhr2.open("POST", "./" + servletName, true);
+			xhr2.onreadystatechange = function(){
+				
+		        if(xhr2.readyState == 4 && xhr2.status == 200) {
+		            response = xhr2.responseText;
+		            document.getElementById('infos').innerHTML = response;
+					
+		            
+		            alert("response: "+response);
+					//On lance la fonction concerné
+		           // alert("response: "+response);
+		            eval("run"+servletNextGame+"('" + response + "')");
+		           
+		          
+		            idReloadGame = setInterval("reloadGame()", 800);
+		       }
+			document.getElementById("infos");
+			};
+			xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr2.send("action=1");
+		}
+		
+	};
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send("idParty="+idPartyMain);
+}
 function changeGame(){
 	//récupération du nom du jeu suivant + idgamesuivan
 	
@@ -94,13 +152,15 @@ function changeGame(){
 	        response = xhr.responseText;
 			
 			var servletNextGame = response;
-			alert("ResponseLinkParty : "+ response);
+			//alert("ResponseLinkParty : "+ response);
+			
 			//La partie est fini
 			if(response =="0"){
 				alert("partie finie");
 				return;
 			}
-			servletNextGame="BuildPath";
+
+			//servletNextGame="BuildPath";
 			
 			//on demande à la servlet concerncé de nous envoyé les paramètres
 			servletName = servletNextGame;

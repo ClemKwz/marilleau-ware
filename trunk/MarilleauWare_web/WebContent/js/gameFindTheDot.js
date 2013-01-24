@@ -17,18 +17,18 @@ var idGame;
 var goalXG;
 var goalYG;
 
-function salut(){
-	alert("ok");
-}
 
-function begin1(x,y){
-	alert("coucou");
-}
-
-function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInverted, yInverted){
-	idUser = idUserServ;
-	idParty = idPartyServ;
-	idGame = idGameServ;
+function runFindTheDot(listeparam){
+	//idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInverted, yInverted
+	
+	 var param = listeparam.split(';');
+	 idUser = parseInt(param[0], 10);
+	 idParty = parseInt(param[1], 10);
+	 idGame = parseInt(param[2], 10);
+	 goalX = parseInt(param[3], 10);
+	 goalY = parseInt(param[4], 10);
+	 xInverted = parseInt(param[5], 10);
+	 yInverted = parseInt(param[6], 10);
 	
 	var elem = document.getElementById('canvasElem');
 	if (!elem || !elem.getContext) {
@@ -81,7 +81,7 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 	
 	hasplayed = false;
 	d = new Date();
-	idCount = setInterval(count, 10);
+	idCount = setInterval("countFindTheDot()", 10);
 
 	var conteneur = document.getElementById('bc_games');
 	
@@ -128,8 +128,13 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 		context.lineTo(goalX,goalY);
 		context.stroke();
 		
+//		alert("x||y:"+x+","+y);
+//		alert("goalx||goaly:"+goalX+","+goalY);
+		
 		var d = Math.sqrt((x-goalX) * (x-goalX) + (y-goalY) * (y-goalY));
+		//alert("d"+d);
 		var distance = Math.floor(d);
+		//alert("distance"+distance);
 
 		/*var distanceX = goalX - (goalX - x)/2;
 		var distanceY = goalY - (goalY - y)/2;
@@ -145,12 +150,12 @@ function runFindTheDot(idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInver
 		hasplayed = true;
 		clearInterval(idCount);
 		clearInterval(idRefresh);
-		finish(x, y);
+		finishFindTheDot(x, y);
 		}
 	};
 }
 
-function finish(x, y){
+function finishFindTheDot(x, y){
 	var servletName = "FindTheDot";
 	xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
@@ -167,12 +172,12 @@ function finish(x, y){
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	//document.getElementById('infos').innerHTML += "<br/><br/>action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&distance=" + distance;
 	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&x=" + x+ "&y=" + y);
-	idEnd = setInterval("checkResult("+idGame+")", 500);
+	idEnd = setInterval("checkResultFindTheDot("+idGame+")", 500);
 }
 
 
 
-function count(){
+function countFindTheDot(){
 	end = new Date();
 	var delta = end - d;
 	delta = new Date(delta);
@@ -184,7 +189,7 @@ function count(){
 	{
 		s2 = 0;
 		ms2 = 0 + "00";
-		finish(999);
+		finishFindTheDot(999,999);
 		clearInterval(idCount);
 		clearInterval(idRefresh);
 		hasplayed = true;
@@ -193,7 +198,7 @@ function count(){
 	chrono.innerHTML = /*"Time : "*/ + s2 + ":" + Math.floor(ms2/10);
 }
 
-function checkResult(idGame){
+function checkResultFindTheDot(idGame){
 	
 	var servletName = "FindTheDot";
 	var tabId = [];
