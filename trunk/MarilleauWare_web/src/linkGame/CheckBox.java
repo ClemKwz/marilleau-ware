@@ -63,7 +63,7 @@ public class CheckBox extends HttpServlet {
 		int action;
 		int idPlayer = (int) request.getSession().getAttribute("idUser");
 		int idParty = pc.getIdPartyByIdUser(idPlayer);
-		int idGame = pc.getIdGameByIdParty(idParty);
+		int idGameRes = pc.getIdGameByIdParty(idParty);
 		int[] coordAndColor;
 		
 		response.setContentType("text/plain");
@@ -73,36 +73,41 @@ public class CheckBox extends HttpServlet {
 
 		System.out.println("idUser => " + idPlayer);
 
-		// genere les parametres aleatoires si ce n'est pas deja fait pour la game courante
-		if (randomParam.isEmpty() || !randomParamContainsIdGame(idGame)) {
-			coordAndColor = createRandomTab(idGame);
-		} else { // sinon on les recupere
-			coordAndColor = getRandomTab(idGame);
-		}
+		
 		
 		switch(action){
 		case INIT : 
 			//gameManager.connect();
-			String envoiParam = idPlayer + ";" + idParty + ";" + idGame + ";";
-			for (int i=1; i < coordAndColor.length; i++) {
+			// genere les parametres aleatoires si ce n'est pas deja fait pour la game courante
+			if (randomParam.isEmpty() || !randomParamContainsIdGame(idGameRes)) {
+				coordAndColor = createRandomTab(idGameRes);
+			} else { // sinon on les recupere
+				coordAndColor = getRandomTab(idGameRes);
+			}
+			
+			String envoiParam = idPlayer + ";" + idParty + ";" + idGameRes + ";";
+			for (int i=1; i < coordAndColor.length-1; i++) {
 				envoiParam += coordAndColor[i] + ";";
 			}
+			envoiParam += coordAndColor[coordAndColor.length-1];
 			out.print(envoiParam);
 			break;
 		case GETRESPONSE :
 			int score = Integer.parseInt(request.getParameter("score"));
 			int scorefinal = checkbox.calculScoreFinal(score);
-			gc.addScore(idGame, idPlayer, scorefinal);
+			gc.addScore(idGameRes, idPlayer, scorefinal);
+			pc.addScore(idParty, idPlayer, scorefinal);
+			if (!gc.containsNegativeScore(idGameRes)) {
+				pc.incrementCurrentGame(idParty);
+			}
 			
+			out.print(scorefinal);
 			break;
 		case ISENDGAME :
-			idPlayer = (int) request.getSession().getAttribute("idUser");
+		
+			idGameRes = Integer.parseInt(request.getParameter("idGame"));
 			
-			idParty = pc.getIdPartyByIdUser(idPlayer);
-			idGame = pc.getIdGameByIdParty(idParty);
-			
-			System.out.println("");
-			if (gc.containsNegativeScore(idGame)) {
+			if (gc.containsNegativeScore(idGameRes)) {
 				// Tout le monde n'a pas joue
 				System.out.println("Tout le monde n'a pas joué");
 				out.print("wait...");
@@ -110,7 +115,7 @@ public class CheckBox extends HttpServlet {
 				System.out.println("Tout le monde a fini de joué");
 				
 				//récupération des score
-				TreeMap<String,Integer> listeScore =  gc.getAllScore(idGame);
+				TreeMap<String,Integer> listeScore =  gc.getAllScore(idGameRes);
 				/*TreeMap<String,Integer> listeScore= new TreeMap<String,Integer>();
 				listeScore.put("LePNJ", 500);
 				listeScore.put("Fabien", 500);
@@ -129,6 +134,8 @@ public class CheckBox extends HttpServlet {
 				}
 				
 				recupScore = recupScore + "</table> ";
+				
+				
 				out.print("end_" + recupScore);
 				
 			}

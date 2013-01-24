@@ -240,7 +240,7 @@ function count(){
 	delta = new Date(delta);
 	ms = delta.getMilliseconds();
 	s = delta.getSeconds();
-	chrono.innerHTML = s + ":" + ms;
+	document.getElementById('chrono').innerHTML = s + ":" + ms;
 }
 
 /* Dessine la zone d'arrivee */

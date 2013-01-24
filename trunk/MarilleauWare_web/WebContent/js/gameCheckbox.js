@@ -17,7 +17,9 @@ var EPAISSEUR_COTE = 2;
 
 /* les contextes de dessin */
 var zoneJeu;
-
+var idUserCheckBox;
+var idPartyCheckBox;
+var idGameCheckBox;
 
 /* tableaux 2D virtuels contenant les checkbox */
 var tabCheckbox;// grille couleurs a appliquer
@@ -26,22 +28,68 @@ var WIDTH = ZONE_JEU_WIDTH / SIDE_CHECKBOX;
 var HEIGHT = ZONE_JEU_HEIGHT / SIDE_CHECKBOX;
 
 /* valeurs aleatoire recues */
-var tabRandomPosition = [20,16,9,77,99,46,78,95,98,122,25,222,48,236,276,0,55,198,134,211];
-var tabRandomColor = [44,0,400,3,6,2,2,3,6,2,1,0,4,3,6,2,2,3,6,2];
-var order = [true,true,true,true]; // pour definir l'ordre des couleurs
+var tabRandomPosition =[];
+var tabRandomColor =[];
+var CB_order = [true,true,true,true]; // pour definir l'ordre des couleurs
 
 var score = 0;
-var chrono = 3000; // en centieme
+var chrono = 1500; // en centieme
 var idInterv; // Boucle de rafraichissement du contexte 2D
 var timeOver = false;
+var idEndCheckBox;
 
 var x, y; // coordonnees pointeur
 var caseX, caseY; // coordonnees pointeur dans la grille 
 
+var endtamere= false;
+
 function runCheckBox(listeparam){
+	endtamere= false;
 	
-	alert("listeparam 0:"+listeparam[0]);
-	//alert("ok mon frère c'est gagné");
+	/* Taille de la zone de jeu */
+	ZONE_JEU_WIDTH = 400;
+	ZONE_JEU_HEIGHT = 300;
+
+	/* checkbox : taille, nombre, couleurs */
+	SIDE_CHECKBOX = 20;
+	NB_CHECKBOX = 20;
+	
+	NB_COLOR = 4;
+	MARGE = 2;
+	EPAISSEUR_COTE = 2;
+
+
+
+	WIDTH = ZONE_JEU_WIDTH / SIDE_CHECKBOX; 
+	HEIGHT = ZONE_JEU_HEIGHT / SIDE_CHECKBOX;
+
+	
+	
+	/* valeurs aleatoire recues */
+	tabRandomPosition =[];
+	tabRandomColor =[];
+	score = 0;
+	chrono = 500; // en centieme
+	timeOver = false;
+	CB_order = [true,true,true,true];
+	alert("listeparam  dans runCheckBox: "+listeparam);
+	
+	  var param = listeparam.split(';');
+	  idUserCheckBox = parseInt(param[0], 10);
+		idPartyCheckBox = parseInt(param[1], 10);
+		idGameCheckBox = parseInt(param[2], 10);
+		
+	
+	//mise dans un tableau des parametre "listeparam"
+
+	for(var i=3;i<NB_CHECKBOX+3;i++){
+		tabRandomPosition[i-3]= parseInt(param[i],10);
+	}
+	for(var i=NB_CHECKBOX+3;i<param.length;i++){
+		tabRandomColor[i-NB_CHECKBOX-3]= parseInt(param[i],10);
+	}
+
+	//alert("TabPos"+ tabRandomColor);
 	initContext();
 	
 	initRandomOrder();
@@ -79,7 +127,7 @@ function runCheckBox(listeparam){
 	};
 	
 	// Boucle de rafraichissement du contexte 2D
-	idInterv = setInterval(refreshGame, 10);
+	idInterv = setInterval("refreshGame()", 10);
 }
 
 function refreshGame() {
@@ -91,8 +139,10 @@ function refreshGame() {
 		caseY = Math.floor(y/SIDE_CHECKBOX);
 		debug();
 	if (chrono == 0) {
+		clearInterval(idInterv);
+		alert("dans refreshGame");
 		timeOver = true;
-		finish();
+		finishCheckBox();
 	}
 }
 
@@ -154,21 +204,25 @@ function drawOrderedColor() {
 }
 
 function initRandomOrder() {
+	//alert("initRandomOrder");
 	ROUGE = tabRandomPosition[0] % NB_COLOR;
-	order[ROUGE] = false;
+	CB_order[ROUGE] = false;
 	
 	VERT = getFreeOrder(tabRandomPosition[1] % (NB_COLOR-1));
-	order[VERT] = false;
+	CB_order[VERT] = false;
 	
 	JAUNE = getFreeOrder(tabRandomPosition[2] % (NB_COLOR-2));
-	order[JAUNE] = false;
+	CB_order[JAUNE] = false;
 	
 	BLEU = getFreeOrder(0);
+	CB_order[BLEU] = false;
 }
 
 function getFreeOrder(random) {
 	for (var i=0; i<=random; i++) {
-		if (!order[i]) {
+		//alert("CB_order[i]:"+i+"||"+CB_order[i]);
+		if (!CB_order[i]) {
+
 			random++;
 		}
 	}
@@ -287,7 +341,9 @@ function debug() {
 	;
 }
 
-function finish(x, y){
+function finishCheckBox(){
+	
+	alert("Dans finish");
 	var servletName = "CheckBox";
 	xhr = getXhr();
 	xhr.open("POST", "./" + servletName, true);
@@ -298,40 +354,47 @@ function finish(x, y){
 			
 	   }
 	};
+	idEndCheckBox = setInterval("checkResultCheckBox("+idGameCheckBox+")", 500);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	//document.getElementById('infos').innerHTML += "<br/><br/>action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&distance=" + distance;
-	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&score=" + score);
-	idEnd = setInterval("checkResult("+idGame+")", 500);
+	xhr.send("action=2&idUser=" + idUserCheckBox + "&idParty="+ idPartyCheckBox + "&idGame=" + idGameCheckBox+ "&score=" + score);
+	
 }
 
-
-function checkResult(idGame){
-	
-	var servletName = "CheckBox";
-	xhr.open("POST", "./" + servletName, true);
-	xhr.onreadystatechange = function(){
-	    if(xhr.readyState == 4 && xhr.status == 200){
-	        response = xhr.responseText;
-	
-	        //la partie est terminé
-	    	if(response.substring(0,4)=="end_"){
-	    		
-		    	clearInterval(idEnd);
-	    		var scoreEndGame = response.substring(4,response.length-1);
-	    		
-	    		
-	    		//la game est fini on rempli les champs idGame et finishgame
-	    		
-	    		//document.getElementById('idGameValue').setAttribute("value", idGame);
-	    		
-		    	document.getElementById('infos').innerHTML += scoreEndGame;
-		    	//alert("wait");
-		    	document.getElementById('finishGame').setAttribute("value", "true");
-		    	
-		    	//document.getElementById('infos').innerHTML += "<br>Apres InitCheck";
-	    	}
-	   }
-	};
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("action=3&idGame="+idGame);	
+function checkResultCheckBox(idGameCB){
+	alert("checkResult:"+idGameCB);
+	if(endtamere==false){
+		//alert("checkResult:Hihi je suis un connard");
+		//clearInterval(idEndCheckBox);
+		var servletName = "CheckBox";
+		var xhr3 = getXhr();
+		xhr3.open("POST", "./" + servletName, true);
+		xhr3.onreadystatechange = function(){
+		    if(xhr3.readyState == 4 && xhr3.status == 200){
+		        response = xhr3.responseText;
+		
+		        //la partie est terminé
+		    	if(response.substring(0,4)=="end_"){
+		    		endtamere = true;
+		    		alert("Fin du jeu ok");
+			    	clearInterval(idEndCheckBox);
+		    		var scoreEndGame = response.substring(4,response.length-1);
+		    		
+		    		
+		    		//la game est fini on rempli les champs idGame et finishgame
+		    		
+		    		//document.getElementById('idGameValue').setAttribute("value", idGame);
+		    		
+			    	document.getElementById('infos').innerHTML += scoreEndGame;
+			    	
+			    	document.getElementById('finishGame').setAttribute("value", "true");
+			    	
+			    	//document.getElementById('infos').innerHTML += "<br>Apres InitCheck";
+		    	}
+		   }
+		};
+		xhr3.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		xhr3.send("action=3&idGame="+idGameCB);	
+	}else{//alert("endtamere");
+	}
 }
