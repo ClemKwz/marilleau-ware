@@ -93,7 +93,7 @@ function changeGame(){
 	        response = xhr.responseText;
 			
 			var servletNextGame = response;
-			alert("ResponseLinkParty : "+ response);
+			//alert("ResponseLinkParty : "+ response);
 			//La partie est fini
 			if(response =="0"){
 				alert(fini);
@@ -111,16 +111,17 @@ function changeGame(){
 		        if(xhr.readyState == 4 && xhr.status == 200) {
 		            response = xhr.responseText;
 		            document.getElementById('infos').innerHTML = response;
-		            var param = response.split(';');
-		            var stringParam="";
+//		            var param = response.split(';');
+		            var stringParam=response;
 		            
-		          //On créer la liste des paramètre sous forme de string
-					for(var i=0;i<param.length -1;i++){
-						stringParam += param[i]+",";
-					}
-					stringParam += param[param.length-1];
+//		          //On créer la liste des paramètre sous forme de string
+//					for(var i=0;i<param.length -1;i++){
+//						stringParam += param[i]+",";
+//					}
+					//stringParam += param[param.length-1];
 					
 					//On lance la fonction concerné
+		            alert("response: "+response);
 		            eval("run"+servletNextGame+"(" + stringParam + ")");
 		            idReloadGame = setInterval("reloadGame()", 800);
 		       }
