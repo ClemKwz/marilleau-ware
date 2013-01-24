@@ -19,7 +19,7 @@
 	
 	//out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
 	out.print("<script  type=\"javascript\">init("+idParty+");</script>");
-	out.print("<script  type=\"javascript\">initScoreParty("+idParty+");</script>");
+	//out.print("<script  type=\"javascript\">initScoreParty("+idParty+");</script>");
 	
 %>
 
