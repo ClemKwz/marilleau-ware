@@ -25,10 +25,10 @@ var idCount;
 var idRefresh;
 
 var gagne;
-
+var hasBegin = false;
 var tabParam;
 
-function runBuildPath(){
+function runBuildPath(response){
 	//tabObstacle  = new Array(ZONE_JEU_WIDTH, ZONE_JEU_HEIGHT);
 	// On recupere l'objet canvas
 	var elem = document.getElementById('canvasElem');
@@ -47,18 +47,7 @@ function runBuildPath(){
 	gagne = false;
 	
 	
-	var servletName = "BuildPath";
-	xhr = getXhr();
-	xhr.open("POST", "./" + servletName, true);
-	xhr.onreadystatechange = function(){
-	    if(xhr.readyState == 4 && xhr.status == 200){
-	        response = xhr.responseText;
-	    	tabParam = response.split(';');
-	    	//document.getElementById('infos').innerHTML = "TabParam => " + tabParam[0] + ';' + tabParam[1] + "<br/>";
-	   }
-	};
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("action=1");
+	tabParam = response.split(';');
 	
 	/* Remplissage de la zone d'arrivee */
 	for(i=0; i<ZONE_JEU_WIDTH; i++){
@@ -106,7 +95,7 @@ function runBuildPath(){
 		var top = 0;
 		
 		/*On recupere l'element*/
-		var e = document.getElementById('conteneur');
+		var e = document.getElementById('bc_games');
 		/*Tant que l'on a un element parent*/
 		while (e.offsetParent != undefined && e.offsetParent != null)
 		{
@@ -126,7 +115,7 @@ function runBuildPath(){
 		}
 	};
 	
-	var conteneur = document.getElementById('conteneur');
+	var conteneur = document.getElementById('bc_games');
 	conteneur.onmousemove = function(event){
 		var left = 0;
 		var top = 0;
@@ -136,7 +125,7 @@ function runBuildPath(){
 		
 		
 		/*On récupère l'élément*/
-		var e = document.getElementById('conteneur');
+		var e = document.getElementById('bc_games');
 		/*Tant que l'on a un élément parent*/
 		while (e.offsetParent != undefined && e.offsetParent != null)
 		{
@@ -150,27 +139,71 @@ function runBuildPath(){
 		var divInfo = document.getElementById('infos');
 		x = x - left;
 		y = y - top;
-		mouseInfo.innerHTML = "x : " + x + "  y : " + y;
-		
-		if(tabObstacle[x][y] == 1 || x<=1 || y<=1 || x >= ZONE_JEU_WIDTH-1 || y >= ZONE_JEU_HEIGHT-1){
-			if(tabFinish[x][y]==1)
-				gagne = true;
-			endGame();
+		//mouseInfo.innerHTML = "x : " + x + "  y : " + y;
+		if(hasBegin){
+			if(tabObstacle[x][y] == 1 || x<=1 || y<=1 || x >= ZONE_JEU_WIDTH-1 || y >= ZONE_JEU_HEIGHT-1){
+				if(tabFinish[x][y]==1)
+					gagne = true;
+				finish();
+			}
 		}
 	};
 	
 }
 
-/* Fin de la partie */
-function endGame(){
+function finish(){
+	xhr = getXhr();
 	clearInterval(idCount);
 	clearInterval(idRefresh);
-	msg_head.innerHTML = (gagne)?"GAGNE !!!":"PERDU";
+	document.getElementById('headConteneur').innerHTML = (gagne)?"GAGNE !!!":"PERDU";
+	var servletName = "BuildPath";
+	xhr.open("POST", "./" + servletName, true);
+	xhr.onreadystatechange = function(){
+	    if(xhr.readyState == 4 && xhr.status == 200){
+	        response = xhr.responseText;
+	   }
+	};
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send("action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "sec=" + s + "msec" + ms);
+	idEnd = setInterval("checkResult("+idGame+")", 500);
 }
+function checkResult(idGame){
+	
+	var servletName = "BuildPath";
+	var tabId = [];
+	xhr.open("POST", "./" + servletName, true);
+	xhr.onreadystatechange = function(){
+	    if(xhr.readyState == 4 && xhr.status == 200){
+	        response = xhr.responseText;
+	
+	        //la partie est termin�
+	    	if(response.substring(0,4)=="end_"){
+	    		
+		    	clearInterval(idEnd);
+	    		var scoreEndGame = response.substring(4,response.length-1);
+	    		
+	    		
+	    		//la game est fini on rempli les champs idGame et finishgame
+	    		
+	    		//document.getElementById('idGameValue').setAttribute("value", idGame);
+	    		
+		    	document.getElementById('infos').innerHTML += scoreEndGame;
+		    	//alert("wait");
+		    	document.getElementById('finishGame').setAttribute("value", "true");
+		    	
+		    	//document.getElementById('infos').innerHTML += "<br>Apres InitCheck";
+	    	}
+	   }
+	};
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send("action=3&idGame="+idGame);	
+}
+
 
 
 function game(){
 	d = new Date();
+	hasBegin = true;
 	idCount = setInterval(count, 20);
 //	idRefresh = setInterval(refresh, 20);
 	drawTheLab();
@@ -195,7 +228,7 @@ function drawFinish(){
 	context.fillStyle="#00CC00";
 	context.fillRect(ZONE_JEU_WIDTH-FINISH_WIDTH, ZONE_JEU_HEIGHT-FINISH_HEIGHT, FINISH_WIDTH, FINISH_HEIGHT);
 //	context.fillRect(50, 50, FINISH_WIDTH, FINISH_HEIGHT);
-	infos.innerHTML += document.getElementById("conteneur").width;
+	//infos.innerHTML += document.getElementById("conteneur").width;
 }
 
 function drawTheLab(){
@@ -208,12 +241,6 @@ function drawTheLab(){
 
 /* Dessine les obstacles */
 function drawLab(tabTurn){
-	
-
-	document.getElementById('infos').innerHTML += "<br/>";
-	for(var i=0; i<tabTurn.length; i++){
-		document.getElementById('infos').innerHTML += tabTurn[i] + " - ";
-	}
 	
 	
 	var iMax;
@@ -235,7 +262,7 @@ function drawLab(tabTurn){
 	}
 	iMax=i;
 	jMax=j;
-	infos.innerHTML += "<br/>iMax => " + iMax + "  jMax => " + jMax + "  n => " + n + "   tab => " + tabTurn[n];
+	//infos.innerHTML += "<br/>iMax => " + iMax + "  jMax => " + jMax + "  n => " + n + "   tab => " + tabTurn[n];
 	for(i; i<tabTurn[0]+PATH_WIDTH; i++){
 		for(j=0; j<tabTurn[1]; j++){
 			tabObstacle[i][j] = 0;
@@ -243,10 +270,10 @@ function drawLab(tabTurn){
 	}
 	iMax=i;
 	jMax=j;
-	infos.innerHTML += "<br/>iMax => " + iMax + "  jMax => " + jMax + "  n => " + n + "   tab => " + tabTurn[n];
+	//infos.innerHTML += "<br/>iMax => " + iMax + "  jMax => " + jMax + "  n => " + n + "   tab => " + tabTurn[n];
 	
 	while(tabTurn[n]!=null){
-		infos.innerHTML += "<br/>i => " + i + "  j => " + j + "  n => " + n + "   tab => " + tabTurn[n];
+		//infos.innerHTML += "<br/>i => " + i + "  j => " + j + "  n => " + n + "   tab => " + tabTurn[n];
 		
 		/* Segment chemin horizontal */
 		if(n%2==0){		
@@ -289,7 +316,7 @@ function drawLab(tabTurn){
 		}
 		n++;
 	}
-	infos.innerHTML += "<br/>iMax => " + iMax + "  jMax => " + jMax + "  n => " + n + "   tab => " + tabTurn[n];
+	//infos.innerHTML += "<br/>iMax => " + iMax + "  jMax => " + jMax + "  n => " + n + "   tab => " + tabTurn[n];
 	for(i=iMax-FINISH_WIDTH; i<iMax; i++){
 		for(j=jMax; j<jMax+PATH_WIDTH; j++){
 			tabFinish[i][j] = 1;
