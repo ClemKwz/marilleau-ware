@@ -81,21 +81,23 @@ function reloadGame(){
 //		xhr = getXhr();
 		clearInterval(idReloadGame);
 		
-		//sleep(3000);
+		//
 		
 		//Réinitialisation des div
 		document.getElementById('finishGame').value = "false";
-//		document.getElementById('canvasInfo').value = "";
+		document.getElementById('infos').innerHTML = "Attente nouveau jeu";
+		 document.getElementById('chrono').innerHTML = "";
 //		document.getElementById('chrono').value = "";
 //		document.getElementById('divScore').value = "";
-		
+		sleep(3000);
 		changeGame();
 	}
 }
 
 function initParty(){
-	alert("initParty");
+	//alert("Intalisation de la partie");
 	var xhrInitParty = getXhr();
+	document.getElementById('infos').innerHTML = "";
 	xhrInitParty.open("POST", "./LinkParty", true);
 	xhrInitParty.onreadystatechange = function(){
 		if(xhrInitParty.readyState == 4 && xhrInitParty.status == 200){
@@ -106,12 +108,12 @@ function initParty(){
 			
 			//La partie est en attente
 			if(response =="-2"){
-				alert("initParty : partie en attente");
+				document.getElementById('infos').innerHTML = "Partie en attente d'autre joueur";
 				return;
 			}
 			
 			if(response == "0"){
-				alert("partie finie INIT erreur");
+				document.getElementById('infos').innerHTML = "Partie en attente d'autre joueur";
 				clearInterval(idInitGame);
 				return;
 			}
@@ -131,12 +133,13 @@ function initParty(){
 				
 		        if(xhr2.readyState == 4 && xhr2.status == 200) {
 		            response = xhr2.responseText;
-		            document.getElementById('infos').innerHTML = response;
+		            //document.getElementById('infos').innerHTML = response;
 					
 		            
-		            alert("response: "+response);
+		            //alert("response: "+response);
 					//On lance la fonction concerné
 		           // alert("response: "+response);
+		        	document.getElementById('infos').innerHTML = "Jouez !";
 		            eval("run"+servletNextGame+"('" + response + "')");
 		           
 		          
@@ -155,7 +158,8 @@ function initParty(){
 function changeGame(){
 	//récupération du nom du jeu suivant + idgamesuivan
 
-	alert("changeGame");
+	//alert("Le nouveau jeu va commencer");
+	document.getElementById('infos').innerHTML = "";
 	var xhr = getXhr();
 	xhr.open("POST", "./LinkParty", true);
 	xhr.onreadystatechange = function(){
@@ -168,6 +172,7 @@ function changeGame(){
 			//La partie est fini
 			if(response =="0"){
 				alert("partie finie");
+	        	document.getElementById('infos').innerHTML = "La partie est finie !";
 				return;
 			}
 
@@ -189,9 +194,10 @@ function changeGame(){
 		            //document.getElementById('infos').innerHTML = response;
 					
 		            
-		            alert("response: "+response);
+		            //alert("response: "+response);
 					//On lance la fonction concerné
 		            // alert("response: "+response);
+		        	document.getElementById('infos').innerHTML = "Jouez !";
 		            eval("run"+servletNextGame+"('" + response + "')");
 		           
 		          

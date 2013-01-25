@@ -209,9 +209,11 @@ function checkResultBP(idGame){
 		    		var bp_scoreEndGame = response.substring(4,response.length-1);
 		    		
 		    		//la game est fini on rempli ls champ finishgame et score
-		    		document.getElementById('infos').innerHTML += bp_scoreEndGame;
+		    		document.getElementById('infos').innerHTML = bp_scoreEndGame;
 			    	document.getElementById('finishGame').setAttribute("value", "true");
-		    	}
+		    	}else{
+					document.getElementById('infos').innerHTML = "Attente fin du jeu";
+			    }
 		   }
 		};
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

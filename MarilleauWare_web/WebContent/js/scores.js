@@ -1,7 +1,7 @@
 /** Fonctions pour les scores de la partie **/
 
 function initScoreParty(idParty){
-	setInterval("scoreParty("+idParty+")", 1000);
+	setInterval("scoreParty("+idParty+")", 200);
 }
 
 function scoreParty(idParty){

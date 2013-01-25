@@ -70,7 +70,7 @@ body{
 	width: 400px;
 	height: 300px;
 	border: 1px solid #333;
-	margin: 0 auto;
+	margin: 5px auto;
 	background: #777777;
 	text-align: center;		
 }
@@ -78,10 +78,10 @@ body{
 #container{
 	width: 1024px;
 	min-height: 600px;
-	border: solid black 1px;
+	/*border: solid black 1px;*/
 	margin: 5px auto;
 	/*background-color: #ACB5F0;*/ /* bleu bizard de droite */
-	background-color: #86A7D8;
+	background-color: #ACB5F0;
 /* 	padding: 10px; */
 }
 
