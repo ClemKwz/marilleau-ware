@@ -39,10 +39,10 @@ var idEndCheckBox;
 var x, y; // coordonnees pointeur
 var caseX, caseY; // coordonnees pointeur dans la grille 
 
-var endtamere= false;
+var cb_endtamere= false;
 
 function runCheckBox(listeparam){
-	endtamere= false;
+	cb_endtamere= false;
 	
 	/* Taille de la zone de jeu */
 	ZONE_JEU_WIDTH = 400;
@@ -363,7 +363,7 @@ function finishCheckBox(){
 
 function checkResultCheckBox(idGameCB) {
 	
-	if (endtamere==false) {
+	if (cb_endtamere==false) {
 		var xhr3 = getXhr();
 		xhr3.open("POST", "./CheckBox", true);
 		xhr3.onreadystatechange = function() {
@@ -372,7 +372,7 @@ function checkResultCheckBox(idGameCB) {
 		
 		        //la partie est terminé
 		    	if(response.substring(0,4)=="end_"){
-		    		endtamere = true;
+		    		cb_endtamere = true;
 		    		
 			    	clearInterval(idEndCheckBox);
 		    		var scoreEndGame = response.substring(4,response.length-1);
