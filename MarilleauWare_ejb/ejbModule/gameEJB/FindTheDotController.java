@@ -14,9 +14,6 @@ public class FindTheDotController implements FindTheDotControllerLocal {
 	@EJB
 	GameController2Local gc;
     
-    /**
-     * Default constructor. 
-     */
     public FindTheDotController() {
         
     }
@@ -26,12 +23,6 @@ public class FindTheDotController implements FindTheDotControllerLocal {
 		return (500-score)*1000;
 	}
 	
-	/*
-	 * Genere un tableau d'entiers aleatoires correspondant a :
-	 * 	- indice 0 : idGame
-	 * 	- indices 1 a 20 : positions des checkbox
-	 *  - indices 21 a 40 : couleurs des contours des checkbox
-	 */
 	@Override
 	public String generateDataGame(int idGame) {
 		
@@ -48,21 +39,18 @@ public class FindTheDotController implements FindTheDotControllerLocal {
 		tab[3] = xInverted;
 		tab[4] = yInverted;
 			
-		String params = "";
-		params = tab[1] + ";" + tab[2] + ";" + tab[3] + ";" + tab[4];
+		String params = tab[1] + ";" + tab[2] + ";" + tab[3] + ";" + tab[4];
 		
 		// Insertion dans la base
 		gc.addDataGame(idGame,params);
-		// Retour des params
 		
+		// Retour des params
 		return params;
 	}
 	
 	@Override
 	public String getDataGame(int idGame) {
 		
-		String params = gc.getDataFromGame(idGame);
-		
-		return params;
+		return gc.getDataFromGame(idGame);
 	}
 }

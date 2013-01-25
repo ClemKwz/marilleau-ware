@@ -6,5 +6,4 @@ import javax.ejb.Local;
 public interface UserControllerLocal {
 
 	public void deleteUser(int idUser);
-
 }

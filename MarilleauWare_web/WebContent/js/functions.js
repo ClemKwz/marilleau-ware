@@ -15,6 +15,5 @@ function getXhr(){
             xhr = false;
         }
     }
-    
     return xhr;
 }

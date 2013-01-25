@@ -26,10 +26,7 @@
 
 	<div id="container" style="margin: auto;">
 		<div style="margin: 50px;">
-			
-			<p>Connected with pseudo <b><%=pseudo%></b>, id : <%=id%></p>
 			<p>Cr&eacute;ation d'une nouvelle partie</p>
-			
 			<form action="/MarilleauWare_web/PartyCreation" method="POST">
 				<table>
 					<tr>

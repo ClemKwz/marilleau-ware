@@ -20,7 +20,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 	<div id="container" style="margin: auto;">
-		<p>Connected with pseudo <b><%=pseudo%></b>, id : <%=id%></p>
+		
 	</div>
 
 <jsp:include page="footer.jsp"></jsp:include>
