@@ -1,4 +1,4 @@
-package view;
+package marioware;
 
 import java.io.IOException;
 import java.io.PrintWriter;
