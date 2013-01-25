@@ -23,7 +23,7 @@ import model.User;
 @Stateless
 public class PartyController2 implements PartyController2Local {
 	
-	final int NBPLAYERMIN = 1;
+	final int NBPLAYERMIN = 3;
 	
 	@EJB
 	PartyManagerLocal pm;

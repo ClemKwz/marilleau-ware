@@ -166,7 +166,7 @@ function countFindTheDot(idGame,idUser,idParty){
 	ms = delta.getMilliseconds();
 	ms2 = 1000 - ms;
 	s = delta.getSeconds();
-	s2 = 30-s;
+	s2 = 8-s;
 	
 	if (s2 <= -1) {
 		s2 = 0;
@@ -198,9 +198,11 @@ function checkResultFindTheDot(idGame){
 		    		var scoreEndGame = response.substring(4,response.length-1);
 		    		
 		    		//la game est fini on rempli le champ finishgame et le score
-			    	document.getElementById('infos').innerHTML += scoreEndGame;
+			    	document.getElementById('infos').innerHTML = scoreEndGame;
 			    	document.getElementById('finishGame').setAttribute("value", "true");
-		    	}
+		    	}else{
+					document.getElementById('infos').innerHTML = "Attente fin du jeu";
+			    }
 		   }
 		};
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

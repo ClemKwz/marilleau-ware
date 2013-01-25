@@ -31,7 +31,7 @@ var tabRandomColor =[];
 var CB_order = [true,true,true,true]; // pour definir l'ordre des couleurs
 
 var score = 0;
-var chrono = 1500; // en centieme
+var chrono = 1200; // en centieme
 var idInterv; // Boucle de rafraichissement du contexte 2D
 var timeOver = false;
 var idEndCheckBox;
@@ -63,7 +63,7 @@ function runCheckBox(listeparam){
 	tabRandomPosition = [];
 	tabRandomColor = [];
 	score = 0;
-	chrono = 500; // en centieme
+	chrono = 1200; // en centieme
 	timeOver = false;
 	CB_order = [true,true,true,true];
 	
@@ -126,7 +126,7 @@ function refreshGame() {
 	
 	caseX = Math.floor(x/SIDE_CHECKBOX);
 	caseY = Math.floor(y/SIDE_CHECKBOX);
-	debug();
+	//debug();
 	
 	if (chrono == 0) {
 		clearInterval(idInterv);
@@ -378,8 +378,10 @@ function checkResultCheckBox(idGameCB) {
 		    		var scoreEndGame = response.substring(4,response.length-1);
 		    		
 		    		//la game est fini on rempli le champ finishgame et score
-		    		document.getElementById('infos').innerHTML += scoreEndGame;
+		    		document.getElementById('infos').innerHTML = scoreEndGame;
 			    	document.getElementById('finishGame').setAttribute("value", "true");
+			    }else{
+					document.getElementById('infos').innerHTML = "Attente fin du jeu";
 			    }
 		   }
 		};

@@ -24,8 +24,8 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 
-	<div id="container" style="margin: auto;">
-		<div style="margin: 50px;">
+	<div id="container" >
+		<div>
 			<p>Cr&eacute;ation d'une nouvelle partie</p>
 			<form action="/MarilleauWare_web/PartyCreation" method="POST">
 				<table>
