@@ -22,14 +22,15 @@ import model.Party;
 @Stateless
 public class GameController2 implements GameController2Local {
 
+	final int NBGAMEMAXPERPARTY = 3; 
+	
 	@EJB
 	GameManagerLocal gm;
 	@EJB
 	PartyManagerLocal pm;
 	
-	final int nbGameMaxPerParty = 3; 
-	
     public GameController2() {
+    	
     }
 
 	@Override
@@ -41,17 +42,11 @@ public class GameController2 implements GameController2Local {
 		// On cree autant de jeu
 		List<GamesDesc> lgd = gm.getAllGamesDesc();
 		
-		for(int i=0; i<nbGameMaxPerParty; i++){
+		for (int i=0; i<NBGAMEMAXPERPARTY; i++) {
 			Random random = new Random();
 			int index = random.nextInt(lgd.size());
 			gm.createGame(lgd.get(index), party, i);
 		}
-		
-		/*
-		for (GamesDesc resultElement : lgd) {
-			System.out.println("creation du game de type "+resultElement.getName()+" ("+resultElement.getIdGame_desc()+")");
-			gm.createGame(resultElement, party, sequence);
-		}*/
 	}
 	
 	@Override
@@ -63,22 +58,23 @@ public class GameController2 implements GameController2Local {
 		for(int i=0;i<listGame.size();i++){
 			gm.addUserGame(listGame.get(i).getIdGame(), idUser);
 		}
-		
 	}
 
 	@Override
 	public void addScore(int idGame, int idUser, int score) {
+		
 		gm.addScore(idGame, idUser, score);
 	}
 	
 	@Override
 	public boolean containsNegativeScore(int idGame) {
+		
 		// on regarde s'il reste des scores a -1 dans TjUserGame
 		return gm.containsNegativeScore(idGame);
 	}
 	
 	@Override
-	public TreeMap<String, Integer> getAllScore(int idGame){
+	public TreeMap<String, Integer> getAllScore(int idGame) {
 	
 		HashMap<String,Integer> map = gm.getAllScore(idGame);
 		TreeMap<String,Integer> sorted_map = new TreeMap<String,Integer>(new ValueComparator(map));
@@ -100,25 +96,25 @@ public class GameController2 implements GameController2Local {
 	    	int resultat = 0;
 	    	
 	        if (map.get(a) < map.get(b)) {
-	        	resultat = -1;
+	        	resultat = 1;
 	        } 
 	        if (map.get(a) > map.get(b)) {
-	        	resultat = 1;
+	        	resultat = -1;
 	        }
 	        
 	        return resultat;
 	    }
-	    
-	    
 	}
 
 	@Override
 	public int getNextgame(int idGame) {
+		
 		return gm.getNextgame(idGame);
 	}
 
 	@Override
 	public String getNameGameDesc(int idParty) {
+		
 		return gm.getNameGameDesc(idParty);
 	}
 

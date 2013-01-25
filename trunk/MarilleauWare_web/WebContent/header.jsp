@@ -15,6 +15,9 @@
 		<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" charset="utf-8" />
 		<script src="js/functions.js" type="text/javascript"></script>
 		<script src="js/main.js" type="text/javascript"></script>
+		<script src="js/chat.js" type="text/javascript"></script>
+		<script src="js/scores.js" type="text/javascript"></script>
+		
 		<script src="js/gameCheckbox.js" type="text/javascript"></script>
 		<script src="js/gameFindTheDot.js" type="text/javascript"></script>
 		<script src="js/gameBuildPath.js" type="text/javascript"></script>
@@ -43,10 +46,13 @@
                 </div>
             </div>
 		<%
-		if(isLogged)
-			out.print("Tu es Logg&eacute !");
-		else
+		if(isLogged) {
+			String pseudo = session.getAttribute("pseudoUser").toString();
+			String id = session.getAttribute("idUser").toString();
+			out.print("Connected with pseudo <b>"+pseudo+"</b> ("+id+")");
+		}else {
 			out.print("Tu n'es pas Logg&eacute !");
+		}
 		%>
 		</div>
 		

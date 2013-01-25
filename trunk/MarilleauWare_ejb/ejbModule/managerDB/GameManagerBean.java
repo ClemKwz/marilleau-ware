@@ -247,7 +247,7 @@ public class GameManagerBean implements GameManagerLocal {
 		try {
 			game = (Game) query.getSingleResult();
 			data = game.getData();
-			System.out.println("data de la game "+ idGame + " : " + data);
+			System.out.println("Data de la game "+ idGame + " : " + data);
 		} catch (NoResultException e)  {
 			e.printStackTrace();
 			data = null;

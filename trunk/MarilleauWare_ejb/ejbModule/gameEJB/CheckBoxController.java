@@ -14,17 +14,13 @@ public class CheckBoxController implements CheckBoxControllerLocal {
 	@EJB
 	GameController2Local gc;
 	
-    /**
-     * Default constructor. 
-     */
     public CheckBoxController() {
-        // TODO Auto-generated constructor stub
+    	
     }
 
 	@Override
 	public int calculScoreFinal(int score) {
 		return score*10000;
-		
 	}
 	
 	/*
@@ -48,7 +44,6 @@ public class CheckBoxController implements CheckBoxControllerLocal {
 			randTab[i] = (int) (Math.random()*possiblePositions);
 		}
 		
-		//String params = idPlayer + ";" + idParty + ";" + idGame + ";";
 		for (int i=1; i < randTab.length-1; i++) {
 			params += randTab[i] + ";";
 		}
@@ -56,16 +51,14 @@ public class CheckBoxController implements CheckBoxControllerLocal {
 		
 		// Insertion dans la base
 		gc.addDataGame(idGame,params);
-		// Retour des params
 		
+		// Retour des params
 		return params;
 	}
 	
 	@Override
 	public String getDataGame(int idGame) {
 		
-		String params = gc.getDataFromGame(idGame);
-		
-		return params;
+		return gc.getDataFromGame(idGame);
 	}
 }

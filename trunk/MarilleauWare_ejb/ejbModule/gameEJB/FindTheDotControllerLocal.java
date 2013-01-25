@@ -5,7 +5,7 @@ import javax.ejb.Local;
 @Local
 public interface FindTheDotControllerLocal {
 
-	int calculScoreFinal(int score);
-	String generateDataGame(int idGame);
-	String getDataGame(int idGame);
+	public int calculScoreFinal(int score);
+	public String generateDataGame(int idGame);
+	public String getDataGame(int idGame);
 }

@@ -18,7 +18,7 @@
 	int idParty = Integer.parseInt(request.getParameter("idParty").toString());
 	
 	out.print("<script  type=\"javascript\">initChat("+idParty+");</script>");
-	out.print("<script  type=\"javascript\">init("+idParty+");</script>");
+ 	out.print("<script  type=\"javascript\">init("+idParty+");</script>");
 	out.print("<script  type=\"javascript\">initScoreParty("+idParty+");</script>");
 	
 %>
@@ -32,9 +32,6 @@
 	<input type="hidden" id="finishGame" value="false"/>
 	<!--<input type="hidden" id="idGameValue" value="-1"/> -->
 	<div id="container" style="margin: auto;">
-		<div style="margin: 50px;">
-			<p>Connected with pseudo <b><%=pseudo%></b>, id : <%=idUser%></p>
-		</div>
 		<table style="margin: 0px auto;">
 		<tr>
 		<td><div id="scoreparty"></div></td>

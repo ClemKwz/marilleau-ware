@@ -78,23 +78,23 @@ function reloadGame(){
 
 	if(finished == "true"){
 		
-		xhr = getXhr();
+//		xhr = getXhr();
 		clearInterval(idReloadGame);
 		
-		sleep(3000);
+		//sleep(3000);
 		
 		//Réinitialisation des div
 		document.getElementById('finishGame').value = "false";
-		document.getElementById('canvasInfo').value = "";
-		document.getElementById('chrono').value = "";
-		document.getElementById('divScore').value = "";
+//		document.getElementById('canvasInfo').value = "";
+//		document.getElementById('chrono').value = "";
+//		document.getElementById('divScore').value = "";
 		
 		changeGame();
 	}
 }
 
 function initParty(){
-	
+	alert("initParty");
 	var xhrInitParty = getXhr();
 	xhrInitParty.open("POST", "./LinkParty", true);
 	xhrInitParty.onreadystatechange = function(){
@@ -106,10 +106,11 @@ function initParty(){
 			
 			//La partie est en attente
 			if(response =="-2"){
+				alert("initParty : partie en attente");
 				return;
 			}
 			
-			if(response =="0"){
+			if(response == "0"){
 				alert("partie finie INIT erreur");
 				clearInterval(idInitGame);
 				return;
@@ -117,10 +118,10 @@ function initParty(){
 	
 			clearInterval(idInitGame);
 			//on demande à la servlet concerncé de nous envoyé les paramètres
-			//servletName = servletNextGame;
+//			servletName = servletNextGame;
 			
-			//servletName="CheckBox";
-			//servletNextGame="CheckBox";
+//			servletName="CheckBox";
+//			servletNextGame="BuildPath";
 			
 			var xhr2 = getXhr();
 			
@@ -153,7 +154,8 @@ function initParty(){
 }
 function changeGame(){
 	//récupération du nom du jeu suivant + idgamesuivan
-	
+
+	alert("changeGame");
 	var xhr = getXhr();
 	xhr.open("POST", "./LinkParty", true);
 	xhr.onreadystatechange = function(){
@@ -169,7 +171,7 @@ function changeGame(){
 				return;
 			}
 
-			//servletNextGame="BuildPath";
+//			servletNextGame="BuildPath";
 			
 			//on demande à la servlet concerncé de nous envoyé les paramètres
 			//servletName = servletNextGame;
@@ -184,12 +186,12 @@ function changeGame(){
 				
 		        if(xhr2.readyState == 4 && xhr2.status == 200) {
 		            response = xhr2.responseText;
-		            document.getElementById('infos').innerHTML = response;
+		            //document.getElementById('infos').innerHTML = response;
 					
 		            
 		            alert("response: "+response);
 					//On lance la fonction concerné
-		           // alert("response: "+response);
+		            // alert("response: "+response);
 		            eval("run"+servletNextGame+"('" + response + "')");
 		           
 		          
@@ -204,73 +206,6 @@ function changeGame(){
 	};
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	xhr.send("idParty="+idPartyMain);
-}
-
-
-
-
-
-/** Fonctions pour les scores de la partie **/
-
-function initScoreParty(idParty){
-	setInterval("scoreParty("+idParty+")", 500);
-}
-
-function scoreParty(idParty){
-	var servletName = "ScoreParty";
-	var xhr = getXhr();
-	xhr.open("POST", "./" + servletName, true);
-	xhr.onreadystatechange = function(){
-		
-        if(xhr.readyState == 4 && xhr.status == 200) {
-            response = xhr.responseText;
-            document.getElementById('scoreparty').innerHTML = response;
-       }
-	};
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("idParty="+idParty);
-}
-
-
-
-
-
-/** Fonctions pour le chat **/
-
-function initChat(idParty){
-	setInterval("getAllMessage("+idParty+")", 100);
-}
-
-function getAllMessage(idParty){
-	var servletName = "Chat";
-	var xhr = getXhr();
-	xhr.open("POST", "./" + servletName, true);
-	xhr.onreadystatechange = function(){
-		
-        if(xhr.readyState == 4 && xhr.status == 200) {
-            response = xhr.responseText;
-            document.getElementById('chat').innerHTML = response;
-       }
-	};
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("action=1&idParty="+idParty);
-}
-
-function sendMessage(idParty,idUser){
-	var servletName = "Chat";
-	var xhr = getXhr();
-	xhr.open("POST", "./" + servletName, true);
-	xhr.onreadystatechange = function(){
-		
-        if(xhr.readyState == 4 && xhr.status == 200) {
-            response = xhr.responseText;
-            document.getElementById('chat').innerHTML = response;
-       }
-	};
-	var msg = document.getElementsByName('message')[0].value;
-	document.getElementsByName('message')[0].value = "";
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send("action=2&idParty="+idParty+"&idUser="+idUser+"&message="+msg);
 }
 
 /* Fonction de sleep */

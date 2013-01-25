@@ -1,5 +1,3 @@
-/* last modif : 30/12/12 a 18h */
-
 /* Taille de la zone de jeu */
 var ZONE_JEU_WIDTH = 400;
 var ZONE_JEU_HEIGHT = 300;
@@ -58,68 +56,54 @@ function runCheckBox(listeparam){
 	MARGE = 2;
 	EPAISSEUR_COTE = 2;
 
-
-
 	WIDTH = ZONE_JEU_WIDTH / SIDE_CHECKBOX; 
 	HEIGHT = ZONE_JEU_HEIGHT / SIDE_CHECKBOX;
 
-	
-
-	
 	/* valeurs aleatoire recues */
-	tabRandomPosition =[];
-	tabRandomColor =[];
+	tabRandomPosition = [];
+	tabRandomColor = [];
 	score = 0;
 	chrono = 500; // en centieme
 	timeOver = false;
 	CB_order = [true,true,true,true];
-	//alert("listeparam  dans runCheckBox: "+listeparam);
 	
-	  var param = listeparam.split(';');
-	  idUserCheckBox = parseInt(param[0], 10);
-		idPartyCheckBox = parseInt(param[1], 10);
-		idGameCheckBox = parseInt(param[2], 10);
+	var param = listeparam.split(';');
+	idUserCheckBox = parseInt(param[0], 10);
+	idPartyCheckBox = parseInt(param[1], 10);
+	idGameCheckBox = parseInt(param[2], 10);
 		
-	
 	//mise dans un tableau des parametre "listeparam"
-
-	for(var i=3;i<NB_CHECKBOX+3;i++){
+	for (var i=3;i<NB_CHECKBOX+3;i++) {
 		tabRandomPosition[i-3]= parseInt(param[i],10);
 	}
-	for(var i=NB_CHECKBOX+3;i<param.length;i++){
+	for (var i=NB_CHECKBOX+3;i<param.length;i++) {
 		tabRandomColor[i-NB_CHECKBOX-3]= parseInt(param[i],10);
 	}
 
-	//alert("TabPos"+ tabRandomColor);
 	initContext();
-	
 	initRandomOrder();
 	drawOrderedColor();
-	
 	initCheckboxRandom();
 	initPlayer();
-
 	drawTabCheckbox();
-	var mouseInfo = document.getElementById('canvasElem');
 	
 	var conteneur = document.getElementById('bc_games');
 	
-
-	
-	
-	conteneur.onclick = function(event){
+	conteneur.onclick = function(event) {
 		var left = 0;
 		var top = 0;
+		
 		/*On recupere l'element*/
 		var e = document.getElementById('bc_games');
+		
 		/*Tant que l'on a un element parent*/
-		while (e.offsetParent != undefined && e.offsetParent != null)
-		{
+		while (e.offsetParent != undefined && e.offsetParent != null) {
 			/*On ajoute la position de l'element parent*/
 			left += e.offsetLeft + (e.clientLeft != null ? e.clientLeft : 0);
 			top += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);
 			e = e.offsetParent;
 		}
+		
 		x = event.clientX;
 		y = event.clientY;
 		x = x - left + window.scrollX;
@@ -139,27 +123,29 @@ function refreshGame() {
 	if (!timeOver) {
 		drawChronoAndScore();
 	}
-		caseX = Math.floor(x/SIDE_CHECKBOX);
-		caseY = Math.floor(y/SIDE_CHECKBOX);
-		debug();
+	
+	caseX = Math.floor(x/SIDE_CHECKBOX);
+	caseY = Math.floor(y/SIDE_CHECKBOX);
+	debug();
+	
 	if (chrono == 0) {
 		clearInterval(idInterv);
-		//alert("dans refreshGame");
 		timeOver = true;
 		finishCheckBox();
 	}
 }
 
 function drawChronoAndScore() {
+	
 	info = document.getElementById('chrono');
 	chrono--;
 	info.innerHTML = Math.floor(chrono/100) + "." + Math.floor(chrono%100);
-	
 	info = document.getElementById('divScore');
 	info.innerHTML = score;
 }
 
 function initContext() {
+	
 	// context info
 	// On recupere l'objet canvas
 	var elem = document.getElementById('canvasInfo');
@@ -180,11 +166,11 @@ function initContext() {
 	}
 	zoneJeu = elem.getContext('2d');
 	
-	 /* Flush */
-	 zoneJeu.fillStyle = "#000000";
-	 zoneJeu.clearRect(0,0,elem.width,elem.height);
-	 info.fillStyle = "#000000";
-	 info.clearRect(0, 0, elem.width, elem.height);
+	/* Flush */
+	zoneJeu.fillStyle = "#000000";
+	zoneJeu.clearRect(0,0,elem.width,elem.height);
+	info.fillStyle = "#000000";
+	info.clearRect(0, 0, elem.width, elem.height);
 	
 	if (!zoneJeu) {
 		return;
@@ -192,6 +178,7 @@ function initContext() {
 }
 
 function initInfo() {
+	
 	info.fillStyle = "red";
 	info.fillRect(0, 0, SIDE_CHECKBOX, SIDE_CHECKBOX);
 	info.fillStyle = "green";
@@ -203,6 +190,7 @@ function initInfo() {
 }
 
 function drawOrderedColor() {
+	
 	info.fillStyle = "red";
 	info.fillRect((SIDE_CHECKBOX+10)*ROUGE, 0, SIDE_CHECKBOX, SIDE_CHECKBOX);
 	info.fillStyle = "green";
@@ -214,7 +202,7 @@ function drawOrderedColor() {
 }
 
 function initRandomOrder() {
-	//alert("initRandomOrder");
+	
 	ROUGE = tabRandomPosition[0] % NB_COLOR;
 	CB_order[ROUGE] = false;
 	
@@ -229,8 +217,8 @@ function initRandomOrder() {
 }
 
 function getFreeOrder(random) {
+	
 	for (var i=0; i<=random; i++) {
-		//alert("CB_order[i]:"+i+"||"+CB_order[i]);
 		if (!CB_order[i]) {
 
 			random++;
@@ -245,6 +233,7 @@ function initCheckboxRandom() {
 	for (var i=0; i<WIDTH; i++) {
 		tabCheckbox[i] = [HEIGHT];
 	}
+	
 	for (var i=0; i<WIDTH; i++) {
 		for (var j=0; j<HEIGHT; j++) {
 			tabCheckbox[i][j] = -1;
@@ -259,10 +248,12 @@ function initCheckboxRandom() {
 }
 
 function initPlayer() {
+	
 	tabPlayer = [WIDTH];
 	for (var i=0; i<WIDTH; i++) {
 		tabPlayer[i] = [HEIGHT];
 	}
+	
 	for (var i=0; i<WIDTH; i++) {
 		for (var j=0; j<HEIGHT; j++) {
 			tabPlayer[i][j] = NB_COLOR;
@@ -271,6 +262,7 @@ function initPlayer() {
 }
 
 function drawTabCheckbox() {
+	
 	for (var i=0; i<WIDTH; i++) {
 		for (var j=0; j<HEIGHT; j++) {
 			drawEmptyCheckbox(SIDE_CHECKBOX*i, SIDE_CHECKBOX*j, getColor(tabCheckbox[i][j]));
@@ -296,41 +288,43 @@ function changeColor(x,y) {
 }
 
 function drawCheckbox(x,y,color) {
-	zoneJeu.fillStyle = color;
-	zoneJeu.fillRect(x+MARGE+EPAISSEUR_COTE, y+MARGE+EPAISSEUR_COTE,
-						SIDE_CHECKBOX-(MARGE+EPAISSEUR_COTE)*2, SIDE_CHECKBOX-(MARGE+EPAISSEUR_COTE)*2);
 	
+	zoneJeu.fillStyle = color;
+	zoneJeu.fillRect(x+MARGE+EPAISSEUR_COTE, y+MARGE+EPAISSEUR_COTE,SIDE_CHECKBOX-(MARGE+EPAISSEUR_COTE)*2, SIDE_CHECKBOX-(MARGE+EPAISSEUR_COTE)*2);
 }
 
 function drawEmptyCheckbox(x,y,color) {
+	
 	zoneJeu.strokeStyle = color;
 	zoneJeu.strokeRect(x+MARGE, y+MARGE, SIDE_CHECKBOX-(MARGE*2), SIDE_CHECKBOX-(MARGE*2));
 }
 
 
 function getColor(numColor) {
+	
 	var color;
 	switch (numColor) {
 		case ROUGE:
-		color = "red";
-		break;
+			color = "red";
+			break;
 		case VERT:
-		color = "green";
-		break;
+			color = "green";
+			break;
 		case JAUNE:
-		color = "yellow";
-		break;
+			color = "yellow";
+			break;
 		case BLEU: 
-		color = "blue";
-		break;
+			color = "blue";
+			break;
 		default: 
-		color = "white";
-		break;
+			color = "white";
+			break;
 	}
 	return color;
 }
 
 function updateScore() {
+	
 	score = 0;
 	for (var i=0; i<WIDTH; i++) {
 		for (var j=0; j<HEIGHT; j++) {
@@ -342,6 +336,7 @@ function updateScore() {
 }
 
 function debug() {
+	
 	divInfo = document.getElementById('infos');
 	divInfo.innerHTML =
 	"x : " + x + " y : " + y + "<br />"
@@ -353,58 +348,42 @@ function debug() {
 
 function finishCheckBox(){
 	
-	//alert("Dans finish");
-	var servletName = "CheckBox";
-	xhr = getXhr();
-	xhr.open("POST", "./" + servletName, true);
-	xhr.onreadystatechange = function(){
-	    if(xhr.readyState == 4 && xhr.status == 200){
+	var xhr = getXhr();
+	xhr.open("POST", "./CheckBox", true);
+	xhr.onreadystatechange = function() {
+	    if (xhr.readyState == 4 && xhr.status == 200) {
 	        response = xhr.responseText;
 	    	document.getElementById('divScore').innerHTML = response;
-			
 	   }
 	};
 	idEndCheckBox = setInterval("checkResultCheckBox("+idGameCheckBox+")", 500);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	//document.getElementById('infos').innerHTML += "<br/><br/>action=2&idUser=" + idUser + "&idParty="+ idParty + "&idGame=" + idGame+ "&distance=" + distance;
 	xhr.send("action=2&idUser=" + idUserCheckBox + "&idParty="+ idPartyCheckBox + "&idGame=" + idGameCheckBox+ "&score=" + score);
-	
 }
 
-function checkResultCheckBox(idGameCB){
-	//alert("checkResult:"+idGameCB);
-	if(endtamere==false){
-		//alert("checkResult:Hihi je suis un connard");
-		//clearInterval(idEndCheckBox);
-		var servletName = "CheckBox";
+function checkResultCheckBox(idGameCB) {
+	
+	if (endtamere==false) {
 		var xhr3 = getXhr();
-		xhr3.open("POST", "./" + servletName, true);
-		xhr3.onreadystatechange = function(){
-		    if(xhr3.readyState == 4 && xhr3.status == 200){
+		xhr3.open("POST", "./CheckBox", true);
+		xhr3.onreadystatechange = function() {
+		    if (xhr3.readyState == 4 && xhr3.status == 200) {
 		        response = xhr3.responseText;
 		
 		        //la partie est terminé
 		    	if(response.substring(0,4)=="end_"){
 		    		endtamere = true;
-		    		//alert("Fin du jeu ok");
+		    		
 			    	clearInterval(idEndCheckBox);
 		    		var scoreEndGame = response.substring(4,response.length-1);
 		    		
-		    		
-		    		//la game est fini on rempli les champs idGame et finishgame
-		    		
-		    		//document.getElementById('idGameValue').setAttribute("value", idGame);
-		    		
-			    	document.getElementById('infos').innerHTML += scoreEndGame;
-			    	
+		    		//la game est fini on rempli le champ finishgame et score
+		    		document.getElementById('infos').innerHTML += scoreEndGame;
 			    	document.getElementById('finishGame').setAttribute("value", "true");
-			    	
-			    	//document.getElementById('infos').innerHTML += "<br>Apres InitCheck";
-		    	}
+			    }
 		   }
 		};
 		xhr3.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		xhr3.send("action=3&idGame="+idGameCB);	
-	}else{//alert("endtamere");
 	}
 }

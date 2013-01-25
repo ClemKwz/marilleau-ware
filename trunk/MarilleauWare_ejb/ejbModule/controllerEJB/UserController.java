@@ -24,5 +24,4 @@ public class UserController implements UserControllerLocal {
 		um.deleteUserTableGame(idUser);
 		um.deleteUser(idUser);
 	}
-
 }
