@@ -44,8 +44,9 @@ table {
 /* ======================== FIN RESET CSS =============================== */
 
 body{
-	background-color: #FAFAFA;
-	/*background-color: #41737c;*/
+	/*background-color: #FAFAFA;*/ /*blanc moche*/
+	/*background-color: #41737c;*/ /*bleu joli mais il y a mieux*/
+	background-color: #555555;
 }
 /* ======================== HEADER PAGE ================================= */
 #header{	
@@ -54,6 +55,7 @@ body{
 	border: solid black 1px;
 	margin: 5px auto;
 	background-color: #ACB5F0;/*#b2cbcf*/
+/* 	padding: 10px; */
 }
 /* ======================== FIN HEADER PAGE ============================= */
 
@@ -78,8 +80,9 @@ body{
 	min-height: 600px;
 	border: solid black 1px;
 	margin: 5px auto;
-	background-color: #ACB5F0;
-	padding: -10px;
+	/*background-color: #ACB5F0;*/ /* bleu bizard de droite */
+	background-color: #86A7D8;
+/* 	padding: 10px; */
 }
 
 #containerJoinParty{
@@ -88,7 +91,7 @@ body{
 	border: solid black 1px;
 	margin: 5px auto;
 	background-color: #ACB5F0;
-	padding: -10px;
+/* 	padding: -10px; */
 }
 #bc_buttons{
 	width: 100%;
@@ -119,8 +122,15 @@ body{
 	position:relative;
     float:left;
     margin-left:10px;
-    margin-top:10px;
+    margin-right: 10px;
+    margin-top: 10px;
     background: url('../img/logo.jpg') no-repeat;
+    border: 2px solid #000000;
+}
+
+/* header*/
+#title {
+	font-size: 30px;
 }
 	
 /* navigation */

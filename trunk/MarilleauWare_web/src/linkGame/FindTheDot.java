@@ -89,7 +89,7 @@ public class FindTheDot extends HttpServlet {
 				String paramBDD = ftdc.getDataGame(idGame);
 				String[] tabstring = paramBDD.split(";");
 				
-				int[] tabParams = new int[5];
+				int[] tabParams = new int[4];
 				for (int i = 0;i < tabstring.length;i++) {
 					tabParams[i] = Integer.parseInt(tabstring[i]);
 				}
@@ -97,11 +97,11 @@ public class FindTheDot extends HttpServlet {
 				int xCalcul = 0;
 				int yCalcul = 0;
 				
-				if (tabParams[3] == 1) {
-					xCalcul = 400-tabParams[1];
+				if (tabParams[2] == 1) {
+					xCalcul = 400-tabParams[0];
 				}
-				if(tabParams[4] == 1) {
-					yCalcul = 300-tabParams[2];
+				if(tabParams[3] == 1) {
+					yCalcul = 300-tabParams[1];
 				}
 				
 				double distance = Math.sqrt((x2-xCalcul) * (x2-xCalcul) + (y2-yCalcul) * (y2-yCalcul));
