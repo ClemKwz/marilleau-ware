@@ -11,11 +11,11 @@ var s, ms;
 var goalXG;
 var goalYG;
 
-var endtamere= false;
+var ftd_endtamere= false;
 
 function runFindTheDot(listeparam){
 	
-	endtamere = false;
+	ftd_endtamere = false;
 	
 	//idUserServ, idPartyServ, idGameServ, goalX ,goalY, xInverted, yInverted
 	
@@ -183,7 +183,7 @@ function countFindTheDot(idGame,idUser,idParty){
 
 function checkResultFindTheDot(idGame){
 	
-	if (endtamere==false) {
+	if (ftd_endtamere==false) {
 		var xhr = getXhr();
 		xhr.open("POST", "./FindTheDot", true);
 		xhr.onreadystatechange = function() {
@@ -192,7 +192,7 @@ function checkResultFindTheDot(idGame){
 		
 		        //la partie est terminé
 		    	if (response.substring(0,4)=="end_") {
-		    		endtamere = true;
+		    		ftd_endtamere = true;
 		    		
 			    	clearInterval(idEnd);
 		    		var scoreEndGame = response.substring(4,response.length-1);

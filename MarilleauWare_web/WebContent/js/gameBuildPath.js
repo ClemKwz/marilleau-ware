@@ -33,10 +33,10 @@ var bp_idGame;
 var bp_idParty;
 var bp_idUser;
 var idEnd2;
-var endtamere;
+var bp_endtamere;
 
 function runBuildPath(listeParam){
-	endtamere = false;
+	bp_endtamere = false;
 	
 	//tabObstacle  = new Array(ZONE_JEU_WIDTH, ZONE_JEU_HEIGHT);
 	// On recupere l'objet canvas
@@ -196,7 +196,7 @@ function finishBP(){
 
 function checkResultBP(idGame){
 	
-	if (endtamere==false) {
+	if (bp_endtamere==false) {
 		var xhr = getXhr();
 		xhr.open("POST", "./BuildPath", true);
 		xhr.onreadystatechange = function() {
@@ -204,7 +204,7 @@ function checkResultBP(idGame){
 		        response = xhr.responseText;
 		        //la partie est terminé
 		    	if (response.substring(0,4)=="end_") {
-		    		endtamere = true;
+		    		bp_endtamere = true;
 			    	clearInterval(idEnd2);
 		    		var bp_scoreEndGame = response.substring(4,response.length-1);
 		    		
