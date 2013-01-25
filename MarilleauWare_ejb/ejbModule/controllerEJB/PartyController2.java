@@ -22,7 +22,9 @@ import model.User;
  */
 @Stateless
 public class PartyController2 implements PartyController2Local {
-
+	
+	final int NBPLAYERMIN = 1;
+	
 	@EJB
 	PartyManagerLocal pm;
 	@EJB
@@ -32,11 +34,6 @@ public class PartyController2 implements PartyController2Local {
 	@EJB
 	ChatPartyManagerLocal cpm;
 	
-	final int NBPLAYERMIN = 2;
-	
-    /**
-     * Default constructor. 
-     */
     public PartyController2() {
        
     }
@@ -58,10 +55,9 @@ public class PartyController2 implements PartyController2Local {
 		
 		pm.addUserToParty(idParty, idUser);
 		//on vérifie qu'il y a le nombre adéquat de joueur
-		if(pm.getAllScore(idParty).size()>=NBPLAYERMIN){
+		if (pm.getAllScore(idParty).size()>=NBPLAYERMIN) {
 			pm.setStarted(idParty);
 		}
-		
 	}
 
 	@Override
@@ -73,40 +69,47 @@ public class PartyController2 implements PartyController2Local {
 
 	@Override
 	public int getIdPartyByIdUser(int idUser) {
+		
 		return pm.getIdPartyByIdUser(idUser);
 	}
 
 	@Override
 	public int getIdGameByIdParty(int idParty) {
+		
 		return pm.getIdGameByIdParty(idParty);
 	}
 	
 	public List<User> getAllUserPerParty(int idParty) {
+		
 		return um.getAllUserPerParty(idParty);
 	}
 
 	@Override
 	public void addMessage(int idParty, int idUser, String message) {
+		
 		cpm.addMessage(idParty, idUser, message);
 	}
 
 	@Override
 	public List<ChatParty> getAllMessages(int idParty) {
+		
 		return cpm.getAllMessages(idParty);
 	}
 
 	@Override
 	public List<ChatParty> getAllMessagesLimit(int idParty, int limit) {
+		
 		return cpm.getAllMessagesLimit(idParty, limit);
 	}
 
 	@Override
 	public List<ChatParty> getMessagesAfter(int Party, int idMessage) {
+		
 		return cpm.getMessagesAfter(Party, idMessage);
 	}
 	
 	@Override
-	public TreeMap<String, Integer> getAllScore(int idParty){
+	public TreeMap<String, Integer> getAllScore(int idParty) {
 	
 		HashMap<String,Integer> map = pm.getAllScore(idParty);
 		TreeMap<String,Integer> sorted_map = new TreeMap<String,Integer>(new ValueComparator(map));
@@ -128,10 +131,10 @@ public class PartyController2 implements PartyController2Local {
 	    	int resultat = 0;
 	    	
 	        if (map.get(a) < map.get(b)) {
-	        	resultat = -1;
+	        	resultat = 1;
 	        } 
 	        if (map.get(a) > map.get(b)) {
-	        	resultat = 1;
+	        	resultat = -1;
 	        }
 	        
 	        return resultat;
@@ -140,12 +143,13 @@ public class PartyController2 implements PartyController2Local {
 
 	@Override
 	public void incrementCurrentGame(int idParty) {
-		pm.incrementCurrentGame(idParty);
 		
+		pm.incrementCurrentGame(idParty);
 	}
 
 	@Override
 	public void addScore(int idParty, int idPlayer, int score) {
+		
 		pm.addScore(idParty, idPlayer, score);
 	}
 
