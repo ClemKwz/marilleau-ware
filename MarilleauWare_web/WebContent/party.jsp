@@ -25,7 +25,7 @@
 
 
 	
-	<p>La partie va commencer <%=idParty%></p>
+	<p style="padding-left: 10px;">La partie va commencer <%=idParty%></p>
 	
 	
 	<!-- On rajoute un champs permettants de dire à main.js que nous avons terminé -->

@@ -26,20 +26,20 @@ public class FindTheDotController implements FindTheDotControllerLocal {
 	@Override
 	public String generateDataGame(int idGame) {
 		
-		int[] tab = new int[5];
+		int[] tab = new int[4];
 		
 		int x1 = (int) (Math.random()*400);
 		int y1 = (int) (Math.random()*300);
 
 		int xInverted = (int) ((Math.random()>0.5)?0:1);
 		int yInverted = (int) ((Math.random()>0.5)?0:1);
-		tab[0] = idGame;
-		tab[1] = x1;
-		tab[2] = y1;
-		tab[3] = xInverted;
-		tab[4] = yInverted;
+//		tab[0] = idGame;
+		tab[0] = x1;
+		tab[1] = y1;
+		tab[2] = xInverted;
+		tab[3] = yInverted;
 			
-		String params = tab[1] + ";" + tab[2] + ";" + tab[3] + ";" + tab[4];
+		String params = tab[0] + ";" + tab[1] + ";" + tab[2] + ";" + tab[3] + ";";
 		
 		// Insertion dans la base
 		gc.addDataGame(idGame,params);

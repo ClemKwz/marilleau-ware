@@ -30,8 +30,8 @@
 	<body>
 		<div id="header">
             <div id="logo"></div>
-            <div id="title"><b>Marilleau Ware</b></div>
-            <div id="tagline">Plateforme de mini-jeux !</div>
+            <span id="title"><b>Marilleau Ware</b></span>
+            <span id="tagline">Plateforme de mini-jeux !</span>
 
             <div id="nav">
                 <div id="nbar">
