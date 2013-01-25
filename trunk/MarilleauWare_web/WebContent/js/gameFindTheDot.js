@@ -77,7 +77,7 @@ function runFindTheDot(listeparam){
 	
 	hasplayed = false;
 	gftd_date = new Date();
-	idCount = setInterval("countFindTheDot("+idGame+")", 10);
+	idCount = setInterval("countFindTheDot("+idGame+","+idUser+","+idParty+")", 10);
 
 	var conteneur = document.getElementById('bc_games');
 	
@@ -158,7 +158,7 @@ function finishFindTheDot(idGame,idUser,idParty, x, y){
 	idEnd = setInterval("checkResultFindTheDot("+idGame+")", 500);
 }
 
-function countFindTheDot(idGame){
+function countFindTheDot(idGame,idUser,idParty){
 	
 	end = new Date();
 	var delta = end - gftd_date;
