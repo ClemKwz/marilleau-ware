@@ -21,53 +21,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>Home</display-name>
-    <servlet-name>Home</servlet-name>
-    <servlet-class>marioware.Home</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Home</servlet-name>
-    <url-pattern>/Home</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>Connect</display-name>
-    <servlet-name>Connect</servlet-name>
-    <servlet-class>connect.Connect</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Connect</servlet-name>
-    <url-pattern>/Connect</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>PartyCreation</display-name>
     <servlet-name>PartyCreation</servlet-name>
-    <servlet-class>view.PartyCreation</servlet-class>
+    <servlet-class>marioware.PartyCreation</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>PartyCreation</servlet-name>
     <url-pattern>/PartyCreation</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>AddTamere</display-name>
-    <servlet-name>AddTamere</servlet-name>
-    <servlet-class>view.AddTamere</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AddTamere</servlet-name>
-    <url-pattern>/AddTamere</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>LinkBowser</display-name>
-    <servlet-name>LinkBowser</servlet-name>
-    <servlet-class>view.LinkBowser</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LinkBowser</servlet-name>
-    <url-pattern>/LinkBowser</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -103,7 +63,7 @@
     <description></description>
     <display-name>LinkParty</display-name>
     <servlet-name>LinkParty</servlet-name>
-    <servlet-class>linkGame.LinkParty</servlet-class>
+    <servlet-class>linkParty.LinkParty</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LinkParty</servlet-name>

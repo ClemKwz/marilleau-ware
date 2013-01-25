@@ -1,4 +1,4 @@
-package linkGame;
+package linkParty;
 
 import java.io.IOException;
 import java.io.PrintWriter;
